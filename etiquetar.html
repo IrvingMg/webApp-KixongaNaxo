@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Etiquetar</title>
+    </head>
+    <body>
+        <header>
+            <figure>
+                <a href="index.html">
+                    <img src="resources/images/unca-logo.png" alt="Logotipo de la Universidad de la Cañada">
+                </a>
+                <figcaption><a href="index.html">Kixonga Naxo</a></figcaption>
+            </figure>
+
+            <nav>
+                <ul>
+                    <li><a href="planeaciones.html">Mis planeaciones</a></li>
+                    <li><a href="etiquetas.html">Mis etiquetas</a></li>
+                    <li><a href="index.html">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+
+            <h1>Etiquetar</h1>
+            <p>Elaborar etiquetas de colecta y herbario </p>
+            
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="etiquetas.html">Mis etiquetas</a></li>
+                <li>Etiquetar</li>
+            </ul>
+        </header>
+
+        <aside>
+            <h3>Ejemplares recolectados</h3>
+            <ol>
+                <li>Item 1</li>
+            </ol>
+        </aside>
+        <section>
+            <header>
+                <h2>Nombre de la colecta</h2>
+                <p>Lugar</p>
+                <p>Fecha</p>
+            </header>
+            <form>
+                <fieldset>
+                    <legend>Formato de planeación</legend>
+                    <ol>
+                        <li>
+                            <!-- Precargar fotografías tomadas con la aplicación móvil y permitir subir nuevas -->
+                            <label for="etiquetar-fotografias">Fotografías</label>
+                            <input type="file" name="fotografias" id="etiquetar-fotografias">
+                        </li>
+                        <li>
+                            Ubicación
+                            <ul>
+                                <li>
+                                    <label for="etiquetar-longitud">Longitud</label>
+                                    <input type="number" name="longitud" id="etiquetar-longitud">
+                                </li>
+                                <li>
+                                    <label for="etiquetar-latitud">Latitud</label>
+                                    <input type="number" name="latitud" id="etiquetar-latitud">
+                                </li>
+                                <li>
+                                    <label for="etiquetar-altitud">Altitud</label>
+                                    <input type="number" name="altitud" id="etiquetar-altitud">
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <label for="etiquetar-caract-lugar">Caracerísticas del lugar</label>
+                            <textarea name="caract-lugar" id="etiquetar-caract-lugar"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-nombre-comun">Nombre común</label>
+                            <input type="text" name="nombre-comun" id="etiquetar-nombre-comun">
+                        </li>
+                        <li>
+                            <label for="etiquetar-nombre-cientifico">Nombre cientifico</label>
+                            <input type="text" name="nombre-cientifico" id="etiquetar-nombre-cientifico">
+                        </li>
+                        <li>
+                            <label for="etiquetar-habito">Hábito</label>
+                            <select name="habito" id="etiquetar-habito">
+                                <option>Rastrera</option>
+                                <option>Epifita</option>
+                                <option>Hierba</option>
+                                <option>Arbusto</option>
+                                <option>Árbol</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="etiquetar-dap">Diámetro del tallo (DAP)</label>
+                            <input type="number" name="dap" id="etiquetar-dap">
+                        </li>
+                        <li>
+                            <label for="etiquetar-abundancia">Abundancia de la planta</label>
+                            <input type="number" name="abundancia" id="etiquetar-abundancia">
+                        </li>
+                        <li>
+                            <label for="etiquetar-desc-planta">Descripción de la planta</label>
+                            <textarea name="desc-planta" id="etiquetar-desc-planta"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-desc-flores">Descripción de las flores</label>
+                            <textarea name="desc-flores" id="etiquetar-desc-flores"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-desc-hojas">Descripción de las hojas</label>
+                            <textarea name="desc-hojas" id="etiquetar-desc-hojas"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-desc-latex">Descripción del látex</label>
+                            <textarea name="desc-latex" id="etiquetar-desc-latex"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-familia">Familia botánica</label>
+                            <input type="text" name="familia" id="etiquetar-familia">
+                        </li>
+                        <li>
+                            <label for="etiquetar-info-etnobotanica">Información etnobotánica</label>
+                            <textarea name="info-etnobotanica" id="etiquetar-info-etnobotanica"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-uso">Uso medicinal</label>
+                            <textarea name="uso" id="etiquetar-uso"></textarea>
+                        </li>
+                        <li>
+                            <label for="etiquetar-empleo">Uso medicinal</label>
+                            <textarea name="empleo" id="etiquetar-empleo"></textarea>
+                        </li>
+                    </ol>
+                    <input type="submit" value="Guardar">
+                </fieldset>
+            </form>
+        </section>
+        <aside>
+            <article>
+                <h3>Información de consulta</h3>
+                <ul>
+                    <li>Item 1</li>
+                </ul>
+            </article>
+            <article>
+                <h3>Notas de campo</h3>
+                <ul>
+                    <li>Item 1</li>
+                </ul>
+            </article>
+        </aside>
+        <button>Siguiente</button>
+    </body>
+</html>

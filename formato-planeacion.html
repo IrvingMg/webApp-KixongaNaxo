@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Nueva planeación</title>
+    </head>
+    <body>
+        <header>
+            <figure>
+                <a href="index.html">
+                    <img src="resources/images/unca-logo.png" alt="Logotipo de la Universidad de la Cañada">
+                </a>
+                <figcaption><a href="index.html">Kixonga Naxo</a></figcaption>
+            </figure>
+
+            <nav>
+                <ul>
+                    <li><a href="planeaciones.html">Mis planeaciones</a></li>
+                    <li><a href="etiquetas.html">Mis etiquetas</a></li>
+                    <li><a href="index.html">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+
+            <h1>Nueva planeación</h1>
+            <p>Crear formato de planeación</p>
+            <ol>
+                <li>Formato de planeación</li>
+                <li><a href="material-campo.html">Material de campo</a></li>
+                <li><a href="info-consulta.html">Información de consulta</a></li>
+            </ol>
+            
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="planeaciones.html">Mis planeaciones</a></li>
+                <li>Nueva planeación</li>
+            </ul>
+        </header>
+        <form>
+            <fieldset>
+                <legend>Formato de planeación</legend>
+                <ol>
+                    <li>
+                        <label for="planeacion-titulo">Titulo</label>
+                        <input type="text" name="titulo" id="planeacion-titulo">
+                    </li>
+                    <li>
+                        <label for="planeacion-responsable">Responsable</label>
+                        <input type="text" name="Responsable" id="planeacion-responsable">
+                    </li>
+                    <li>
+                        <label for="planeacion-objetivo">Objetivo</label>
+                        <textarea name="objetivo" id="planeacion-objetivo"></textarea>
+                    </li>
+                    <li>
+                        Tipo de colecta
+                        <ol>
+                            <li>
+                                <label for="tipo-exploratoria">Exploratoria</label>
+                                <input type="radio" name="tipo" id="tipo-exploratoria" value="exploratoria">
+                            </li>
+                            <li>
+                                <label for="tipo-especifica">Interés específico</label>
+                                <input type="radio" name="tipo" id="tipo-especifica" value="especifica">
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <label for="planeacion-fecha">Fecha de colecta</label>
+                        <input type="date" name="fecha" id="planeacion-fecha">
+                    </li>
+                    <li>
+                        <!-- Seleccionar lugar de colecta a través de Google Maps  -->
+                        <label for="planeacion-lugar">Lugar de colecta</label>
+                        <input type="text" name="lugar" id="planeacion-lugar">
+                    </li>
+                    <li>
+                        <label for="planeacion-especies">Especies de interés</label>
+                        <textarea name="especies" id="planeacion-especies"></textarea>
+                    </li>
+                    <li>
+                        <label for="planeacion-info-adicional">Información adicional</label>
+                        <textarea name="info-adicional" id="planeacion-info-adicional"></textarea>
+                    </li>
+                </ol>
+                <input type="submit" value="Guardar">
+            </fieldset>
+        </form>
+        <button>Siguiente</button>
+    </body>
+</html>
