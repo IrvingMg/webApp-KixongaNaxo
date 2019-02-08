@@ -1,0 +1,13 @@
+@import "@material/card/mdc-card";
+@import "@material/elevation/mdc-elevation";
+@import "@material/list/mdc-list";
+
+#lista-resultados {
+    clear: both;
+    margin: 1px;
+    padding: 12px;
+}
+
+.my-card-content {
+    padding-left: 8px;
+}

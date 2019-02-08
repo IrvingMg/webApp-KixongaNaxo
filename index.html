@@ -1,95 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
+    
     <head>
         <meta charset="utf-8">
         <title>Inicio</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
-    <body>
-        <header>
-            <div id="bar-nav">
-                <figure id="logo">
-                    <a href="index.html">
-                        <img src="resources/images/unca-logo.png" alt="Logotipo de la Universidad de la Cañada">
-                    </a>
-                    <figcaption><a href="index.html">Kixonga Naxo</a></figcaption>
-                </figure>
 
-                <nav id="menu">
-                    <ul>
-                        <li><a href="iniciar-sesion.html">Iniciar sesión</a></li>
-                        <li><a href="registrar.html">Registrarse</a></li>
-                    </ul>
-                </nav>
+    <body class="mdc-typography">
+        <header>
+            <div id="nav" class="mdc-top-app-bar">
+                <div class="mdc-top-app-bar__row">
+                <section id="logo" class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                    <a href="iniciar-sesion.html">
+                        <button class="mdc-button mdc-button--raised">
+                            <span class="mdc-button__label">Iniciar sesión</span>
+                        </button>
+                    </a>
+                    <a href="registrar.html">
+                        <button class="mdc-button mdc-button--raised">
+                            <span class="mdc-button__label">Registrarse</span>
+                        </button>
+                    </a>
+                </section>
+                </div>
             </div>
 
-            <div id="encabezado">
+            <div id="encabezado" class="mdc-elevation--z10 texto-encabezado">
                 <h1>Herbario Institucional</h1>
                 <p>Todas las colectas</p>
             </div>
-
-            <ul id="breadcrumb">
-                <li>Inicio</li>
-            </ul>
             
+            <ol id="breadcrumb">
+                <li>
+                    <a href="#" class="mdc-button">Inicio</a>
+                </li>
+            </ol>
+
+        </header>
+
+        <div class="contenedor mdc-card mdc-card--outlined mdc-elevation--z10" >
             <div id="filtro">
                 <div id="filtro-total">
-                    <label for="num-resultados">Resultados</label>
-                    <output name="resultados" id="num-resultados"></output>
+                    <div class="mdc-chip-set">
+                        <div class="mdc-chip" tabindex="0">
+                            <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="filtro-resultados">
-                    <label for="filtro-opciones">Odenar por </label>
-                    <select name="filtro" id="filtro-opciones">
-                        <option>Titulo: A-Z</option>
-                        <option>Titulo: Z-A</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Fecha: Nueva-Antigua</option>
-                        <option>Lugar: Antigua-Nueva</option>
-                    </select>
+                    <div class="mdc-select mdc-select--outlined">
+                        <div class="mdc-notched-outline">
+                            <div class="mdc-notched-outline__leading"></div>
+                            <div class="mdc-notched-outline__notch">
+                                    <label for="filtro-opciones" class="mdc-floating-label">Odenar por </label>
+                            </div>
+                            <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                        <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                            <option>Titulo: A-Z</option>
+                            <option>Titulo: Z-A</option>
+                            <option>Lugar: A-Z</option>
+                            <option>Lugar: A-Z</option>
+                            <option>Fecha: Nueva-Antigua</option>
+                            <option>Lugar: Antigua-Nueva</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </header>
-        <main id="lista-resultados">
-            <ul>
-                <li class="resultado-item"> Titulo de la colecta 1
-                    <ul>
-                        <li>Lugar</li>
-                        <li>Fecha</li>
-                    </ul>
+
+            <ul id="lista-resultados">
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content">
+                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
+                    <span class="mdc-list-item__secondary-text">Lugar</span>
+                    <span class="mdc-list-item__secondary-text">Fecha</span>
                 </li>
-                <li class="resultado-item"> Titulo de la colecta 2
-                    <ul>
-                        <li>Lugar</li>
-                        <li>Fecha</li>
-                    </ul>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
+                    <span class="mdc-list-item__text">Titulo de la colecta 2</span>
+                    <span class="mdc-list-item__secondary-text">Lugar</span>
+                    <span class="mdc-list-item__secondary-text">Fecha</span>
                 </li>
-                <li class="resultado-item"> Titulo de la colecta 3
-                    <ul>
-                        <li>Lugar</li>
-                        <li>Fecha</li>
-                    </ul>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
+                    <span class="mdc-list-item__text">Titulo de la colecta 3</span>
+                    <span class="mdc-list-item__secondary-text">Lugar</span>
+                    <span class="mdc-list-item__secondary-text">Fecha</span>
                 </li>
-                <li class="resultado-item"> Titulo de la colecta 4
-                    <ul>
-                        <li>Lugar</li>
-                        <li>Fecha</li>
-                    </ul>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
+                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
+                    <span class="mdc-list-item__secondary-text">Lugar</span>
+                    <span class="mdc-list-item__secondary-text">Fecha</span>
                 </li>
-                <li class="resultado-item"> Titulo de la colecta 5
-                    <ul>
-                        <li>Lugar</li>
-                        <li>Fecha</li>
-                    </ul>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
+                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
+                    <span class="mdc-list-item__secondary-text">Lugar</span>
+                    <span class="mdc-list-item__secondary-text">Fecha</span>
                 </li>
             </ul>
-        </main>
-        <footer id="botones">
-            <button class="mdc-button mdc-button--raised">
-                <span class="mdc-button__label">Ver más</span>
-            </button>
-        </footer>
+        
+            <footer id="botones">
+                <button class="mdc-button mdc-button--raised">
+                    <span class="mdc-button__label">Ver más</span>
+                </button>
+            </footer>
+        </div>
     </body>
 </html>

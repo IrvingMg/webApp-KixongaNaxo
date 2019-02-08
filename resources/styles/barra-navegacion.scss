@@ -1,22 +1,15 @@
+@import "@material/top-app-bar/mdc-top-app-bar";
 
-#bar-nav {
-    outline: 2px dashed blue;
-    /*height: 12vh;*/
+#nav, #encabezado {
+    position: static;
 }
 
-#logo {
-    outline: 2px dashed palegreen;
-    float: left;
-    width: 30%;
+#encabezado  {
+    width: 100%;
+    height: 100px;
 }
 
-#logo img {
-    float: left;
-    max-width: 100%;
-}
-
-#menu {
-    outline: 2px dashed chartreuse;
-    float: right;
-    width: 70%;
+.texto-encabezado  {
+    padding-left: 32px;
+    padding-top: 20px;
 }

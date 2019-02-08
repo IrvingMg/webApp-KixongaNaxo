@@ -1,5 +1,10 @@
+@import "@material/typography/mdc-typography";
 @import 'barra-navegacion.scss';
+@import 'breadcrumbs.scss';
+@import 'filtro.scss';
+@import 'lista-resultados.scss';
 @import 'botones.scss';
+
 
 * {
     box-sizing: border-box;
@@ -11,40 +16,6 @@ ul, ol {
     padding: 0;
 }
 
-#encabezado {
-    outline: 2px dashed green;
-    clear: both;
-}
-
-#breadcrumb {
-    outline: 2px dashed red;
-}
-
-#filtro {
-    outline: 2px dashed yellow;
-}
-
-#filtro-total {
-    float: left;
-    width: 50%;
-}
-
-#filtro-resultados {
-    float: left;
-    width: 50%;
-    text-align: right;
-}
-
-#lista-resultados {
-    outline: 2px dashed purple;
-    clear: both;
-}
-
-.resultado-item {
-    outline: 2px dashed grey;
-}
-
-#botones {
-    outline: 2px dashed sienna;
-    text-align: right;
+.contenedor {
+    margin: 12px;
 }
