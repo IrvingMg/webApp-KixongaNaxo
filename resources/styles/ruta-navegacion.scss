@@ -1,0 +1,23 @@
+.ruta-nav {
+    padding: 12px;
+    list-style: none;
+}
+
+.ruta-nav li {
+    display: inline;
+}
+
+.ruta-nav li+li:before {
+    content: "/\00a0";
+}
+
+.ruta-nav li a {
+    color: #000000;
+    text-decoration: none;
+}
+  
+.ruta-nav li a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+

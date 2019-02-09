@@ -1,21 +1,18 @@
 @import "@material/typography/mdc-typography";
-@import 'barra-navegacion.scss';
-@import 'breadcrumbs.scss';
-@import 'filtro.scss';
-@import 'lista-resultados.scss';
-@import 'botones.scss';
-
+@import 'variables';
+@import 'barra-navegacion';
+@import 'encabezado';
+@import 'ruta-navegacion';
+@import 'contenedor';
 
 * {
     box-sizing: border-box;
     margin: 0;
 }
 
-ul, ol {
-    list-style-type: none;
-    padding: 0;
+body {
+    background-color: #5e92f3;
 }
-
-.contenedor {
-    margin: 12px;
+.enlace-boton {
+    text-decoration: none;
 }

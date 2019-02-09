@@ -1,15 +1,12 @@
 @import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/button/mdc-button";
 
-#nav, #encabezado {
+.mdc-top-app-bar {
     position: static;
+    color: #ffffff;
+    @include mdc-top-app-bar-fill-color(#003c8f);
 }
 
-#encabezado  {
-    width: 100%;
-    height: 100px;
-}
-
-.texto-encabezado  {
-    padding-left: 32px;
-    padding-top: 20px;
+.boton-menu {
+    margin-left: 10px; 
 }

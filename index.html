@@ -11,56 +11,57 @@
     </head>
 
     <body class="mdc-typography">
-        <header>
-            <div id="nav" class="mdc-top-app-bar">
-                <div class="mdc-top-app-bar__row">
-                <section id="logo" class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                         <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-                    <a href="iniciar-sesion.html">
-                        <button class="mdc-button mdc-button--raised">
+                    <a href="iniciar-sesion.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
                             <span class="mdc-button__label">Iniciar sesión</span>
                         </button>
                     </a>
-                    <a href="registrar.html">
-                        <button class="mdc-button mdc-button--raised">
+                    <a href="registrar.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
                             <span class="mdc-button__label">Registrarse</span>
                         </button>
                     </a>
                 </section>
-                </div>
             </div>
+        </nav>
 
-            <div id="encabezado" class="mdc-elevation--z10 texto-encabezado">
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 titulos-encabezado">
                 <h1>Herbario Institucional</h1>
                 <p>Todas las colectas</p>
-            </div>
-            
-            <ol id="breadcrumb">
-                <li>
-                    <a href="#" class="mdc-button">Inicio</a>
-                </li>
-            </ol>
-
         </header>
+            
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+        </ol>
+        
+        <!-- Contenedor principal -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-principal">
 
-        <div class="contenedor mdc-card mdc-card--outlined mdc-elevation--z10" >
-            <div id="filtro">
-                <div id="filtro-total">
-                    <div class="mdc-chip-set">
+            <!-- Filtro de resultados -->
+            <header>
+                <section class="mdc-chip-set total-resultados">
                         <div class="mdc-chip" tabindex="0">
                             <div class="mdc-chip__text">Resultados 1-5 de 10</div>
                         </div>
-                    </div>
-                </div>
+                </section>
 
-                <div id="filtro-resultados">
-                    <div class="mdc-select mdc-select--outlined">
+                <section class="filtro-resultados mdc-select mdc-select--outlined">
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading"></div>
                             <div class="mdc-notched-outline__notch">
-                                    <label for="filtro-opciones" class="mdc-floating-label">Odenar por </label>
+                                    <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
                             </div>
                             <div class="mdc-notched-outline__trailing"></div>
                         </div>
@@ -72,43 +73,55 @@
                             <option>Fecha: Nueva-Antigua</option>
                             <option>Lugar: Antigua-Nueva</option>
                         </select>
-                    </div>
-                </div>
-            </div>
+                </section>
+            </header>
 
-            <ul id="lista-resultados">
-                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content">
-                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
-                    <span class="mdc-list-item__secondary-text">Lugar</span>
-                    <span class="mdc-list-item__secondary-text">Fecha</span>
+            <!-- Lista de resultados -->
+            <ol class="lista-resultados">
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li class="item-titulo">Titulo de la colecta 1</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
                 </li>
-                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
-                    <span class="mdc-list-item__text">Titulo de la colecta 2</span>
-                    <span class="mdc-list-item__secondary-text">Lugar</span>
-                    <span class="mdc-list-item__secondary-text">Fecha</span>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li class="item-titulo">Titulo de la colecta 2</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
                 </li>
-                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
-                    <span class="mdc-list-item__text">Titulo de la colecta 3</span>
-                    <span class="mdc-list-item__secondary-text">Lugar</span>
-                    <span class="mdc-list-item__secondary-text">Fecha</span>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li class="item-titulo">Titulo de la colecta 3</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
                 </li>
-                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
-                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
-                    <span class="mdc-list-item__secondary-text">Lugar</span>
-                    <span class="mdc-list-item__secondary-text">Fecha</span>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li class="item-titulo">Titulo de la colecta 4</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
                 </li>
-                <li class="mdc-card mdc-card--outlined mdc-card__primary-action my-card-content"> 
-                    <span class="mdc-list-item__text">Titulo de la colecta 1</span>
-                    <span class="mdc-list-item__secondary-text">Lugar</span>
-                    <span class="mdc-list-item__secondary-text">Fecha</span>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li class="item-titulo">Titulo de la colecta 5</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
                 </li>
-            </ul>
-        
-            <footer id="botones">
+            </ol>
+            
+            <!-- Acciones para la lista de resultados -->
+            <footer>
                 <button class="mdc-button mdc-button--raised">
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
-        </div>
+
+        </section>
     </body>
 </html>
