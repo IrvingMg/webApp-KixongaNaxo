@@ -1,0 +1,23 @@
+@import "@material/chips/mdc-chips";
+@import "@material/select/mdc-select";
+
+.total-resultados {
+    float: left;
+}
+
+.filtro-resultados {
+    float: right;
+    margin-top: 12px;
+}
+
+/* Cambiar tamaño del componente 'select' R1 */
+.filtro-resultados .mdc-notched-outline {
+    height: 80%;
+}
+
+/* Cambiar tamaño del componente 'select' R2 */
+.filtro-resultados .mdc-select__native-control {
+    font-size: 0.875rem;
+    height: 45px;
+    padding: 8px 16px 8px 12px;
+}

@@ -1,0 +1,21 @@
+@import "@material/textfield/mdc-text-field";
+
+form ol {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.form-campo {
+    display: block;
+    margin-top: 12px; 
+    margin-bottom: 12px; 
+}
+
+/* Cambiar tamaño del componente 'text-field' */
+.form-campo .mdc-text-field--outlined {
+    width: 100%;
+}
+
+
+

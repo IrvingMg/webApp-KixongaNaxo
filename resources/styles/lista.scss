@@ -1,0 +1,18 @@
+@import "@material/card/mdc-card";
+@import "@material/elevation/mdc-elevation";
+
+.lista-resultados {
+    list-style: none;
+    margin-top: 12px;
+    padding: 0;
+}
+
+.lista-item {
+    list-style: none;
+    padding: 12px;
+}
+
+.item-subtitulo {
+    font-size: 0.875rem;
+    color: #666666;
+}

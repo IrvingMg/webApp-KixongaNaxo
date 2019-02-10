@@ -1,53 +1,26 @@
 @import "@material/card/mdc-card";
 @import "@material/elevation/mdc-elevation";
 @import "@material/button/mdc-button";
-@import "@material/select/mdc-select";
-@import "@material/chips/mdc-chips";
 
-
-.contenedor-principal {
+.contenedor-grande {
     margin: 0 12px 12px 12px;
-    padding: 12px 20px;
+    padding: 22px 30px;
 }
 
-.total-resultados {
-    float: left;
+.contenedor-pequeno {
+    margin: 0 25% 12px 25%;
+    padding: 32px 40px;
+
 }
 
-.filtro-resultados {
-    float: right;
-    margin-top: 12px;
+.texto-ayuda a{
+    color: #000000;
+    text-decoration: none;
 }
 
-/* Cambiar tamaño del componente 'select' R1 */
-.filtro-resultados .mdc-notched-outline {
-    height: 80%;
-}
-
-/* Cambiar tamaño del componente 'select' R2 */
-.filtro-resultados .mdc-select__native-control {
-    font-size: 0.875rem;
-    height: 45px;
-    padding: 8px 16px 8px 12px;
-}
-
-.lista-resultados {
-    list-style: none;
-    margin-top: 12px;
-    padding: 0;
-}
-
-.lista-item {
-    list-style: none;
-    padding: 12px;
-}
-
-.item-titulo {
-    font-weight: Bold;
-}
-
-.item-subtitulo {
-    font-size: 0.875rem;
+.texto-ayuda a:hover {
+    color: #000000;
+    text-decoration: underline;
 }
 
 footer button {
