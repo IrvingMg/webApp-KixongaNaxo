@@ -3,14 +3,35 @@
 @import "@material/button/mdc-button";
 
 .contenedor-grande {
-    margin: 0 12px 12px 12px;
+    margin: 0 1% 12px 1%;
     padding: 22px 30px;
+    width: 98%;
+}
+
+.contenedor-mediano {
+    padding: 22px 30px;
+    width: 48%;
+}
+
+.contenedor-lateral {
+    margin: 0 1% 12px 1%;
+    padding: 22px 30px;
+    width: 23%;
+    float: left;
 }
 
 .contenedor-pequeno {
-    margin: 0 25% 12px 25%;
     padding: 32px 40px;
+    width: 35%;
+}
 
+.col-doble {
+    margin: 0 1% 12px 1%;
+    float: left;
+}
+
+.alinear-centro {
+    margin: 0 auto 12px auto;
 }
 
 .texto-ayuda a{
@@ -23,7 +44,21 @@
     text-decoration: underline;
 }
 
-footer button {
+.boton-principal {
     margin-top: 12px;
     float: right;
+}
+
+.boton-siguiente {
+    @include mdc-button-filled-accessible(#b3b38f);
+    margin-right: 12px;
+    margin-bottom: 12px;
+    float: right;
+}
+
+.boton-atras {
+    @include mdc-button-filled-accessible(#b3b38f);
+    margin-left: 12px;
+    margin-bottom: 12px;
+    float: left;
 }

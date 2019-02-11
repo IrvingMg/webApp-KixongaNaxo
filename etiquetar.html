@@ -3,41 +3,66 @@
     <head>
         <meta charset="utf-8">
         <title>Etiquetar</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="bundle.css">
+        <script src="bundle.js" async></script>
     </head>
-    <body>
-        <header>
-            <figure>
-                <a href="index.html">
-                    <img src="resources/images/unca-logo.png" alt="Logotipo de la Universidad de la Cañada">
-                </a>
-                <figcaption><a href="index.html">Kixonga Naxo</a></figcaption>
-            </figure>
 
-            <nav>
-                <ul>
-                    <li><a href="planeaciones.html">Mis planeaciones</a></li>
-                    <li><a href="etiquetas.html">Mis etiquetas</a></li>
-                    <li><a href="index.html">Cerrar sesión</a></li>
-                </ul>
-            </nav>
+    <body class="mdc-typography">
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                    <a href="planeaciones.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Mis planeaciones</span>
+                        </button>
+                    </a>
+                    <a href="etiquetas.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Mis etiquetas</span>
+                        </button>
+                    </a>
+                    <a href="index.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Cerrar sesión</span>
+                        </button>
+                    </a>
+                </section>
+            </div>
+        </nav>
 
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 titulos-encabezado">
             <h1>Etiquetar</h1>
             <p>Elaborar etiquetas de colecta y herbario </p>
-            
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="etiquetas.html">Mis etiquetas</a></li>
-                <li>Etiquetar</li>
-            </ul>
         </header>
+            
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="index-usuario.html" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+            <li>
+                <a href="etiquetas.html" class="mdc-typography--subtitle2">Mis etiquetas</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Etiquetar</a>
+            </li>
+        </ol>
 
-        <aside>
+        <!-- Layout con tres contenedores -->
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
             <h3>Ejemplares recolectados</h3>
             <ol>
                 <li>Item 1</li>
             </ol>
         </aside>
-        <section>
+
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano">
             <header>
                 <h2>Nombre de la colecta</h2>
                 <p>Lugar</p>
@@ -136,7 +161,8 @@
                 </fieldset>
             </form>
         </section>
-        <aside>
+
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
             <article>
                 <h3>Información de consulta</h3>
                 <ul>

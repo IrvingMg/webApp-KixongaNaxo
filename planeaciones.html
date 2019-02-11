@@ -1,57 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
+
     <head>
         <meta charset="utf-8">
         <title>Mis planeaciones</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="bundle.css">
+        <script src="bundle.js" async></script>
     </head>
-    <body>
-        <header>
-            <figure>
-                <a href="index.html">
-                    <img src="resources/images/unca-logo.png" alt="Logotipo de la Universidad de la Cañada">
-                </a>
-                <figcaption><a href="index.html">Kixonga Naxo</a></figcaption>
-            </figure>
 
-            <nav>
-                <ul>
-                    <li>Mis planeaciones</li>
-                    <li><a href="etiquetas.html">Mis etiquetas</a></li>
-                    <li><a href="index.html">Cerrar sesión</a></li>
-                </ul>
-            </nav>
+    <body class="mdc-typography">
 
-            <h1>Mis planeaciones</h1>
-            <p>Lista de colectas planeadas</p>
-            <button>Nueva planeación</button>
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                    <a href="planeaciones.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Mis planeaciones</span>
+                        </button>
+                    </a>
+                    <a href="etiquetas.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Mis etiquetas</span>
+                        </button>
+                    </a>
+                    <a href="index.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised boton-menu">
+                            <span class="mdc-button__label">Cerrar sesión</span>
+                        </button>
+                    </a>
+                </section>
+            </div>
+        </nav>
 
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li>Mis planeaciones</li>
-            </ul>
-        
-            <label for="num-resultados">Resultados</label>
-            <output name="resultados" id="num-resultados"></output>
-
-            <label for="filtro-resultados">Odenar por </label>
-            <select name="filtro" id="filtro-resultados">
-                <option>Titulo: A-Z</option>
-                <option>Titulo: Z-A</option>
-                <option>Lugar: A-Z</option>
-                <option>Lugar: A-Z</option>
-                <option>Fecha: Nueva-Antigua</option>
-                <option>Lugar: Antigua-Nueva</option>
-            </select>
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 titulos-encabezado">
+            <div class="texto-encabezado">
+                <h1>Mis planeaciones</h1>
+                <p>Lista de colectas planeadas</p>
+            </div>
+            <a href="formato-planeacion.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-encabezado">
+                    <span class="mdc-button__label">Nueva planeación</span>
+                </button>
+            </a>
         </header>
-        <main>
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                <li>Item 4</li>
-                <li>Item 5</li>
-            </ul>
-        </main>
-        <button>Ver más</button>
+
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="index-usuario.html" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Mis planeaciones</a>
+            </li>
+        </ol>
+        
+        <!-- Contenedor -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande">
+
+             <!-- Filtro de resultados -->
+            <header>
+                <section class="mdc-chip-set total-resultados">
+                        <div class="mdc-chip" tabindex="0">
+                            <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+                        </div>
+                </section>
+
+                <section class="filtro-resultados mdc-select mdc-select--outlined">
+                        <div class="mdc-notched-outline">
+                            <div class="mdc-notched-outline__leading"></div>
+                            <div class="mdc-notched-outline__notch">
+                                    <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
+                            </div>
+                            <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                        <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                            <option>Titulo: A-Z</option>
+                            <option>Titulo: Z-A</option>
+                            <option>Lugar: A-Z</option>
+                            <option>Lugar: A-Z</option>
+                            <option>Fecha: Nueva-Antigua</option>
+                            <option>Lugar: Antigua-Nueva</option>
+                        </select>
+                </section>
+            </header>
+
+            <!-- Lista de resultados -->
+            <ol class="lista-resultados">
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li>Titulo de la colecta 1</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
+                </li>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li>Titulo de la colecta 2</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
+                </li>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li>Titulo de la colecta 3</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
+                </li>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li>Titulo de la colecta 4</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
+                </li>
+                <li class="mdc-card mdc-card--outlined mdc-card__primary-action">
+                    <ul class="lista-item">
+                        <li>Titulo de la colecta 5</li>
+                        <li class="item-subtitulo">Lugar</li>
+                        <li class="item-subtitulo">Fecha</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <!-- Acciones -->
+            <footer>
+                <button class="mdc-button mdc-button--raised boton-principal">
+                    <span class="mdc-button__label">Ver más</span>
+                </button>
+            </footer>
+
+        </section>
     </body>
 </html>

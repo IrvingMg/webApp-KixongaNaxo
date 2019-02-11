@@ -1,4 +1,30 @@
+@import "@material/tab-indicator/mdc-tab-indicator";
+@import "@material/tab/mdc-tab";
+
 .titulos-encabezado {
     padding: 32px;
     background-color: #ffffff;
+    overflow: auto;
+}
+
+.texto-encabezado {
+    float: left;
+}
+
+.boton-encabezado,
+.tab-encabezado {
+    float: right;
+}
+
+.titulos-encabezado .enlace-boton .boton-encabezado {
+    @include mdc-button-filled-accessible(#b3b38f);
+}
+
+.titulos-encabezado .mdc-tab  {
+    padding: 0 12px;
+    text-transform: initial;
+}
+
+.titulos-encabezado .mdc-tab .mdc-tab__text-label {
+    opacity: 1;
 }
