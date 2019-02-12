@@ -16,10 +16,6 @@
     float: right;
 }
 
-.titulos-encabezado .enlace-boton .boton-encabezado {
-    @include mdc-button-filled-accessible(#b3b38f);
-}
-
 .titulos-encabezado .mdc-tab  {
     padding: 0 12px;
     text-transform: initial;
@@ -27,4 +23,12 @@
 
 .titulos-encabezado .mdc-tab .mdc-tab__text-label {
     opacity: 1;
+}
+
+.encabezado-item {
+    margin-bottom: 12px;
+    border-bottom: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-style: solid;
+    padding-bottom: 12px;
 }

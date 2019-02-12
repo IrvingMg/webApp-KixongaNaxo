@@ -8,6 +8,11 @@
     width: 98%;
 }
 
+.contenedor-intermedio {
+    padding: 22px 30px;
+    width: 73%;
+}
+
 .contenedor-mediano {
     padding: 22px 30px;
     width: 48%;
@@ -17,7 +22,6 @@
     margin: 0 1% 12px 1%;
     padding: 22px 30px;
     width: 23%;
-    float: left;
 }
 
 .contenedor-pequeno {
@@ -25,7 +29,7 @@
     width: 35%;
 }
 
-.col-doble {
+.columna {
     margin: 0 1% 12px 1%;
     float: left;
 }
@@ -47,6 +51,10 @@
 .boton-principal {
     margin-top: 12px;
     float: right;
+}
+
+footer {
+    clear: both;
 }
 
 .boton-siguiente {

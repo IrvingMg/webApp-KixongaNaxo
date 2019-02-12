@@ -6,6 +6,7 @@ import {MDCTextField} from '@material/textfield';
 import {MDCTab} from '@material/tab';
 import {MDCFormField} from '@material/form-field';
 import {MDCRadio} from '@material/radio';
+import {MDCList} from '@material/list';
 
 //Instancias comunes
 const topAppBarElement = document.querySelector('.mdc-top-app-bar');
@@ -42,3 +43,13 @@ if (document.querySelector('.mdc-radio')){
     const formField = new MDCFormField(document.querySelector('.mdc-form-field'));
     formField.input = radio;
 }
+
+if (document.querySelector('.mdc-list')){
+    const list = new MDCList(document.querySelector('.mdc-list'));
+}
+
+if (document.querySelector('.mdc-icon-button')){
+    const iconButtonRipple = new MDCRipple(document.querySelector('.mdc-icon-button'));
+    iconButtonRipple.unbounded = true;
+}
+

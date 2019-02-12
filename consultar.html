@@ -53,20 +53,16 @@
         </ol>
         
         <!-- Layout con tres contenedores -->
-        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral columna">
             <h3>Información de consulta</h3>
             <ol>
                 <li>Formato de planeación</li>
+                <li>Etiquetas de colecta</li>
                 <li>Etiquetas de herbario</li>
-                <li>
-                    <ol>
-                        <li>Item 1</li>
-                    </ol>
-                </li>
             </ol>
         </aside>
 
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio columna">
             <h2>Nombre de la colecta</h2>    
             <article>
                 <h3>Formato de planeacion</h3>
@@ -90,10 +86,19 @@
                 <p>Texto</p>
             </article>
         </section>
-        
-        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
-            <h3>Colectores</h3>
-            <p>Número de colectores</p>
-        </aside>
+
+        <!-- Acciones de secuencia -->
+        <footer>
+            <a href="formato-planeacion.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-atras">
+                    <span class="mdc-button__label">Atrás</span>
+                </button>
+            </a>
+            <a href="info-consulta.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-siguiente">
+                    <span class="mdc-button__label">Siguiente</span>
+                </button>
+            </a>
+        </footer>
     </body>
 </html>

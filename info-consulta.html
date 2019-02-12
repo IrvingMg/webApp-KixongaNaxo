@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Nueva planeación</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
@@ -90,29 +91,98 @@
             </li>
         </ol>
         
-        <!-- Layout con dos contenedores -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano col-doble">
-            <h2>Agregar información</h2>
-            <label for="item-enlace">Enlace</label>
-            <input type="url" name="enlace" id="item-enlace">
-            <button>Agregar enlace</button>
-
-            <label for="item-archivo">Archivo</label>
-            <input type="file" name="archivo" id="item-archivo">
-            <button>Agregar archivo</button>
+        <!-- Contenido principal -->
+        <!-- 1ra columna -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano columna">
+            <section>
+                <h2>Agregar enlace</h2>
+                <div class="form-campo">
+                    <div class="mdc-text-field mdc-text-field--outlined">
+                        <input type="url" name="enlace" id="item-enlace" class="mdc-text-field__input">
+                        <div class="mdc-notched-outline">
+                            <div class="mdc-notched-outline__leading"></div>
+                            <div class="mdc-notched-outline__notch">
+                                <label for="item-enlace" class="mdc-floating-label">Enlace</label>
+                            </div>
+                            <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button class="mdc-button mdc-button--raised boton-campo">
+                        <span class="mdc-button__label">Agregar</span>
+                    </button>
+                </footer>
+            </section>
+            <section>
+                <h2>Agregar archivo</h2>
+                <div class="form-campo">
+                    <div class="mdc-text-field mdc-text-field--outlined">
+                        <input type="file" name="archivo" id="item-archivo" class="mdc-text-field__input">
+                        <div class="mdc-notched-outline">
+                            <div class="mdc-notched-outline__leading"></div>
+                            <div class="mdc-notched-outline__notch">
+                                <label for="item-archivo" class="mdc-floating-label">Archivo</label>
+                            </div>
+                            <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button class="mdc-button mdc-button--raised boton-campo">
+                        <span class="mdc-button__label">Agregar</span>
+                    </button>
+                </footer>
+            </section>
         </section>
         
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano col-doble">
+        <!-- 2da columna -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano columna">
             <h2>Información de consulta</h2>
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                <li>Item 4</li>
-                <li>Item 5</li>
+            <ul class="mdc-list lista-material" role="listbox">
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Single-line item</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">delete</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Single-line item</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">delete</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Single-line item</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">delete</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
             </ul>
+
+            <!-- Acciones primarias -->
+            <footer>
+                <button class="mdc-button mdc-button--raised boton-principal">
+                    <span class="mdc-button__label">Guardar</span>
+                </button>
+            </footer>
         </section>
-        <button>Atrás</button>
-        <button>Finalizar</button>
+
+        <!-- Acciones de secuencia -->
+        <footer>
+            <a href="material-campo.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-atras">
+                    <span class="mdc-button__label">Atrás</span>
+                </button>
+            </a>
+            <a href="planeaciones.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-siguiente">
+                    <span class="mdc-button__label">Finalizar</span>
+                </button>
+            </a>
+        </footer>
     </body>
 </html>

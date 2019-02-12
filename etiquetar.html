@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Etiquetar</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
@@ -54,128 +55,374 @@
             </li>
         </ol>
 
-        <!-- Layout con tres contenedores -->
-        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
+        <!-- Contenido principal -->
+        <!-- 1ra columna -->
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral columna">
             <h3>Ejemplares recolectados</h3>
-            <ol>
-                <li>Item 1</li>
-            </ol>
+            <ul class="mdc-list lista-icono-lateral" role="listbox">
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Ejemplar #1</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">list_alt</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Ejemplar #2</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">list_alt</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item" role="option" tabindex="0">
+                        <span class="mdc-list-item__text">Ejemplar #3</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons">list_alt</button>
+                </li>
+                <li role="separator" class="mdc-list-divider"></li>
+            </ul>
         </aside>
 
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano">
-            <header>
+        <!-- 2da columna -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano columna">
+            <header class="encabezado-item">
                 <h2>Nombre de la colecta</h2>
-                <p>Lugar</p>
-                <p>Fecha</p>
+                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar</p>
+                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
             </header>
+
+            <!-- Formulario para las etiquetas de colecta y herbario -->
             <form>
-                <fieldset>
-                    <legend>Formato de planeación</legend>
-                    <ol>
-                        <li>
-                            <!-- Precargar fotografías tomadas con la aplicación móvil y permitir subir nuevas -->
-                            <label for="etiquetar-fotografias">Fotografías</label>
-                            <input type="file" name="fotografias" id="etiquetar-fotografias">
-                        </li>
-                        <li>
-                            Ubicación
-                            <ul>
-                                <li>
-                                    <label for="etiquetar-longitud">Longitud</label>
-                                    <input type="number" name="longitud" id="etiquetar-longitud">
-                                </li>
-                                <li>
-                                    <label for="etiquetar-latitud">Latitud</label>
-                                    <input type="number" name="latitud" id="etiquetar-latitud">
-                                </li>
-                                <li>
-                                    <label for="etiquetar-altitud">Altitud</label>
-                                    <input type="number" name="altitud" id="etiquetar-altitud">
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <label for="etiquetar-caract-lugar">Caracerísticas del lugar</label>
-                            <textarea name="caract-lugar" id="etiquetar-caract-lugar"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-nombre-comun">Nombre común</label>
-                            <input type="text" name="nombre-comun" id="etiquetar-nombre-comun">
-                        </li>
-                        <li>
-                            <label for="etiquetar-nombre-cientifico">Nombre cientifico</label>
-                            <input type="text" name="nombre-cientifico" id="etiquetar-nombre-cientifico">
-                        </li>
-                        <li>
-                            <label for="etiquetar-habito">Hábito</label>
-                            <select name="habito" id="etiquetar-habito">
-                                <option>Rastrera</option>
-                                <option>Epifita</option>
-                                <option>Hierba</option>
-                                <option>Arbusto</option>
-                                <option>Árbol</option>
-                            </select>
-                        </li>
-                        <li>
-                            <label for="etiquetar-dap">Diámetro del tallo (DAP)</label>
-                            <input type="number" name="dap" id="etiquetar-dap">
-                        </li>
-                        <li>
-                            <label for="etiquetar-abundancia">Abundancia de la planta</label>
-                            <input type="number" name="abundancia" id="etiquetar-abundancia">
-                        </li>
-                        <li>
-                            <label for="etiquetar-desc-planta">Descripción de la planta</label>
-                            <textarea name="desc-planta" id="etiquetar-desc-planta"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-desc-flores">Descripción de las flores</label>
-                            <textarea name="desc-flores" id="etiquetar-desc-flores"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-desc-hojas">Descripción de las hojas</label>
-                            <textarea name="desc-hojas" id="etiquetar-desc-hojas"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-desc-latex">Descripción del látex</label>
-                            <textarea name="desc-latex" id="etiquetar-desc-latex"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-familia">Familia botánica</label>
-                            <input type="text" name="familia" id="etiquetar-familia">
-                        </li>
-                        <li>
-                            <label for="etiquetar-info-etnobotanica">Información etnobotánica</label>
-                            <textarea name="info-etnobotanica" id="etiquetar-info-etnobotanica"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-uso">Uso medicinal</label>
-                            <textarea name="uso" id="etiquetar-uso"></textarea>
-                        </li>
-                        <li>
-                            <label for="etiquetar-empleo">Uso medicinal</label>
-                            <textarea name="empleo" id="etiquetar-empleo"></textarea>
-                        </li>
-                    </ol>
-                    <input type="submit" value="Guardar">
-                </fieldset>
+                <h3>Ejemplar #1</h3>
+                <ol>
+                    <li class="form-campo">
+                        <!-- Precargar fotografías tomadas con la aplicación móvil y permitir subir nuevas -->
+                        <label for="etiquetar-fotografias">Fotografías</label>
+                        <input type="file" name="fotografias" id="etiquetar-fotografias" multiple>
+                    </li>
+                    <li>
+                        <ul class="form-campo-col">
+                            <li class="form-campo-col3 form-campo-col3-izquierda">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="longitud" id="etiquetar-longitud" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                                <label for="etiquetar-longitud" class="mdc-floating-label">
+                                                    Longitud
+                                                </label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-campo-col3">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="latitud" id="etiquetar-latitud" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                                <label for="etiquetar-latitud" class="mdc-floating-label">
+                                                    Latitud
+                                                </label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-campo-col3 form-campo-col3-derecha">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="altitud" id="etiquetar-altitud" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                                <label for="etiquetar-altitud" class="mdc-floating-label">
+                                                    Altitud
+                                                </label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="caract-lugar" id="etiquetar-caract-lugar" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-caract-lugar" class="mdc-floating-label">
+                                            Características del lugar
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--outlined">
+                            <input type="text" name="nombre-comun" id="etiquetar-nombre-comun" class="mdc-text-field__input">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                        <label for="etiquetar-nombre-comun" class="mdc-floating-label">
+                                            Nombre común
+                                        </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--outlined">
+                            <input type="text" name="nombre-cientifico" id="etiquetar-nombre-cientifico" class="mdc-text-field__input">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                        <label for="etiquetar-nombre-cientifico" class="mdc-floating-label">
+                                            Nombre cientifico
+                                        </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <ul class="form-campo-col">
+                            <li class="form-campo-col3 form-campo-col3-izquierda">
+                                <div class="mdc-select mdc-select--outlined">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                            <label for="etiquetar-habito" class="mdc-floating-label">Hábito</label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                    <select name="habito" id="etiquetar-habito" class="mdc-select__native-control">
+                                        <option>Rastrera</option>
+                                        <option>Epifita</option>
+                                        <option>Hierba</option>
+                                        <option>Arbusto</option>
+                                        <option>Árbol</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="form-campo-col3">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="dap" id="etiquetar-dap" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                                <label for="etiquetar-dap" class="mdc-floating-label">
+                                                    Diámetro del tallo (DAP)
+                                                </label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-campo-col3 form-campo-col3-derecha">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="abundancia" id="etiquetar-abundancia" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                                <label for="etiquetar-abundancia" class="mdc-floating-label">Abundancia de la planta</label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="desc-planta" id="etiquetar-desc-planta" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-desc-planta" class="mdc-floating-label">
+                                            Descripción de la planta
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="desc-flores" id="etiquetar-desc-flores" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-desc-flores" class="mdc-floating-label">
+                                            Descripción de las flores
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="desc-hojas" id="etiquetar-desc-hojas" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-desc-hojas" class="mdc-floating-label">
+                                            Descripción de las hojas
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="desc-latex" id="etiquetar-desc-latex" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-desc-latex" class="mdc-floating-label">
+                                            Descripción del látex
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--outlined">
+                            <input type="text" name="familia" id="etiquetar-familia" class="mdc-text-field__input">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                        <label for="etiquetar-familia" class="mdc-floating-label">Familia botánica</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="info-etnobotanica" id="etiquetar-info-etnobotanica" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-info-etnobotanica" class="mdc-floating-label">
+                                            Información etnobotánica
+                                    </label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="uso" id="etiquetar-uso" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-uso" class="mdc-floating-label">Uso medicinal</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-campo">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="empleo" id="etiquetar-empleo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-empleo" class="mdc-floating-label">Modo de empleo</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
             </form>
+
+            <!-- Acciones primarias -->
+            <footer>
+                <button class="mdc-button mdc-button--raised boton-principal">
+                    <span class="mdc-button__label">Guardar</span>
+                </button>
+            </footer>
         </section>
 
-        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral">
+        <!-- 3ra columna -->
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral columna">
             <article>
                 <h3>Información de consulta</h3>
-                <ul>
-                    <li>Item 1</li>
-                </ul>
-            </article>
-            <article>
-                <h3>Notas de campo</h3>
-                <ul>
-                    <li>Item 1</li>
+                <ul class="mdc-list lista-icono-lateral" role="listbox">
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">open_in_new</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">open_in_new</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">get_app</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
                 </ul>
             </article>
         </aside>
-        <button>Siguiente</button>
+
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral columna">
+            <article>
+                <h3>Notas de campo</h3>
+                <ul class="mdc-list lista-icono2-lateral" role="listbox">
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">get_app</button>
+                        <button class="mdc-icon-button material-icons">description</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">get_app</button>
+                        <button class="mdc-icon-button material-icons">description</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
+                    <li>
+                        <div class="mdc-list-item" role="option" tabindex="0">
+                            <span class="mdc-list-item__text">Single-line item</span>
+                        </div>
+                        <button class="mdc-icon-button material-icons">get_app</button>
+                        <button class="mdc-icon-button material-icons">description</button>
+                    </li>
+                    <li role="separator" class="mdc-list-divider"></li>
+                </ul>
+            </article>
+        </aside>
+
+        <!-- Acciones de secuencia -->
+        <footer>
+            <a href="material-campo.html" class="enlace-boton">
+            <button class="mdc-button mdc-button--raised boton-siguiente">
+                <span class="mdc-button__label">Siguiente</span>
+            </button>
+            </a>
+        </footer>
     </body>
 </html>

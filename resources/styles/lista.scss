@@ -1,6 +1,9 @@
 @import "@material/card/mdc-card";
 @import "@material/elevation/mdc-elevation";
+@import"@material/list/mdc-list";
+@import "@material/icon-button/mdc-icon-button";
 
+//Lista en contenedor grande
 .lista-resultados {
     list-style: none;
     margin-top: 12px;
@@ -13,6 +16,23 @@
 }
 
 .item-subtitulo {
-    font-size: 0.875rem;
-    color: #666666;
+    opacity: 0.6;
+}
+
+//Lista de items con un icono en contenedor mediano
+.lista-icono-mediano .mdc-list-item {
+    float: left;
+    width: 90%;
+}
+
+//Lista de items con un icono en contenedor lateral
+.lista-icono-lateral .mdc-list-item {
+    float: left;
+    width: 83%;
+}
+
+//Lista de items con dos iconos en contenedor lateral
+.lista-icono2-lateral .mdc-list-item {
+    float: left;
+    width: 64%;
 }

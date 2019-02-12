@@ -14,6 +14,39 @@ form ol {
     margin-bottom: 12px; 
 }
 
+.form-campo-col {
+    padding: 0;
+    margin-top: 12px; 
+    margin-bottom: 12px;
+    list-style: none;
+    height: 56px;
+}
+
+.form-campo-col .mdc-select--outlined {
+    width: 100%;
+}
+
+.form-campo-col3 {
+    width: 32%;
+    float: left;
+}
+
+.form-campo-col3-izquierda {
+    margin-left: 0;
+    margin-right: 2%;
+}
+
+.form-campo-col3-derecha {
+    margin-left: 2%;
+    margin-right: 0;
+}
+
+.boton-campo {
+    float: right;
+    margin-bottom: 12px;
+    width: fit-content;
+}
+
 /* Cambiar tamaño del componente 'text-field' */
 .form-campo .mdc-text-field--outlined {
     width: 100%;
