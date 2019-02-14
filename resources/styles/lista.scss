@@ -2,37 +2,60 @@
 @import "@material/elevation/mdc-elevation";
 @import"@material/list/mdc-list";
 @import "@material/icon-button/mdc-icon-button";
+@import "@material/image-list/mdc-image-list";
 
-//Lista en contenedor grande
+//Estilos - lista.scss
+.mdc-list {
+    font-size: 0.875rem;
+}
+
 .lista-resultados {
     list-style: none;
     margin-top: 12px;
     padding: 0;
 }
 
-.lista-item {
+.lista-resultados-item {
+    list-style: none;
+    padding: 8px 12px;
+}
+
+/* Estructura para mostrar información de consulta */
+.lista-info-consulta {
     list-style: none;
     padding: 12px;
 }
 
-.item-subtitulo {
-    opacity: 0.6;
+.lista-info-consulta .mdc-select--outlined {
+    width: 50%;
 }
 
-//Lista de items con un icono en contenedor mediano
+/* Lista con dos iconos-botones para contenedor de tamaño intermedio */ 
+.lista-icono2-intermedio .mdc-list-item {
+    float: left;
+    width: 80%;
+}
+
+/* Lista con un icono-botón para contenedor mediano */
 .lista-icono-mediano .mdc-list-item {
     float: left;
-    width: 90%;
+    width: 85%;
 }
 
-//Lista de items con un icono en contenedor lateral
+/* Lista con un icono-botón para contenedor lateral */
 .lista-icono-lateral .mdc-list-item {
     float: left;
-    width: 83%;
+    width: 70%;
 }
 
-//Lista de items con dos iconos en contenedor lateral
-.lista-icono2-lateral .mdc-list-item {
-    float: left;
-    width: 64%;
+/* Regla para lista en contenedor lateral y 1ra columna */
+.mdc-list-item__graphic {
+    margin-right: 12px;
 }
+
+/* Lista de imagenes para el formulario de la página 'Etiquetar' */
+.lista-imagenes {
+    @include mdc-image-list-standard-columns(4);
+    margin-bottom: 12px;
+}
+//Fin

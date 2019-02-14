@@ -2,19 +2,24 @@
 @import "@material/form-field/mdc-form-field";
 @import "@material/radio/mdc-radio";
 
+//Estilos - formulario.scss
 form ol {
     list-style: none;
     padding: 0;
     text-align: center;
 }
 
-.form-campo {
-    display: block;
-    margin-top: 12px; 
-    margin-bottom: 12px; 
+/* Regla para etiquetas de la lista de imágenes */
+.campo-ing-dato .mdc-image-list--with-text-protection .mdc-image-list__supporting {
+    padding: 0 5px;
 }
 
-.form-campo-col {
+.campo-ing-dato .mdc-image-list, .mdc-text-field--outlined, .mdc-select--outlined {
+    width: 100%;
+}
+
+/* Reglas para fila de campos con múltiples columnas */
+.campo-ing-dato-row {
     padding: 0;
     margin-top: 12px; 
     margin-bottom: 12px;
@@ -22,35 +27,33 @@ form ol {
     height: 56px;
 }
 
-.form-campo-col .mdc-select--outlined {
-    width: 100%;
-}
-
-.form-campo-col3 {
+.campo-ing-dato-col3 {
     width: 32%;
     float: left;
 }
 
-.form-campo-col3-izquierda {
+.campo-ing-dato-col3-izquierda {
     margin-left: 0;
     margin-right: 2%;
 }
 
-.form-campo-col3-derecha {
+.campo-ing-dato-col3-derecha {
     margin-left: 2%;
     margin-right: 0;
 }
 
-.boton-campo {
-    float: right;
-    margin-bottom: 12px;
-    width: fit-content;
-}
-
-/* Cambiar tamaño del componente 'text-field' */
-.form-campo .mdc-text-field--outlined {
+.campo-ing-dato-col  {
     width: 100%;
 }
 
+/* Reglas para texto de ayuda dentro de formulario */
+.form-texto-ayuda a{
+    color: #000000;
+    text-decoration: none;
+}
 
-
+.form-texto-ayuda a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+//Fin

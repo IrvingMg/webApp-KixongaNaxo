@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Mis etiquetas</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
-
     <body class="mdc-typography">
+
         <!-- Barra de navegación -->
         <nav class="mdc-top-app-bar">
             <div class="mdc-top-app-bar__row">
@@ -18,17 +19,17 @@
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
                     <a href="planeaciones.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Mis planeaciones</span>
                         </button>
                     </a>
                     <a href="etiquetas.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Mis etiquetas</span>
                         </button>
                     </a>
                     <a href="index.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Cerrar sesión</span>
                         </button>
                     </a>
@@ -37,177 +38,155 @@
         </nav>
 
         <!-- Encabezado -->
-        <header class="mdc-elevation--z10 titulos-encabezado">
-            <h1>Mis etiquetas</h1>
-            <p>Lista de etiquetas elaboradas</p>
+        <header class="mdc-elevation--z10 encabezado-body">
+            <h4 class="mdc-typography--headline4">Mis etiquetas</h4>
+            <p class="mdc-typography--body2">Seleccione una colecta para editar las etiquetas de colecta y herbario.</p>
         </header>
 
         <!-- Ruta de navegación -->
         <ol class="ruta-nav">
             <li>
-                <a href="index-usuario.html" class="mdc-typography--subtitle2">Inicio</a>
+                <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
                 <a href="#" class="mdc-typography--subtitle2">Mis etiquetas</a>
             </li>
         </ol>
         
-        <!-- Contenedor -->
+        <!-- Contenido -->
         <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande">
 
             <!-- Filtro de resultados -->
-            <header>
-                <section class="mdc-chip-set total-resultados">
-                        <div class="mdc-chip" tabindex="0">
-                            <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+            <header class="encabezado-filtro">
+                <div class="mdc-chip-set">
+                    <div class="mdc-chip">
+                        <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+                    </div>
+                </div>
+                <div class="mdc-select mdc-select--outlined">
+                    <div class="mdc-notched-outline">
+                        <div class="mdc-notched-outline__leading"></div>
+                        <div class="mdc-notched-outline__notch">
+                            <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
                         </div>
-                </section>
-
-                <section class="filtro-resultados mdc-select mdc-select--outlined">
-                        <div class="mdc-notched-outline">
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__notch">
-                                    <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
-                            </div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                        </div>
-                        <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
-                            <option>Titulo: A-Z</option>
-                            <option>Titulo: Z-A</option>
-                            <option>Lugar: A-Z</option>
-                            <option>Lugar: A-Z</option>
-                            <option>Fecha: Nueva-Antigua</option>
-                            <option>Lugar: Antigua-Nueva</option>
-                        </select>
-                </section>
+                        <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                    <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                        <option>Titulo: A-Z</option>
+                        <option>Titulo: Z-A</option>
+                        <option>Lugar: A-Z</option>
+                        <option>Lugar: A-Z</option>
+                        <option>Fecha: Nueva-Antigua</option>
+                        <option>Lugar: Antigua-Nueva</option>
+                    </select>
+                </div>
             </header>
 
             <!-- Lista de resultados -->
             <ol class="lista-resultados">
                 <li>
                     <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-item">
+                        <div class="mdc-card__primary-action lista-resultados-item">
                             <span class="mdc-list-item__text">
-                                <h6 class="mdc-typography--headline6">Titulo de la colecta</h6>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar de colecta</p>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
+                                <p class="mdc-typography--body1 h7">Etiquetas - Titulo de la colecta</p>
+                                <p class="mdc-typography--body2">Lugar de colecta</p>
+                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
                             </span>
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Editar</span>
-                            </button>
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                    <i class="material-icons mdc-button__icon">delete</i>
+                                    <span class="mdc-button__label">Eliminar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-item">
+                        <div class="mdc-card__primary-action lista-resultados-item">
                             <span class="mdc-list-item__text">
-                                <h6 class="mdc-typography--headline6">Titulo de la colecta</h6>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar de colecta</p>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
+                                <p class="mdc-typography--body1 h7">Etiquetas - Titulo de la colecta</p>
+                                <p class="mdc-typography--body2">Lugar de colecta</p>
+                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
                             </span>
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Editar</span>
-                            </button>
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                    <i class="material-icons mdc-button__icon">delete</i>
+                                    <span class="mdc-button__label">Eliminar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-item">
+                        <div class="mdc-card__primary-action lista-resultados-item">
                             <span class="mdc-list-item__text">
-                                <h6 class="mdc-typography--headline6">Titulo de la colecta</h6>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar de colecta</p>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
+                                <p class="mdc-typography--body1 h7">Etiquetas - Titulo de la colecta</p>
+                                <p class="mdc-typography--body2">Lugar de colecta</p>
+                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
                             </span>
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Editar</span>
-                            </button>
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                    <i class="material-icons mdc-button__icon">delete</i>
+                                    <span class="mdc-button__label">Eliminar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-item">
+                        <div class="mdc-card__primary-action lista-resultados-item">
                             <span class="mdc-list-item__text">
-                                <h6 class="mdc-typography--headline6">Titulo de la colecta</h6>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar de colecta</p>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
+                                <p class="mdc-typography--body1 h7">Etiquetas - Titulo de la colecta</p>
+                                <p class="mdc-typography--body2">Lugar de colecta</p>
+                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
                             </span>
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Editar</span>
-                            </button>
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                    <i class="material-icons mdc-button__icon">delete</i>
+                                    <span class="mdc-button__label">Eliminar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-item">
+                        <div class="mdc-card__primary-action lista-resultados-item">
                             <span class="mdc-list-item__text">
-                                <h6 class="mdc-typography--headline6">Titulo de la colecta</h6>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">Lugar de colecta</p>
-                                <p class="mdc-typography--subtitle2 item-subtitulo">DD/MM/AAAA</p>
+                                <p class="mdc-typography--body1 h7">Etiquetas - Titulo de la colecta</p>
+                                <p class="mdc-typography--body2">Lugar de colecta</p>
+                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
                             </span>
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Editar</span>
-                            </button>
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                    <i class="material-icons mdc-button__icon">delete</i>
+                                    <span class="mdc-button__label">Eliminar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </li>
             </ol>
             
-            <!-- Acciones -->
+            <!-- Acciones del contenedor -->
             <footer>
                 <button class="mdc-button mdc-button--raised boton-principal">
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
-
         </section>
     </body>
 </html>

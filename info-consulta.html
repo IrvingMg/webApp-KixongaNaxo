@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Nueva planeación</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
-
     <body class="mdc-typography">
+
         <!-- Barra de navegación -->
         <nav class="mdc-top-app-bar">
             <div class="mdc-top-app-bar__row">
@@ -18,17 +19,17 @@
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
                     <a href="planeaciones.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Mis planeaciones</span>
                         </button>
                     </a>
                     <a href="etiquetas.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Mis etiquetas</span>
                         </button>
                     </a>
                     <a href="index.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised boton-menu">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
                             <span class="mdc-button__label">Cerrar sesión</span>
                         </button>
                     </a>
@@ -37,99 +38,137 @@
         </nav>
 
         <!-- Encabezado -->
-        <header class="mdc-elevation--z10 titulos-encabezado">
-            <div class="texto-encabezado">
-                <h1>Nueva planeación</h1>
-                <p>Incluir información de consulta para colectores</p>
-            </div>
+        <header class="mdc-elevation--z10 encabezado-body">
+            <section class="encabezado-body-texto">
+                <h4 class="mdc-typography--headline4">Nueva planeación</h4>
+                <p class="mdc-typography--body2">(Opcional) Ingrese información de apoyo para el etiquetado de los ejemplares.</p>
+            </section>
             <!-- Menú de pestañas -->
-            <a href="#" class="enlace-boton">
-                <button class="mdc-tab mdc-tab--active tab-encabezado">
-                    <span class="mdc-tab__content">
-                        <span class="mdc-tab__text-label">3. Información de consulta</span>
-                    </span>
-                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                    </span>
-                    <span class="mdc-tab__ripple"></span>
-                </button>
-            </a>
-            <a href="material-campo.html" class="enlace-boton">
-                <button class="mdc-tab tab-encabezado">
-                <span class="mdc-tab__content">
-                    <span class="mdc-tab__text-label">2. Material de campo</span>
-                </span>
-                <span class="mdc-tab-indicator">
-                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                </span>
-                <span class="mdc-tab__ripple"></span>
-            </button>
-            </a>
-            <a href="formato-planeacion.html" class="enlace-boton">
-                <button class="mdc-tab tab-encabezado">
-                    <span class="mdc-tab__content">
-                        <span class="mdc-tab__text-label">1. Formato de planeación</span>
-                    </span>
-                    <span class="mdc-tab-indicator">
-                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                    </span>
-                    <span class="mdc-tab__ripple"></span>
-                </button>
-            </a>
+            <section class="encabezado-menu-tab">
+                <a href="formato-planeacion.html" class="enlace-boton">
+                    <button class="mdc-tab">
+                        <span class="mdc-tab__content">
+                            <span class="mdc-tab__text-label">1. Formato de planeación</span>
+                        </span>
+                        <span class="mdc-tab-indicator">
+                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                        </span>
+                        <span class="mdc-tab__ripple"></span>
+                    </button>
+                </a>
+                <a href="material-campo.html" class="enlace-boton">
+                    <button class="mdc-tab">
+                        <span class="mdc-tab__content">
+                            <span class="mdc-tab__text-label">2. Material de campo</span>
+                        </span>
+                        <span class="mdc-tab-indicator">
+                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                        </span>
+                        <span class="mdc-tab__ripple"></span>
+                    </button>
+                </a>
+                <a href="#" class="enlace-boton">
+                    <button class="mdc-tab mdc-tab--active">
+                        <span class="mdc-tab__content">
+                            <span class="mdc-tab__text-label">3. Información de consulta</span>
+                        </span>
+                        <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                        </span>
+                        <span class="mdc-tab__ripple"></span>
+                    </button>
+                </a>
+            </section>
         </header>
             
         <!-- Ruta de navegación -->
         <ol class="ruta-nav">
             <li>
-                <a href="index-usuario.html" class="mdc-typography--subtitle2">Inicio</a>
+                <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="etiquetas.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
+                <a href="planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
             </li>
             <li>
                 <a href="#" class="mdc-typography--subtitle2">Nueva planeación</a>
             </li>
         </ol>
         
-        <!-- Contenido principal -->
+        <!-- Contenido -->
         <!-- 1ra columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano columna">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna">
             <section>
-                <h2>Agregar enlace</h2>
-                <div class="form-campo">
-                    <div class="mdc-text-field mdc-text-field--outlined">
-                        <input type="url" name="enlace" id="item-enlace" class="mdc-text-field__input">
-                        <div class="mdc-notched-outline">
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__notch">
-                                <label for="item-enlace" class="mdc-floating-label">Enlace</label>
+                <header class="encabezado-section">
+                    <h5 class="mdc-typography--headline5">Agregar enlace</h5>
+                </header>
+                <form>
+                    <ol>
+                        <li class="campo-ing-dato">
+                            <div class="mdc-text-field mdc-text-field--outlined">
+                                <input type="text" name="descripcion-enlace" id="desc-enlace" class="mdc-text-field__input">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label for="desc-enlace" class="mdc-floating-label">Descripción del enlace</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
                             </div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                        </div>
-                    </div>
-                </div>
+                        </li>
+                        <li class="campo-ing-dato">
+                            <div class="mdc-text-field mdc-text-field--outlined">
+                                <input type="url" name="enlace" id="item-enlace" class="mdc-text-field__input">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label for="item-enlace" class="mdc-floating-label">Enlace</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </form>
                 <footer>
-                    <button class="mdc-button mdc-button--raised boton-campo">
+                    <button class="mdc-button mdc-button--raised boton-principal">
                         <span class="mdc-button__label">Agregar</span>
                     </button>
                 </footer>
             </section>
             <section>
-                <h2>Agregar archivo</h2>
-                <div class="form-campo">
-                    <div class="mdc-text-field mdc-text-field--outlined">
-                        <input type="file" name="archivo" id="item-archivo" class="mdc-text-field__input">
-                        <div class="mdc-notched-outline">
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__notch">
-                                <label for="item-archivo" class="mdc-floating-label">Archivo</label>
+                <header class="encabezado-section">
+                    <h5 class="mdc-typography--headline5">Agregar archivo</h5>
+                </header>
+                <form>
+                    <ol>
+                        <li class="campo-ing-dato">
+                            <div class="mdc-text-field mdc-text-field--outlined">
+                                <input type="text" name="descripcion-archivo" id="desc-archivo" class="mdc-text-field__input">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label for="desc-archivo" class="mdc-floating-label">Descripción del archivo</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
                             </div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                        </div>
-                    </div>
-                </div>
+                        </li>
+                        <li class="campo-ing-dato">
+                            <div class="mdc-text-field mdc-text-field--outlined">
+                                <input type="file" name="archivo" id="item-archivo" class="mdc-text-field__input">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label for="item-archivo" class="mdc-floating-label">Archivo</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </form>
                 <footer>
-                    <button class="mdc-button mdc-button--raised boton-campo">
+                    <button class="mdc-button mdc-button--raised boton-principal">
                         <span class="mdc-button__label">Agregar</span>
                     </button>
                 </footer>
@@ -137,33 +176,35 @@
         </section>
         
         <!-- 2da columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano columna">
-            <h2>Información de consulta</h2>
-            <ul class="mdc-list lista-material" role="listbox">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna">
+            <header class="encabezado-section">
+                <h5 class="mdc-typography--headline5">Información de consulta</h5>
+            </header>
+            <ul class="mdc-list lista-icono-mediano">
                 <li>
-                    <div class="mdc-list-item" role="option" tabindex="0">
-                        <span class="mdc-list-item__text">Single-line item</span>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
                     </div>
-                    <button class="mdc-icon-button material-icons">delete</button>
+                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
                 </li>
-                <li role="separator" class="mdc-list-divider"></li>
+                <li class="mdc-list-divider"></li>
                 <li>
-                    <div class="mdc-list-item" role="option" tabindex="0">
-                        <span class="mdc-list-item__text">Single-line item</span>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
                     </div>
-                    <button class="mdc-icon-button material-icons">delete</button>
+                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
                 </li>
-                <li role="separator" class="mdc-list-divider"></li>
+                <li class="mdc-list-divider"></li>
                 <li>
-                    <div class="mdc-list-item" role="option" tabindex="0">
-                        <span class="mdc-list-item__text">Single-line item</span>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
                     </div>
-                    <button class="mdc-icon-button material-icons">delete</button>
+                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
                 </li>
-                <li role="separator" class="mdc-list-divider"></li>
+                <li class="mdc-list-divider"></li>
             </ul>
 
-            <!-- Acciones primarias -->
+            <!-- Acciones del contenedor -->
             <footer>
                 <button class="mdc-button mdc-button--raised boton-principal">
                     <span class="mdc-button__label">Guardar</span>
@@ -173,14 +214,14 @@
 
         <!-- Acciones de secuencia -->
         <footer>
-            <a href="material-campo.html" class="enlace-boton">
-                <button class="mdc-button mdc-button--raised boton-atras">
-                    <span class="mdc-button__label">Atrás</span>
-                </button>
-            </a>
             <a href="planeaciones.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--raised boton-siguiente">
                     <span class="mdc-button__label">Finalizar</span>
+                </button>
+            </a>
+            <a href="material-campo.html" class="enlace-boton">
+                <button class="mdc-button mdc-button--raised boton-atras">
+                    <span class="mdc-button__label">Atrás</span>
                 </button>
             </a>
         </footer>

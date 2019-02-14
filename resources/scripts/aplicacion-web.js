@@ -46,6 +46,7 @@ if (document.querySelector('.mdc-radio')){
 
 if (document.querySelector('.mdc-list')){
     const list = new MDCList(document.querySelector('.mdc-list'));
+    const listItemRipples = list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
 }
 
 if (document.querySelector('.mdc-icon-button')){

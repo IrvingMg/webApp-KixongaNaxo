@@ -1,34 +1,89 @@
+@import "@material/chips/mdc-chips";
+@import "@material/select/mdc-select";
 @import "@material/tab-indicator/mdc-tab-indicator";
 @import "@material/tab/mdc-tab";
 
-.titulos-encabezado {
+//Estilos - encabezado.scss
+/* Reglas para el encabezado del elemento 'body' */
+.encabezado-body {
     padding: 32px;
     background-color: #ffffff;
     overflow: auto;
 }
 
-.texto-encabezado {
-    float: left;
+.encabezado-body h4 {
+    font-weight: 500;
 }
 
-.boton-encabezado,
-.tab-encabezado {
+/* Reglas para el encabezado del elemento 'body' con botón a la derecha */
+.encabezado-body-texto {
+    float: left;
+    width: 50%;
+}
+
+.encabezado-body button {
     float: right;
 }
 
-.titulos-encabezado .mdc-tab  {
+/* Reglas para el menú de pestañas */
+.encabezado-menu-tab {
+    float: right;
+    width: 49%;
+    margin-top: 12px;
+    margin-left: 1%;
+}
+
+.encabezado-body .encabezado-menu-tab button {
+    float: none;
+    display: inline;
+}
+
+.encabezado-body .mdc-tab  {    
     padding: 0 12px;
     text-transform: initial;
 }
 
-.titulos-encabezado .mdc-tab .mdc-tab__text-label {
-    opacity: 1;
+.encabezado-body .mdc-tab .mdc-tab__text-label { 
+    font-weight: 400;
 }
 
-.encabezado-item {
+/* Reglas para el encabezado del elemento 'section' */
+.encabezado-section {
     margin-bottom: 12px;
     border-bottom: 1px;
     border-bottom-color: rgba(0, 0, 0, 0.12);
     border-bottom-style: solid;
     padding-bottom: 12px;
 }
+
+/* Reglas para el encabezado del elemento 'article' */
+.encabezado-article h6 {
+    display: inline;
+    font-weight: 400;
+}
+
+.encabezado-article button {
+    float: right;
+}
+
+/* Reglas para el encabezado con filtro de resultados */
+.encabezado-filtro .mdc-chip-set {
+    float: left;
+}
+
+.encabezado-filtro .mdc-select {
+    float: right;
+    width: auto;
+}
+
+/* Reglas para cambiar el tamaño del componente 'select' */
+.encabezado-filtro .mdc-select__native-control {
+    font-size: 0.875rem;
+    height: 45px;
+    padding: 8px 16px 8px 12px;
+}
+
+.encabezado-filtro .mdc-notched-outline {
+    height: 80%;
+}
+//Fin

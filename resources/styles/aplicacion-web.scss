@@ -3,11 +3,11 @@
 @import 'barra-navegacion';
 @import 'encabezado';
 @import 'ruta-navegacion';
-@import 'contenedor';
-@import 'filtro';
+@import 'contenido';
 @import 'lista';
 @import 'formulario';
 
+//Estilos - aplicacion-web.scss
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,6 +16,53 @@
 body {
     background-color: #5e92f3;
 }
+
 .enlace-boton {
     text-decoration: none;
 }
+
+/* Regla para campo de ingreso de datos */
+.campo-ing-dato {
+    display: block;
+    margin-top: 12px; 
+    margin-bottom: 12px; 
+}
+
+/* Reglas para mostrar información de consulta */
+.h7 {
+    font-weight: 600;
+}
+
+.texto-info {
+    padding-left: 12px;
+}
+
+footer {
+    clear: both;
+}
+
+/* Reglas para acciones */
+.boton-principal {
+    margin-top: 12px;
+    float: right;
+}
+
+.boton-secundario {
+    margin-top: 12px;
+    float: left;
+}
+
+.boton-siguiente {
+    @include mdc-button-filled-accessible(#b3b38f);
+    margin-right: 12px;
+    margin-bottom: 12px;
+    float: right;
+}
+
+.boton-atras {
+    @include mdc-button-filled-accessible(#b3b38f);
+    margin-left: 12px;
+    margin-bottom: 12px;
+    float: left;
+}
+//Fin

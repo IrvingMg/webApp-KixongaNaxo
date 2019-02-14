@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Consultar</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="bundle.css">
+        <script src="bundle.js" async></script>
+    </head>
+    <body class="mdc-typography">
+
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                    <a href="planeaciones.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Mis planeaciones</span>
+                        </button>
+                    </a>
+                    <a href="etiquetas.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Mis etiquetas</span>
+                        </button>
+                    </a>
+                    <a href="index.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Cerrar sesión</span>
+                        </button>
+                    </a>
+                </section>
+            </div>
+        </nav>
+
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 encabezado-body">
+            <h4 class="mdc-typography--headline4">Consultar</h4>
+            <p class="mdc-typography--body2">Examine la información de colecta.</p>
+        </header>
+
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Consultar</a>
+            </li>
+        </ol>
+        
+        <!-- Contenido -->
+        <!-- 1ra columna -->
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral cont-columna">
+            <h6 class="mdc-typography--headline6">Información de colecta</h6>
+            <ul class="mdc-list">
+                <li>
+                    <div class="mdc-list-item mdc-list-item--selected">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Formato de planeación">Formato de planeación</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Etiquetas de colecta">Etiquetas de colecta</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Etiquetas de herbario">Etiquetas de herbario</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+            </ul>
+        </aside>
+
+        <!-- 2da columna -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna">
+            <header class="encabezado-section">
+                <h5 class="mdc-typography--headline5">Nombre de la colecta</h5>
+                <p class="mdc-typography--body2">15 colectores</p>
+            </header>
+            <article>
+                <header class="encabezado-article">
+                    <h6 class="mdc-typography--headline6">Formato de planeacion</h6>
+                    <button class="mdc-icon-button material-icons" title="Ver PDF">picture_as_pdf</button>
+                </header>
+                <ul class="lista-info-consulta">
+                    <li>
+                        <p class="mdc-typography--body1 h7">Responsable</p>
+                        <p class="mdc-typography--body1 texto-info">M. C. Juan Alberto Pérez Martínez</p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Objetivo</p>
+                        <p class="mdc-typography--body1 texto-info">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Phasellus sed luctus urna. Mauris eget lectus ac justo aliquam mollis in vitae nunc. 
+                            Sed ut molestie tortor, vitae tempus diam.
+                        </p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Tipo de colecta</p>
+                        <p class="mdc-typography--body1 texto-info">Exploratoria</p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Fecha de colecta</p>
+                        <p class="mdc-typography--body1 texto-info">22/11/2018</p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Lugar de colecta</p>
+                        <p class="mdc-typography--body1 texto-info">San Martín Toxpalan</p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Especies de interés</p>
+                        <p class="mdc-typography--body1 texto-info">Ninguna</p>
+                    </li>
+                    <li>
+                        <p class="mdc-typography--body1 h7">Material de campo</p>
+                        <p class="mdc-typography--body1 texto-info">
+                            <ul>
+                                <li>Tijeras de podar</li>
+                                <li>Navaja o cuchillo</li>   
+                                <li>Lupa</li>     
+                                <li>Cinta métrica</li>
+                                <li>Bolsas de plástico de diferentes tamaños</li>
+                                <li>Papel periódico</li>
+                                <li>Cartón corrugado</li>
+                                <li>Prensa portátil</li>
+                                <li>GPS manual</li>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <h6 class="mdc-typography--headline6 h7">Información de consulta</h6>
+                        <p class="mdc-typography--body1 texto-info">
+                            <ul>
+                                <li><a href="www.ib.unam.mx/botanica/herbario">Herbario Nacional de México (MEXU)</a></li>
+                                <li><a href="www.conabio.gob.mx/otros/cgi-bin/herbario.cgi">Herbario Virtual CONABIO</a></li> 
+                                <li><a href="#">Plantas de la Reserva de la Biosfera Tehuacán - Cuicatlán Vol. 1</a></li>     
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <h6 class="mdc-typography--headline6 h7">Información adicional</h6>
+                        <p class="mdc-typography--body1 texto-info">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Phasellus sed luctus urna. Mauris eget lectus ac justo aliquam mollis in vitae nunc. 
+                            Sed ut molestie tortor, vitae tempus diam.
+                        </p>
+                    </li>
+                </ul>
+            </article>
+        </section>
+    </body>
+</html>

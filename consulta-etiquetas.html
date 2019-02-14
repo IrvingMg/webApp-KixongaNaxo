@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Consultar</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="bundle.css">
+        <script src="bundle.js" async></script>
+    </head>
+    <body class="mdc-typography">
+
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar">
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                    <a href="planeaciones.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Mis planeaciones</span>
+                        </button>
+                    </a>
+                    <a href="etiquetas.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Mis etiquetas</span>
+                        </button>
+                    </a>
+                    <a href="index.html" class="enlace-boton">
+                        <button class="mdc-button mdc-button--raised bar-nav-boton">
+                            <span class="mdc-button__label">Cerrar sesión</span>
+                        </button>
+                    </a>
+                </section>
+            </div>
+        </nav>
+
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 encabezado-body">
+            <h4 class="mdc-typography--headline4">Consultar</h4>
+            <p class="mdc-typography--body2">Examine la información de colecta.</p>
+        </header>
+
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Consultar</a>
+            </li>
+        </ol>
+        
+        <!-- Contenido -->
+        <!-- 1ra columna -->
+        <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral cont-columna">
+            <h6 class="mdc-typography--headline6">Información de colecta</h6>
+            <ul class="mdc-list">
+                <li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Formato de planeación">Formato de planeación</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item mdc-list-item--selected">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Etiquetas de colecta">Etiquetas de colecta</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+                <li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                        <span class="mdc-list-item__text" title="Etiquetas de herbario">Etiquetas de herbario</span>
+                    </div>
+                </li>
+                <li class="mdc-list-divider"></li>
+            </ul>
+        </aside>
+
+        <!-- 2da columna -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna">
+            <header class="encabezado-section">
+                <h5 class="mdc-typography--headline5">Nombre de la colecta</h5>
+                <p class="mdc-typography--body2">15 colectores</p>
+            </header>
+            <article>
+                <header class="encabezado-article">
+                    <h6 class="mdc-typography--headline6">Etiquetas de colecta</h6>
+                </header>
+                <ul class="lista-info-consulta">
+                    <li class="campo-ing-dato">
+                        <div class="mdc-select mdc-select--outlined">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetas-colector" class="mdc-floating-label">Nombre del colector</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                            <select name="nombre-colector" id="etiquetas-colector" class="mdc-select__native-control">
+                                <option disabled selected></option>
+                                <option>Colector #1</option>
+                                <option>Colector #2</option>
+                                <option>Colector #3</option>
+                                <option>Colector #4</option>
+                                <option>Colector #5</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <ul class="mdc-list lista-icono2-intermedio">
+                            <li>
+                                <div class="mdc-list-item">
+                                    <span class="mdc-list-item__text" title="Nombre del ejemplar #1">Nombre del ejemplar #1</span>
+                                </div>
+                                <button class="mdc-icon-button material-icons" title="Ver etiqueta">picture_as_pdf</button>
+                                <button class="mdc-icon-button material-icons" title="Ver fotografías">photo_library</button>
+                            </li>
+                            <li class="mdc-list-divider"></li>
+                            <li>
+                                <div class="mdc-list-item">
+                                    <span class="mdc-list-item__text" title="Nombre del ejemplar #2">Nombre del ejemplar #2</span>
+                                </div>
+                                <button class="mdc-icon-button material-icons" title="Ver etiqueta">picture_as_pdf</button>
+                                <button class="mdc-icon-button material-icons" title="Ver fotografías">photo_library</button>
+                            </li>
+                            <li class="mdc-list-divider"></li>
+                            <li>
+                                <div class="mdc-list-item">
+                                    <span class="mdc-list-item__text" title="Nombre del ejemplar #3">Nombre del ejemplar #3</span>
+                                </div>
+                                <button class="mdc-icon-button material-icons" title="Ver etiqueta">picture_as_pdf</button>
+                                <button class="mdc-icon-button material-icons" title="Ver fotografías">photo_library</button>
+                            </li>
+                            <li class="mdc-list-divider"></li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+        </section>
+    </body>
+</html>

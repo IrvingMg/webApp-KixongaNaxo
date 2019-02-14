@@ -3,11 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>Iniciar sesión</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="bundle.css">
         <script src="bundle.js" async></script>
     </head>
     <body class="mdc-typography">
+
         <!-- Barra de navegación -->
         <nav class="mdc-top-app-bar">
             <div class="mdc-top-app-bar__row">
@@ -18,9 +20,9 @@
         </nav>
             
         <!-- Encabezado -->
-        <header class="mdc-elevation--z10 titulos-encabezado">
-            <h1>Iniciar sesión</h1>
-            <p>Identificarse en el sistema</p>
+        <header class="mdc-elevation--z10 encabezado-body">
+            <h4 class="mdc-typography--headline4">Iniciar sesión</h4>
+            <p class="mdc-typography--body2">Ingrese su correo y contraseña para identificrase en el sistema.</p>
         </header>
 
         <!-- Ruta de navegación -->
@@ -33,13 +35,13 @@
             </li>
         </ol>
         
-        <!-- Contenedor -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno alinear-centro">
+        <!-- Contenido -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro">
 
             <!-- Formulario para iniciar sesión -->
             <form>
                 <ol>
-                    <li class="form-campo">
+                    <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
                             <input type="email" name="correo" id="iniciar-sesion-correo" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
@@ -51,7 +53,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="form-campo">
+                    <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
                             <input type="password" name="contrasenia" id="iniciar-sesion-contrasenia" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
@@ -66,14 +68,19 @@
                 </ol>
             </form>
 
-            <!-- Acciones -->
+            <!-- Acciones del contenedor -->
             <footer>
-                <p class="texto-ayuda">
+                <p class="form-texto-ayuda">
                     <a href="#" class="mdc-typography--subtitle2">¿Olvidaste tu contraseña?</a>
                 </p>
-                <a href="index-usuario.html" class="enlace-boton">
+                <a href="index.html" class="enlace-boton">
                     <button class="mdc-button mdc-button--raised boton-principal">
                         <span class="mdc-button__label">Iniciar sesión</span>
+                    </button>
+                </a>
+                <a href="registrar.html" class="enlace-boton">
+                    <button class="mdc-button mdc-button--outlined boton-secundario">
+                        <span class="mdc-button__label">Regístrate</span>
                     </button>
                 </a>
             </footer>

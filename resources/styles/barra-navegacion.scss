@@ -1,12 +1,14 @@
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/button/mdc-button";
 
+//Estilos - barra-navegacion.scss
 .mdc-top-app-bar {
     position: static;
     color: #ffffff;
     @include mdc-top-app-bar-fill-color(#003c8f);
 }
 
-.boton-menu {
-    margin-left: 10px; 
+.bar-nav-boton {
+    margin-left: 12px; 
 }
+//Fin
