@@ -9,6 +9,25 @@ form ol {
     text-align: center;
 }
 
+/* Regla para eliminar * de campos obligatorios */
+.mdc-floating-label::after {
+    display: none;
+}
+
+/* Reglas para icono-boton dentro de un campo */
+.mdc-icon-toggle {
+    height: fit-content;
+    margin: 16px 12px;
+}
+
+.mdc-icon-toggle:focus {
+    outline: none;
+}
+
+.mdc-icon-toggle:hover {
+    cursor: pointer;
+}
+
 /* Regla para etiquetas de la lista de imágenes */
 .campo-ing-dato .mdc-image-list--with-text-protection .mdc-image-list__supporting {
     padding: 0 5px;

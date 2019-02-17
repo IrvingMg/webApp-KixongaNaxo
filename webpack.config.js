@@ -19,7 +19,7 @@ function getStyleUse(bundleFilename) {
 
 module.exports = [
     {
-        entry: './resources/styles/aplicacion-web.scss',
+        entry: './public/resources/styles/aplicacion-web.scss',
         output: {
           // This is necessary for webpack to compile, but we never reference this js file.
           filename: 'style-bundle.js',
@@ -27,14 +27,16 @@ module.exports = [
         module: {
           rules: [{
             test: /\.scss$/,
-            use: getStyleUse('bundle.css')
+            use: getStyleUse('./public/bundle.css')
           }]
         },
     },
     {
-        entry: "./resources/scripts/aplicacion-web.js",
+        entry: [
+          "./public/resources/scripts/mdcomponents.js",
+        ],
         output: {
-          filename: "bundle.js"
+          filename: "./public/bundle.js"
         },
         module: {
           loaders: [{

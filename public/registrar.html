@@ -5,8 +5,16 @@
         <title>Registrar</title>
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
         <script src="bundle.js" async></script>
+        <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
 
@@ -39,11 +47,11 @@
         <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro">
 
             <!-- Formulario para registrarse -->
-            <form>
+            <form id="form-registrar">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="nombre" id="registrar-nombre" class="mdc-text-field__input">
+                            <input type="text" name="nombre" id="registrar-nombre" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -55,11 +63,11 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="email" name="correo" id="registrar-correo" class="mdc-text-field__input">
+                            <input type="email" name="correo" id="reg-correo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                        <label for="registrar-correo" class="mdc-floating-label">Correo</label>
+                                        <label for="reg-correo" class="mdc-floating-label">Correo</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -67,42 +75,33 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="password" name="contrasenia" id="registrar-contrasenia" class="mdc-text-field__input">
+                            <input type="password" name="contrasenia" id="reg-contrasena" class="mdc-text-field__input" minlength="6" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="registrar-contrasenia" class="mdc-floating-label">Contraseña</label>
+                                    <label for="reg-contrasena" class="mdc-floating-label">Contraseña</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
+                                
                             </div>
-                        </div>
-                    </li>
-                    <li class="campo-ing-dato">
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="password" name="confirmacion" id="registrar-confirmacion" class="mdc-text-field__input">
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="registrar-confirmacion" class="mdc-floating-label">Confirmar contraseña</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
+                            <i class="mdc-icon-toggle material-icons" id="contrasena-visible" title="Mostrar contraseña">visibility</i>
                         </div>
                     </li>
                 </ol>
+                <!-- Acciones -->
+                <footer>
+                    <button type="submit" class="mdc-button mdc-button--raised boton-principal">
+                        <span class="mdc-button__label">Registrarse</span>
+                    </button>
+                    <a href="iniciar-sesion.html" class="enlace-boton">
+                        <button type="button" class="mdc-button mdc-button--outlined boton-secundario">
+                            <span class="mdc-button__label">Inicia sesión</span>
+                        </button>
+                    </a>
+                </footer>
             </form>
 
-            <!-- Acciones -->
-            <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
-                    <span class="mdc-button__label">Registrarse</span>
-                </button>
-                <a href="iniciar-sesion.html" class="enlace-boton">
-                    <button class="mdc-button mdc-button--outlined boton-secundario">
-                        <span class="mdc-button__label">Inicia sesión</span>
-                    </button>
-                </a>
-            </footer>
+
         </section>
     </body>
 </html>

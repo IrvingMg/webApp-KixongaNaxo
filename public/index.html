@@ -6,27 +6,24 @@
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
         <script src="bundle.js" async></script>
+        <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
 
         <!-- Barra de navegación -->
-        <nav class="mdc-top-app-bar">
+        <nav class="mdc-top-app-bar" >
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                         <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-                    <a href="iniciar-sesion.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised bar-nav-boton">
-                            <span class="mdc-button__label">Iniciar sesión</span>
-                        </button>
-                    </a>
-                    <a href="registrar.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised bar-nav-boton">
-                            <span class="mdc-button__label">Registrarse</span>
-                        </button>
-                    </a>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
                 </section>
             </div>
         </nav>

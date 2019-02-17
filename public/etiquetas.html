@@ -7,9 +7,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
         <script src="bundle.js" async></script>
+        <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
-    <body class="mdc-typography">
+    <body class="mdc-typography" id="no-publico">
 
         <!-- Barra de navegación -->
         <nav class="mdc-top-app-bar">

@@ -6,7 +6,13 @@
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
         <script src="bundle.js" async></script>
+        <!-- Script para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
 
@@ -39,11 +45,11 @@
         <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro">
 
             <!-- Formulario para iniciar sesión -->
-            <form>
+            <form id="form-login">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="email" name="correo" id="iniciar-sesion-correo" class="mdc-text-field__input">
+                            <input type="email" name="correo" id="iniciar-sesion-correo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -55,35 +61,32 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="password" name="contrasenia" id="iniciar-sesion-contrasenia" class="mdc-text-field__input">
+                            <input type="password" name="contrasena" id="iniciar-sesion-contrasena" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="iniciar-sesion-contrasenia" class="mdc-floating-label">Contraseña</label>
+                                    <label for="iniciar-sesion-contrasena" class="mdc-floating-label">Contraseña</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
                         </div>
                     </li>
                 </ol>
-            </form>
-
-            <!-- Acciones del contenedor -->
-            <footer>
-                <p class="form-texto-ayuda">
-                    <a href="#" class="mdc-typography--subtitle2">¿Olvidaste tu contraseña?</a>
-                </p>
-                <a href="index.html" class="enlace-boton">
-                    <button class="mdc-button mdc-button--raised boton-principal">
+                <!-- Acciones -->
+                <footer>
+                    <p class="form-texto-ayuda">
+                        <a href="#" class="mdc-typography--subtitle2">¿Olvidaste tu contraseña?</a>
+                    </p>
+                    <button type="submit" class="mdc-button mdc-button--raised boton-principal">
                         <span class="mdc-button__label">Iniciar sesión</span>
                     </button>
-                </a>
-                <a href="registrar.html" class="enlace-boton">
-                    <button class="mdc-button mdc-button--outlined boton-secundario">
-                        <span class="mdc-button__label">Regístrate</span>
-                    </button>
-                </a>
-            </footer>
+                    <a href="registrar.html" class="enlace-boton">
+                        <button type="button" class="mdc-button mdc-button--outlined boton-secundario">
+                            <span class="mdc-button__label">Regístrate</span>
+                        </button>
+                    </a>
+                </footer>
+            </form>
         </section>
     </body>
 </html>
