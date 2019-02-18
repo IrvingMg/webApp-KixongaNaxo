@@ -13,6 +13,7 @@
         <script src="bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="resources/scripts/firebase-config.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography" id="no-publico">
@@ -23,22 +24,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-                    <a href="planeaciones.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised bar-nav-boton">
-                            <span class="mdc-button__label">Mis planeaciones</span>
-                        </button>
-                    </a>
-                    <a href="etiquetas.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised bar-nav-boton">
-                            <span class="mdc-button__label">Mis etiquetas</span>
-                        </button>
-                    </a>
-                    <a href="index.html" class="enlace-boton">
-                        <button class="mdc-button mdc-button--raised bar-nav-boton">
-                            <span class="mdc-button__label">Cerrar sesión</span>
-                        </button>
-                    </a>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
                 </section>
             </div>
         </nav>

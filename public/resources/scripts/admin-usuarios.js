@@ -1,3 +1,4 @@
+/* Funciones para el registro de usuarios */
 function crearCuenta() {
     const formValores = $("#form-registrar").serializeArray();
     const nombre = formValores[0].value;
@@ -55,4 +56,29 @@ function visibilidadContrasena() {
     elemento.html(icono);
     elemento.attr("title", tituloValor);
     $("#reg-contrasena").attr("type", tipoValor);
+}
+
+/* Funciones para el inicio/cierre de sesión de usuarios*/
+function iniciarSesion() {
+    const formValores = $("#form-login").serializeArray();
+    const email = formValores[0].value;
+    const password = formValores[1].value;
+    
+    event.preventDefault();
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function() {
+        window.location.replace("index.html");
+    })
+    .catch(function(error) {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
+}
+
+function cerrarSesion() {
+    firebase.auth().signOut()
+    .catch(function(error) {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
 }

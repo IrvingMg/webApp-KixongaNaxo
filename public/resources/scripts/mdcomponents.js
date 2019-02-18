@@ -61,5 +61,7 @@ function componentesMDC() {
         MDCIconToggle.attachTo(document.querySelector('.mdc-icon-toggle'));
     }
 }
-/* Eliminar para producción e incluir en la función init */
-componentesMDC();
+
+$(document).ready(function() {
+    componentesMDC();
+});

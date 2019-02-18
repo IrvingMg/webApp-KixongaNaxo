@@ -3,12 +3,12 @@ function permisoPagina() {
     const permiso = $("body").attr("id");
 
     if (permiso === "no-publico") {
-        window.location.replace("iniciar-sesion.html");
+        window.location.replace("index.html");
     }
 }
 
 /* Recibe un valor booleando indicando si se ha iniciado sesión
-y retorna una cadena con las opciones a mostrar en la barra de navegación */
+y genera una cadena con las opciones de la barra de navegación */
 function opcionesBarNavegacion(sesion) {
     let opcionesBarNav;
     
@@ -24,11 +24,9 @@ function opcionesBarNavegacion(sesion) {
                     <span class="mdc-button__label">Mis etiquetas</span>
                 </button>
             </a>
-            <a href="index.html" class="enlace-boton">
-                <button class="mdc-button mdc-button--raised bar-nav-boton">
-                    <span class="mdc-button__label">Cerrar sesión</span>
-                </button>
-            </a>`;
+            <button type="button" class="mdc-button mdc-button--raised bar-nav-boton" id="cerrar-sesion">
+                <span class="mdc-button__label">Cerrar sesión</span>
+            </button>`;
     } else {
         opcionesBarNav =
             `<a href="iniciar-sesion.html" class="enlace-boton">
@@ -47,32 +45,39 @@ function opcionesBarNavegacion(sesion) {
 }
 
 function init() {
+    let sesionIniciada;
+
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          console.log(displayName);
-          console.log(email);
-          console.log(emailVerified);
-            opcionesBarNavegacion(true);
+            sesionIniciada = true;
+            console.log("Sesión iniciada");
+            
         } else {
             permisoPagina();
-            opcionesBarNavegacion(false);
+            sesionIniciada = false;
+            console.log("Sesión cerrada");
         }
+        opcionesBarNavegacion(sesionIniciada);
+
+        //Eventos
+        $("#contrasena-visible").click(function() {
+            visibilidadContrasena();
+        });
+    
+        $("#form-registrar").submit(function() {
+            crearCuenta();
+        });
+    
+        $("#form-login").submit(function() {
+            iniciarSesion();
+        });
+
+        $("#cerrar-sesion").click(function() {
+            cerrarSesion();
+        });
     });
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
     init();
-
-    //Funciones de admin-usuarios.js
-    $("#contrasena-visible").click(function(){
-        visibilidadContrasena();
-    });
-
-    $("#form-registrar").submit(function(){
-        crearCuenta();
-    });
-    //Fin
 });
