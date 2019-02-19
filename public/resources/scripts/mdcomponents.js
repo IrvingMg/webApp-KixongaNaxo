@@ -8,13 +8,14 @@ import {MDCFormField} from '@material/form-field';
 import {MDCRadio} from '@material/radio';
 import {MDCList} from '@material/list';
 import {MDCIconToggle} from '@material/icon-toggle';
+import {MDCSnackbar} from '@material/snackbar';
 
 /* Instancias de Material Design Componentes for Web */
 function componentesMDC() {
     //Instancias comunes
     const topAppBarElement = document.querySelector('.mdc-top-app-bar');
     const topAppBar = new MDCTopAppBar(topAppBarElement);
-    const selector = '.mdc-button, .mdc-card__primary-action';
+    const selector = '.mdc-button, mdc-icon-button, .mdc-card__primary-action';
     const ripples = [].map.call(document.querySelectorAll(selector), function(el) {  
         return new MDCRipple(el);
     });
@@ -59,6 +60,10 @@ function componentesMDC() {
 
     if (document.querySelector('.mdc-icon-toggle')) {
         MDCIconToggle.attachTo(document.querySelector('.mdc-icon-toggle'));
+    }
+
+    if (document.querySelector('.mdc-snackbar')) {
+        const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'))
     }
 }
 

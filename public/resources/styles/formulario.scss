@@ -9,12 +9,12 @@ form ol {
     text-align: center;
 }
 
-/* Regla para eliminar * de campos obligatorios */
+/* Estilo para eliminar * de campos obligatorios */
 .mdc-floating-label::after {
     display: none;
 }
 
-/* Reglas para icono-boton dentro de un campo */
+/* Estilos para icono-boton dentro de un campo */
 .mdc-icon-toggle {
     height: fit-content;
     margin: 16px 12px;
@@ -28,7 +28,7 @@ form ol {
     cursor: pointer;
 }
 
-/* Regla para etiquetas de la lista de imágenes */
+/* Estilo para etiquetas de la lista de imágenes */
 .campo-ing-dato .mdc-image-list--with-text-protection .mdc-image-list__supporting {
     padding: 0 5px;
 }
@@ -37,7 +37,7 @@ form ol {
     width: 100%;
 }
 
-/* Reglas para fila de campos con múltiples columnas */
+/* Estilos para fila de campos con múltiples columnas */
 .campo-ing-dato-row {
     padding: 0;
     margin-top: 12px; 
@@ -65,7 +65,7 @@ form ol {
     width: 100%;
 }
 
-/* Reglas para texto de ayuda dentro de formulario */
+/* Estilos para texto de ayuda dentro de formulario */
 .form-texto-ayuda a{
     color: #000000;
     text-decoration: none;

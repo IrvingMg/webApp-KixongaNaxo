@@ -4,7 +4,7 @@
 @import "@material/tab/mdc-tab";
 
 //Estilos - encabezado.scss
-/* Reglas para el encabezado del elemento 'body' */
+/* Estilos para el encabezado del elemento 'body' */
 .encabezado-body {
     padding: 32px;
     background-color: #ffffff;
@@ -15,7 +15,7 @@
     font-weight: 500;
 }
 
-/* Reglas para el encabezado del elemento 'body' con botón a la derecha */
+/* Estilos para el encabezado del elemento 'body' con botón a la derecha */
 .encabezado-body-texto {
     float: left;
     width: 50%;
@@ -25,7 +25,7 @@
     float: right;
 }
 
-/* Reglas para el menú de pestañas */
+/* Estilos para el menú de pestañas */
 .encabezado-menu-tab {
     float: right;
     width: 49%;
@@ -47,7 +47,7 @@
     font-weight: 400;
 }
 
-/* Reglas para el encabezado del elemento 'section' */
+/* Estilos para el encabezado del elemento 'section' */
 .encabezado-section {
     margin-bottom: 12px;
     border-bottom: 1px;
@@ -56,7 +56,7 @@
     padding-bottom: 12px;
 }
 
-/* Reglas para el encabezado del elemento 'article' */
+/* Estilos para el encabezado del elemento 'article' */
 .encabezado-article h6 {
     display: inline;
     font-weight: 400;
@@ -66,7 +66,7 @@
     float: right;
 }
 
-/* Reglas para el encabezado con filtro de resultados */
+/* Estilos para el encabezado con filtro de resultados */
 .encabezado-filtro .mdc-chip-set {
     float: left;
 }
@@ -76,7 +76,7 @@
     width: auto;
 }
 
-/* Reglas para cambiar el tamaño del componente 'select' */
+/* Estilos para cambiar el tamaño del componente 'select' */
 .encabezado-filtro .mdc-select__native-control {
     font-size: 0.875rem;
     height: 45px;

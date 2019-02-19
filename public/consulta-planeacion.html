@@ -7,7 +7,14 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
         <script src="bundle.js" async></script>
+        <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="resources/scripts/aplicacion-web.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
     </head>
     <body class="mdc-typography">
 
@@ -159,5 +166,16 @@
                 </ul>
             </article>
         </section>
+        
+        <!-- Alerta del sistema -->
+        <div class="mdc-snackbar">
+            <div class="mdc-snackbar__surface">
+                <div class="mdc-snackbar__label">
+                </div>
+                <div class="mdc-snackbar__actions">
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

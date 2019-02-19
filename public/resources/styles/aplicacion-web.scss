@@ -6,6 +6,7 @@
 @import 'contenido';
 @import 'lista';
 @import 'formulario';
+@import "@material/snackbar/mdc-snackbar";
 
 //Estilos - aplicacion-web.scss
 * {
@@ -21,14 +22,14 @@ body {
     text-decoration: none;
 }
 
-/* Regla para campo de ingreso de datos */
+/* Estilo para campo de ingreso de datos */
 .campo-ing-dato {
     display: block;
     margin-top: 12px; 
     margin-bottom: 12px; 
 }
 
-/* Reglas para mostrar información de consulta */
+/* Estilos para mostrar información de consulta */
 .h7 {
     font-weight: 600;
 }
@@ -41,7 +42,7 @@ footer {
     clear: both;
 }
 
-/* Reglas para acciones */
+/* Estilos para acciones */
 .boton-principal {
     margin-top: 12px;
     float: right;
@@ -64,5 +65,28 @@ footer {
     margin-left: 12px;
     margin-bottom: 12px;
     float: left;
+}
+
+/* Estilos para mostrar mensajes del sistema */
+.mensaje-error {
+    @include mdc-snackbar-fill-color(#c62828);
+}
+
+.mensaje-error .mdc-snackbar__label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.mensaje-advertencia {
+    @include mdc-snackbar-fill-color(#ffc740);
+}
+
+.mensaje-advertencia .mdc-snackbar__label {
+    font-weight: 500;
+    color: rgba(0, 0, 0, 1);
+}
+
+.boton-advertencia {
+    color: rgba(0, 0, 0, 1);
 }
 //Fin

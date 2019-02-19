@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title>Iniciar sesión</title>
+        <title>Restablecer contraseña</title>
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -29,8 +29,10 @@
             
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
-            <h4 class="mdc-typography--headline4">Iniciar sesión</h4>
-            <p class="mdc-typography--body2">Ingrese su correo y contraseña para identificrase en el sistema.</p>
+            <h4 class="mdc-typography--headline4">Restablecer contraseña</h4>
+            <p class="mdc-typography--body2">
+                Ingrese su dirección de correo para recibir instrucciones.
+            </p>
         </header>
 
         <!-- Ruta de navegación -->
@@ -39,7 +41,10 @@
                 <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="#" class="mdc-typography--subtitle2">Iniciar sesión</a>
+                <a href="iniciar-sesion.html" class="mdc-typography--subtitle2">Iniciar sesión</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Restablecer contraseña</a>
             </li>
         </ol>
         
@@ -47,11 +52,11 @@
         <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro">
 
             <!-- Formulario para iniciar sesión -->
-            <form id="form-login">
+            <form id="form-restablecer">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="email" name="correo" id="login-correo" class="mdc-text-field__input" required>
+                            <input type="email" name="correo" id="rest-correo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -62,34 +67,13 @@
                         </div>
                         <div class="mdc-text-field-helper-text--validation-msg" hidden>helper text</div>
                     </li>
-                    <li class="campo-ing-dato">
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="password" name="contrasena" id="login-contrasena" class="mdc-text-field__input" required>
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="login-contrasena" class="mdc-floating-label">Contraseña</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                            <i class="mdc-icon-toggle material-icons" id="contrasena-visible" title="Mostrar contraseña">visibility</i>
-                        </div>
-                    </li>
                 </ol>
                 
                 <!-- Acciones -->
                 <footer>
-                    <p class="form-texto-ayuda">
-                        <a href="restablecer-contrasena.html" class="mdc-typography--subtitle2">¿Olvidaste tu contraseña?</a>
-                    </p>
                     <button type="submit" class="mdc-button mdc-button--raised boton-principal">
-                        <span class="mdc-button__label">Iniciar sesión</span>
+                        <span class="mdc-button__label">Restablecer</span>
                     </button>
-                    <a href="registrar.html" class="enlace-boton">
-                        <button type="button" class="mdc-button mdc-button--outlined boton-secundario">
-                            <span class="mdc-button__label">Regístrate</span>
-                        </button>
-                    </a>
                 </footer>
             </form>
         </section>

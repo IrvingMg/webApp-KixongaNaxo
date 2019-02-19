@@ -13,18 +13,16 @@ function crearCuenta() {
             displayName: nombre,
           })
           .catch(function(error) {
-            const errorMessage = error.message;
-            console.log(errorMessage);
+            alertaSistema(error.message, "mensaje-error");
         });
         verificarCorreo();
     })
     .catch(function(error){
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        alertaSistema(error.message, "mensaje-error");
     })
 }
 
-function verificarCorreo(){
+function verificarCorreo() {
     const user = firebase.auth().currentUser;
 
     user.sendEmailVerification()
@@ -32,8 +30,20 @@ function verificarCorreo(){
         window.location.replace("index.html");
     })
     .catch(function(error) {
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        alertaSistema(error.message, "mensaje-error");
+    });
+}
+
+function restablecerContrasena() {
+    const correo = $("#rest-correo").val();
+    event.preventDefault();
+
+    firebase.auth().sendPasswordResetEmail(correo).then(function() {
+        $("#rest-correo").focusout();
+        $("#form-restablecer").trigger("reset");
+        alertaSistema("Correo enviado. Revise su correo electrónico y siga las instrucciones.", "");
+    }).catch(function(error) {
+        alertaSistema(error.message, "mensaje-error");
     });
 }
 
@@ -56,6 +66,7 @@ function visibilidadContrasena() {
     elemento.html(icono);
     elemento.attr("title", tituloValor);
     $("#reg-contrasena").attr("type", tipoValor);
+    $("#login-contrasena").attr("type", tipoValor);
 }
 
 /* Funciones para el inicio/cierre de sesión de usuarios*/
@@ -70,15 +81,13 @@ function iniciarSesion() {
         window.location.replace("index.html");
     })
     .catch(function(error) {
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        alertaSistema(error.message, "mensaje-error");
     });
 }
 
 function cerrarSesion() {
     firebase.auth().signOut()
     .catch(function(error) {
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        alertaSistema(error.message, "mensaje-error");
     });
 }

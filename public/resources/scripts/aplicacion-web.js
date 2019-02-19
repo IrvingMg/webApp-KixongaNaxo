@@ -1,3 +1,21 @@
+/* Activa/desactiva alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
+function alertaSistema(mensaje, tipo){
+    if(tipo === "mensaje-error") {
+        $(".mdc-text-field").addClass("mdc-text-field--invalid");
+    }
+    
+    if(tipo === "mensaje-advertencia") {
+        $(".mdc-snackbar__dismiss").addClass("boton-advertencia");
+    }
+    
+    $(".mdc-snackbar").addClass("mdc-snackbar--open " + tipo);
+    $(".mdc-snackbar__label").html(mensaje);
+
+    $("#cerrar-snackbar").click(function() {
+        $(".mdc-snackbar").removeClass("mdc-snackbar--open " + tipo);
+    });
+}
+
 /* Redirecciona en caso de ingresar a una página para usuarios registrados */
 function permisoPagina() {
     const permiso = $("body").attr("id");
@@ -51,7 +69,9 @@ function init() {
         if (user) {
             sesionIniciada = true;
             console.log("Sesión iniciada");
-            
+            if(!user.emailVerified) {
+                alertaSistema("Por favor, verifique su dirección de correo electrónico.", "mensaje-advertencia");
+            }
         } else {
             permisoPagina();
             sesionIniciada = false;
@@ -70,6 +90,10 @@ function init() {
     
         $("#form-login").submit(function() {
             iniciarSesion();
+        });
+
+        $("#form-restablecer").submit(function() {
+            restablecerContrasena();
         });
 
         $("#cerrar-sesion").click(function() {

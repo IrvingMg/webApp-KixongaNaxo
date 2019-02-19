@@ -13,8 +13,8 @@
         <script src="bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="resources/scripts/firebase-config.js"></script>
-        <script src="resources/scripts/admin-usuarios.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
     </head>
     <body class="mdc-typography" id="no-publico">
 
@@ -173,12 +173,23 @@
                 </li>
             </ol>
             
-            <!-- Acciones del contenedor -->
+            <!-- Acciones -->
             <footer>
                 <button class="mdc-button mdc-button--raised boton-principal">
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
         </section>
+
+        <!-- Alerta del sistema -->
+        <div class="mdc-snackbar">
+            <div class="mdc-snackbar__surface">
+                <div class="mdc-snackbar__label">
+                </div>
+                <div class="mdc-snackbar__actions">
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
