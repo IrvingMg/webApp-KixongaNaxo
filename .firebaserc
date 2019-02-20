@@ -1,5 +1,6 @@
 {
   "projects": {
-    "develop": "webapp-kixonganaxo"
+    "develop": "webapp-kixonganaxo",
+    "default": "webapp-kixonganaxo"
   }
 }
