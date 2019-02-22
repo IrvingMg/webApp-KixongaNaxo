@@ -27,16 +27,17 @@ module.exports = [
         module: {
           rules: [{
             test: /\.scss$/,
-            use: getStyleUse('./public/bundle.css')
+            use: getStyleUse('./public/resources/styles/bundle.css')
           }]
         },
     },
     {
         entry: [
           "./public/resources/scripts/mdcomponents.js",
+          //"./firebase-config.js"
         ],
         output: {
-          filename: "./public/bundle.js"
+          filename: "./public/resources/scripts/bundle.js"
         },
         module: {
           loaders: [{

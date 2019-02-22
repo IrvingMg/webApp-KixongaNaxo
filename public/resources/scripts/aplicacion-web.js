@@ -27,20 +27,45 @@ function accesoPagina() {
     });
 }
 
+function criteriofiltro(valorSelect) {
+    let criterio;
+
+    switch(valorSelect) {
+        case "t-asc":
+            criterio = ["titulo", "asc"];
+        break;
+        case "l-asc":
+            criterio = ["lugar", "asc"];
+        break;
+        case "f-asc":
+            criterio = ["fecha", "asc"];
+        break;
+        case "t-desc":
+            criterio = ["titulo", "desc"];
+        break;
+        case "l-desc":
+            criterio = ["lugar", "desc"];
+        break;
+        default:
+            criterio = ["fecha", "desc"];
+    }
+
+    return criterio;
+}
+
 function init() {
     let sesionIniciada;
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             sesionIniciada = true;
-            console.log("Sesión iniciada");
+     
             if(!user.emailVerified) {
                 alertaSistema("Por favor, verifique su dirección de correo electrónico.", "mensaje-advertencia");
             }
         } else {
             accesoPagina();
             sesionIniciada = false;
-            console.log("Sesión cerrada");
         }
         opcionesBarNavegacion(sesionIniciada);
 
@@ -48,11 +73,11 @@ function init() {
         $("#contrasena-visible").click(function() {
             visibilidadContrasena();
         });
-    
+
         $("#form-registrar").submit(function() {
             crearCuenta();
         });
-    
+
         $("#form-login").submit(function() {
             iniciarSesion();
         });
@@ -64,7 +89,38 @@ function init() {
         $("#cerrar-sesion").click(function() {
             cerrarSesion();
         });
-        
+
+        $("#form-nuevaPlaneacion1").submit(function() {
+            crearColecta();
+        });
+
+        let siguienteLote;
+        let ordenarPor;
+        $("#filtro-opciones").ready( function(){
+            ordenarPor = criteriofiltro($("#filtro-opciones").val());
+
+            leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
+                siguienteLote = lote;
+            });
+        });
+
+        $("#filtro-opciones").change(function(){
+            $("#lista-colectas").empty();
+            siguienteLote = null;
+            ordenarPor = criteriofiltro($("#filtro-opciones").val());
+            leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
+                siguienteLote = lote;
+            });
+        });
+
+        $("#mas-colectas").click(function() {
+            if(siguienteLote){
+                leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
+                    siguienteLote = lote;
+                });
+            }
+        });
+
     });
 }
 

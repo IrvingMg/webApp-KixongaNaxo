@@ -6,18 +6,19 @@
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="bundle.css">
+        <link rel="stylesheet" href="resources/styles/bundle.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-functions.js"></script>
-        <script src="bundle.js" async></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
-        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="firebase-config.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/elementos-dinamicos.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
-        
     </head>
     <body class="mdc-typography">
 
@@ -46,13 +47,13 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="contenedor">
 
             <!-- Filtro de resultados -->
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+                        <div class="mdc-chip__text" id="chip-resultados"></div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
@@ -64,79 +65,24 @@
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
                     <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
-                        <option>Titulo: A-Z</option>
-                        <option>Titulo: Z-A</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Fecha: Nueva-Antigua</option>
-                        <option>Lugar: Antigua-Nueva</option>
+                        <option value="t-asc">Titulo: A-Z</option>
+                        <option value="t-desc">Titulo: Z-A</option>
+                        <option value="l-asc">Lugar: A-Z</option>
+                        <option value="l-desc">Lugar: A-Z</option>
+                        <option value="f-asc">Fecha: Nueva-Antigua</option>
+                        <option value="f-desc">Lugar: Antigua-Nueva</option>
                     </select>
                 </div>
             </header>
 
             <!-- Lista de resultados -->
-            <ol class="lista-resultados">
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Titulo de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Titulo de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Titulo de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Titulo de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Titulo de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                    </div>
-                </li>
+            <ol class="lista-resultados" id="lista-colectas">
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
-                    <span class="mdc-button__label">Ver más</span>
+                <button class="mdc-button mdc-button--raised boton-principal" id="btn-primario">
+                    <span class="mdc-button__label" id="mas-colectas">Ver más</span>
                 </button>
             </footer>
         </section>

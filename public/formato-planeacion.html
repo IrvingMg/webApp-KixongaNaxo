@@ -6,14 +6,17 @@
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="bundle.css">
+        <link rel="stylesheet" href="resources/styles/bundle.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
-        <script src="bundle.js" async></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
-        <script src="resources/scripts/firebase-config.js"></script>
+        <script src="firebase-config.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/elementos-dinamicos.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -36,6 +39,7 @@
                 <h4 class="mdc-typography--headline4">Nueva planeación</h4>
                 <p class="mdc-typography--body2">Ingrese la información del formato de planeación de colecta.</p>
             </section>
+
             <!-- Menú de pestañas -->
             <section class="encabezado-menu-tab">
                 <a href="#" class="enlace-boton">
@@ -80,7 +84,7 @@
                 <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="etiquetas.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
+                <a href="planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
             </li>
             <li>
                 <a href="#" class="mdc-typography--subtitle2">Nueva planeación</a>
@@ -92,8 +96,9 @@
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Formato de planeación</h5>
             </header>
+
             <!-- Formulario para el formato de planeación -->
-            <form>
+            <form id="form-nuevaPlaneacion1">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
@@ -109,7 +114,7 @@
                     </li>
                     <li class="campo-ing-dato">                
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="Responsable" id="planeacion-responsable" class="mdc-text-field__input">
+                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -201,14 +206,14 @@
                         </div>
                     </li>
                 </ol>
-            </form>
 
-            <!-- Acciones -->
-            <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
-                    <span class="mdc-button__label">Guardar</span>
-                </button>
-            </footer>
+                <!-- Acciones -->
+                <footer>
+                    <button class="mdc-button mdc-button--raised boton-principal">
+                        <span class="mdc-button__label">Guardar</span>
+                    </button>
+                </footer>
+            </form>            
         </section>
 
         <!-- Alerta del sistema -->
