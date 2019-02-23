@@ -1,4 +1,4 @@
-/* Recibe un valor booleando indicando si se ha iniciado sesión
+/* Recibe un valor booleano indicando si se ha iniciado sesión
 y genera una cadena con las opciones de la barra de navegación */
 function opcionesBarNavegacion(sesionIniciada) {
     let opcionesBarNav;
@@ -41,54 +41,52 @@ function mensajeContenedor(mensaje){
     );
 }
 
-function etiquetaResultados(totalResultados){
-    $("#chip-resultados").html("Resultados " + totalResultados);
-}
-
-function listaColectas(query) {
-    query.forEach(function(doc) {
-        // Verifica que la planeación de la colecta haya finalizado
-        if(doc.data().publico === false) {
-            let item = 
-                `<li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">`+ doc.data().titulo +`</p>
-                                <p class="mdc-typography--body2">`+ doc.data().lugar +`</p>
-                                <p class="mdc-typography--body2">`+ doc.data().fecha +`</p>
-                            </span>
+function itemsLista(resultadosPag, nombreLista) {
+    const docPublico = false;   //Cambiar valor a true
+    let lista = "";
+    
+    if(nombreLista === "lista-colectas") {
+        resultadosPag.forEach(function(doc) {
+            if(doc.data().publico === docPublico) {
+                lista += 
+                    `<li>
+                        <div class="mdc-card mdc-card--outlined">
+                            <div class="mdc-card__primary-action lista-resultados-item">
+                                <span class="mdc-list-item__text">
+                                    <p class="mdc-typography--body1 h7">`+ doc.data().titulo +`</p>
+                                    <p class="mdc-typography--body2">`+ doc.data().lugar +`</p>
+                                    <p class="mdc-typography--body2">`+ doc.data().fecha +`</p>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </li>`;
-            $("#lista-colectas").append(item);
-        }
-    });
-
-}
-
-function listaPrivada(){
-    query.forEach(function(doc){
-        let item = 
-            `<li>
-                <div class="mdc-card mdc-card--outlined">
-                    <div class="mdc-card__primary-action lista-resultados-item">
-                        <span class="mdc-list-item__text">
-                            <p class="mdc-typography--body1 h7">`+ doc.data().titulo +`</p>
-                            <p class="mdc-typography--body2">`+ doc.data().lugar +`</p>
-                            <p class="mdc-typography--body2">`+ doc.data().fecha +`</p>
-                        </span>
-                    </div>
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-buttons">
-                            <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                <i class="material-icons mdc-button__icon">delete</i>
-                                <span class="mdc-button__label">Eliminar</span>
-                            </button>
+                    </li>`;
+            }
+        });
+    } else {
+        resultadosPag.forEach(function(doc) {
+            if(doc.data().publico === docPublico) {
+                lista +=
+                    `<li>
+                        <div class="mdc-card mdc-card--outlined">
+                            <div class="mdc-card__primary-action lista-resultados-item">
+                                <span class="mdc-list-item__text">
+                                    <p class="mdc-typography--body1 h7">`+ doc.data().titulo +`</p>
+                                    <p class="mdc-typography--body2">`+ doc.data().lugar +`</p>
+                                    <p class="mdc-typography--body2">`+ doc.data().fecha +`</p>
+                                </span>
+                            </div>
+                            <div class="mdc-card__actions">
+                                <div class="mdc-card__action-buttons">
+                                    <button class="mdc-button  mdc-card__action mdc-card__action--button">
+                                        <i class="material-icons mdc-button__icon">delete</i>
+                                        <span class="mdc-button__label">Eliminar</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </li>`
-        $("#lista-privada").append(item);
-    });
+                    </li>`;
+            }
+        });
+    }
+    $("#"+nombreLista).html(lista);
 }

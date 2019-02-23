@@ -24,42 +24,40 @@ function crearColecta() {
     });
 }
 
-function leerColectasPaginado(ordenarPor, siguienteLote){
-    const limiteLote = 5;
-    let lote; 
-
-    if(siguienteLote == null){
-        lote = db.collection("colectas").orderBy(ordenarPor[0], ordenarPor[1]).limit(limiteLote);
-    } else {
-        lote = siguienteLote;
-    }
-
-    return lote.get()
-    .then(function (documentSnapshots) {
-        const ultimoVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
-        
-        listaColectas(documentSnapshots);
-
-        if(ultimoVisible){
-            return db.collection("colectas").orderBy(ordenarPor[0], ordenarPor[1]).startAfter(ultimoVisible).limit(limiteLote);
-        } else {
-            return null;
-        }
+/* Obtiene el tamaño de una colección */
+function leerTotalResultados(nombreColeccion) {
+    return db.collection("colectas").where("publico", "==", false).get() //Cambiar valor de 'publico' a true
+    .then(function(docs) {
+        return docs.size;
     });
 }
 
+/* Obtiene resultados de una colección por páginas/lotes */
+function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag) {
+    let pagina; 
 
-function leerColectas(ordenarPor) {
-    db.collection("colectas").orderBy(ordenarPor[0], ordenarPor[1])
-    .get()
-    .then(function(query) {
-        const totalResultados = query.size;
+    // Si es la primera vez que se invoca a la función devuelve la primera página de resultados
+    if(siguientePag == null){
+        pagina = db.collection(nombreColeccion).orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
+    } else {
+        pagina = siguientePag;
+    }
 
-        if(totalResultados != 0) {
-            etiquetaResultados(totalResultados);
-            listaColectas(query);
-        } else {
-            mensajeContenedor("No se encontraron resultados para mostrar.");
-        }
-    });
+    return pagina
+        .get()
+        .then(function (documentSnapshots) {
+            const ultimoVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
+            const resultadosPag = documentSnapshots;
+            let siguientePag;
+
+            //Verifica que existen más resultados por mostrar
+            if(ultimoVisible){
+                siguientePag =  db.collection(nombreColeccion)
+                    .orderBy(ordenCriterio[0], ordenCriterio[1]).startAfter(ultimoVisible).limit(limitePag);
+            } else {
+                siguientePag = null;
+            }
+
+            return {resultadosPag, siguientePag};
+        });
 }

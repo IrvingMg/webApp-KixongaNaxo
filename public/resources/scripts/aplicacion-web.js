@@ -1,4 +1,4 @@
-/* Activa/desactiva alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
+/* Activa o desactiva las alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
 function alertaSistema(mensaje, tipo){
     if(tipo === "mensaje-error") {
         $(".mdc-text-field").addClass("mdc-text-field--invalid");
@@ -27,6 +27,7 @@ function accesoPagina() {
     });
 }
 
+/* Convierte el criterio de ordenamiento en valores válidos para Cloud Firestore */
 function criteriofiltro(valorSelect) {
     let criterio;
 
@@ -53,77 +54,118 @@ function criteriofiltro(valorSelect) {
     return criterio;
 }
 
-function init() {
-    let sesionIniciada;
+/* Función para crear lista de resultados con paginación */
+//Variables globales necesarias para paginar
+let siguientePag;
+let totalResultados;
+let resultadosVisibles = 0;
+function listaResultados(nombreColeccion, nombreLista) {
+    const ordenCriterio = criteriofiltro($("#filtro-opciones").val());
+    const limitePag = 5;
+    
+    leerTotalResultados(nombreColeccion).then(function(total) {
+        totalResultados = total;
 
+        if(totalResultados != 0){
+            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag).then(function(objetoRes) {
+                resultadosVisibles += objetoRes.resultadosPag.size;
+                siguientePag = objetoRes.siguientePag;
+    
+                $("#chip-resultados").html("Resultados " + resultadosVisibles + " de " + totalResultados);
+                itemsLista(objetoRes.resultadosPag, nombreLista);
+    
+                if(resultadosVisibles === totalResultados){
+                    $("#btn-mas").prop("disabled", true); 
+                }
+            });    
+        } else {
+            mensajeContenedor("No se encontraron resultados para mostrar.");
+        }
+    });
+}
+
+/* Manejadores de eventos */
+function eventos() {
+
+    // Barra de navegación 
+    $("#cerrar-sesion").click(function() {
+        cerrarSesion();
+    });
+
+    // Contenido
+    $("#form-registrar").submit(function() {
+        crearCuenta();
+    });
+
+    $("#form-login").submit(function() {
+        iniciarSesion();
+    });
+
+    $("#form-restablecer").submit(function() {
+        restablecerContrasena();
+    });
+
+    $("#form-nuevaPlaneacion1").submit(function() {
+        crearColecta();
+    });
+
+    $("#contrasena-visible").click(function() {
+        visibilidadContrasena();
+    });
+
+    $("#filtro-opciones").change(function(){
+        siguientePag = null;
+        resultadosVisibles = 0;
+        $("#btn-mas").prop("disabled", false); 
+        $(".lista-resultados").empty();
+
+        if($("#lista-colectas").get().length){
+            console.log("Lista colectas");
+            listaResultados("colectas", "lista-colectas");
+        }
+
+        if($("#lista-planeaciones").get().length){
+            console.log("Lista planeaciones");
+            listaResultados("colectas", "lista-planeaciones");
+        }
+    });
+
+    $("#btn-mas").click(function() {
+        if($("#lista-colectas").get().length){
+            listaResultados("colectas", "lista-colectas");
+        }
+
+        if($("#lista-planeaciones").get().length){
+            listaResultados("colectas", "lista-planeaciones");
+        }
+    });
+}
+
+/* Función principal de la aplicación web */
+function aplicacionWeb() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            sesionIniciada = true;
-     
             if(!user.emailVerified) {
                 alertaSistema("Por favor, verifique su dirección de correo electrónico.", "mensaje-advertencia");
             }
         } else {
             accesoPagina();
-            sesionIniciada = false;
         }
-        opcionesBarNavegacion(sesionIniciada);
+        opcionesBarNavegacion(user);
+        eventos();
 
-        //Eventos
-        $("#contrasena-visible").click(function() {
-            visibilidadContrasena();
-        });
+        if($("#lista-colectas").get().length){
+            console.log("Lista colectas");
+            listaResultados("colectas", "lista-colectas");
+        }
 
-        $("#form-registrar").submit(function() {
-            crearCuenta();
-        });
-
-        $("#form-login").submit(function() {
-            iniciarSesion();
-        });
-
-        $("#form-restablecer").submit(function() {
-            restablecerContrasena();
-        });
-
-        $("#cerrar-sesion").click(function() {
-            cerrarSesion();
-        });
-
-        $("#form-nuevaPlaneacion1").submit(function() {
-            crearColecta();
-        });
-
-        let siguienteLote;
-        let ordenarPor;
-        $("#filtro-opciones").ready( function(){
-            ordenarPor = criteriofiltro($("#filtro-opciones").val());
-
-            leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
-                siguienteLote = lote;
-            });
-        });
-
-        $("#filtro-opciones").change(function(){
-            $("#lista-colectas").empty();
-            siguienteLote = null;
-            ordenarPor = criteriofiltro($("#filtro-opciones").val());
-            leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
-                siguienteLote = lote;
-            });
-        });
-
-        $("#mas-colectas").click(function() {
-            if(siguienteLote){
-                leerColectasPaginado(ordenarPor, siguienteLote).then(function(lote){
-                    siguienteLote = lote;
-                });
-            }
-        });
-
+        if($("#lista-planeaciones").get().length){
+            console.log("Lista planeaciones");
+            listaResultados("colectas", "lista-planeaciones");
+        }
     });
 }
 
 $(document).ready(function() {
-    init();   
+    aplicacionWeb();
 });

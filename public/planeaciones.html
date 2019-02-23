@@ -63,7 +63,7 @@
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text">Resultados 1-5 de 10</div>
+                        <div class="mdc-chip__text" id="chip-resultados"></div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
@@ -75,118 +75,23 @@
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
                     <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
-                        <option>Titulo: A-Z</option>
-                        <option>Titulo: Z-A</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Lugar: A-Z</option>
-                        <option>Fecha: Nueva-Antigua</option>
-                        <option>Lugar: Antigua-Nueva</option>
+                        <option value="t-asc">Titulo: A-Z</option>
+                        <option value="t-desc">Titulo: Z-A</option>
+                        <option value="l-asc">Lugar: A-Z</option>
+                        <option value="l-desc">Lugar: Z-A</option>
+                        <option value="f-asc">Fecha: Nueva-Antigua</option>
+                        <option value="f-desc">Lugar: Antigua-Nueva</option>
                     </select>
                 </div>
             </header>
 
             <!-- Lista de resultados -->
             <ol class="lista-resultados" id="lista-planeaciones">
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Planeación - Título de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                    <i class="material-icons mdc-button__icon">delete</i>
-                                    <span class="mdc-button__label">Eliminar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Planeación - Título de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                    <i class="material-icons mdc-button__icon">delete</i>
-                                    <span class="mdc-button__label">Eliminar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Planeación - Título de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                    <i class="material-icons mdc-button__icon">delete</i>
-                                    <span class="mdc-button__label">Eliminar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Planeación - Título de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                    <i class="material-icons mdc-button__icon">delete</i>
-                                    <span class="mdc-button__label">Eliminar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mdc-card mdc-card--outlined">
-                        <div class="mdc-card__primary-action lista-resultados-item">
-                            <span class="mdc-list-item__text">
-                                <p class="mdc-typography--body1 h7">Planeación - Título de la colecta</p>
-                                <p class="mdc-typography--body2">Lugar de colecta</p>
-                                <p class="mdc-typography--body2">DD/MM/AAAA</p>
-                            </span>
-                        </div>
-                        <div class="mdc-card__actions">
-                            <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button">
-                                    <i class="material-icons mdc-button__icon">delete</i>
-                                    <span class="mdc-button__label">Eliminar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
+                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas">
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
