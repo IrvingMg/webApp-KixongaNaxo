@@ -16,6 +16,7 @@
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/elementos-dinamicos.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -78,79 +79,15 @@
         </aside>
 
         <!-- 2da columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna" id="formato-planeacion">
             <header class="encabezado-section">
-                <h5 class="mdc-typography--headline5">Nombre de la colecta</h5>
-                <p class="mdc-typography--body2">15 colectores</p>
             </header>
             <article>
                 <header class="encabezado-article">
                     <h6 class="mdc-typography--headline6">Formato de planeacion</h6>
-                    <button class="mdc-icon-button material-icons" title="Ver PDF">picture_as_pdf</button>
+                    <button class="mdc-icon-button material-icons" title="Ver PDF" id="formato-pdf">picture_as_pdf</button>
                 </header>
                 <ul class="lista-info-consulta">
-                    <li>
-                        <p class="mdc-typography--body1 h7">Responsable</p>
-                        <p class="mdc-typography--body1 texto-info">M. C. Juan Alberto Pérez Martínez</p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Objetivo</p>
-                        <p class="mdc-typography--body1 texto-info">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus sed luctus urna. Mauris eget lectus ac justo aliquam mollis in vitae nunc. 
-                            Sed ut molestie tortor, vitae tempus diam.
-                        </p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Tipo de colecta</p>
-                        <p class="mdc-typography--body1 texto-info">Exploratoria</p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Fecha de colecta</p>
-                        <p class="mdc-typography--body1 texto-info">22/11/2018</p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Lugar de colecta</p>
-                        <p class="mdc-typography--body1 texto-info">San Martín Toxpalan</p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Especies de interés</p>
-                        <p class="mdc-typography--body1 texto-info">Ninguna</p>
-                    </li>
-                    <li>
-                        <p class="mdc-typography--body1 h7">Material de campo</p>
-                        <p class="mdc-typography--body1 texto-info">
-                            <ul>
-                                <li>Tijeras de podar</li>
-                                <li>Navaja o cuchillo</li>   
-                                <li>Lupa</li>     
-                                <li>Cinta métrica</li>
-                                <li>Bolsas de plástico de diferentes tamaños</li>
-                                <li>Papel periódico</li>
-                                <li>Cartón corrugado</li>
-                                <li>Prensa portátil</li>
-                                <li>GPS manual</li>
-                            </ul>
-                        </p>
-                    </li>
-                    <li>
-                        <h6 class="mdc-typography--headline6 h7">Información de consulta</h6>
-                        <p class="mdc-typography--body1 texto-info">
-                            <ul>
-                                <li><a href="www.ib.unam.mx/botanica/herbario">Herbario Nacional de México (MEXU)</a></li>
-                                <li><a href="www.conabio.gob.mx/otros/cgi-bin/herbario.cgi">Herbario Virtual CONABIO</a></li> 
-                                <li><a href="#">Plantas de la Reserva de la Biosfera Tehuacán - Cuicatlán Vol. 1</a></li>     
-                            </ul>
-                        </p>
-                    </li>
-                    <li>
-                        <h6 class="mdc-typography--headline6 h7">Información adicional</h6>
-                        <p class="mdc-typography--body1 texto-info">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus sed luctus urna. Mauris eget lectus ac justo aliquam mollis in vitae nunc. 
-                            Sed ut molestie tortor, vitae tempus diam.
-                        </p>
-                    </li>
                 </ul>
             </article>
         </section>

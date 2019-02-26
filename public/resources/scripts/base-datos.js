@@ -7,7 +7,11 @@ function crearColecta() {
     event.preventDefault();
     
     for(let i = 0; i < formValores.length; i++){
-        planeacion[formValores[i].name] = formValores[i].value;
+        if(formValores[i].value != "") {
+            planeacion[formValores[i].name] = formValores[i].value;
+        } else {
+            planeacion[formValores[i].name] = "No hay información disponible."
+        }
     }
     planeacion["id_usuario"] = user.uid;
     planeacion["id_participantes"] = [];
@@ -60,4 +64,12 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
 
             return {resultadosPag, siguientePag};
         });
+}
+
+/* Obtiene un documento a parti de su ID */
+function leerDocumento(docId) {
+    return db.collection("colectas").doc(docId).get() //Cambiar valor de 'publico' a true
+    .then(function(doc) {
+        return doc;
+    });
 }

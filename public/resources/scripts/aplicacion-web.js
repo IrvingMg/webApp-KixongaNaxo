@@ -139,6 +139,16 @@ function eventos() {
             listaResultados("colectas", "lista-planeaciones");
         }
     });
+
+    $("#lista-colectas").on("click", "li", function() {
+        const docId = $(this).attr("id");
+        window.location.replace("consulta-planeacion.html?query=" + docId);
+    });
+
+    if($("#formato-planeacion").get().length){
+        console.log("Leer..");
+        formatoPlaneacion();
+    }
 }
 
 /* Función principal de la aplicación web */
@@ -169,3 +179,32 @@ function aplicacionWeb() {
 $(document).ready(function() {
     aplicacionWeb();
 });
+
+function formatoPlaneacion() {
+    const docId = location.search.substring(7);
+
+    leerDocumento(docId).then(function(documento) {
+        console.log(documento.data());
+        const encabezado =
+        `<h5 class="mdc-typography--headline5">`+ documento.data().titulo +`</h5>
+        <p class="mdc-typography--body2">`+ documento.data().id_participantes.length +` colectores</p>`;
+        $(".encabezado-section").html(encabezado);
+
+        const nombre = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
+            "Lugar de colecta", "Especies de interés", "Material de campo", 
+            "Información de consulta","Información adicional"];
+        const indiceVal = ["responsable", "objetivo", "tipo", "fecha", "lugar", 
+            "especies", "material-campo", "info-consulta","info-adicional"];
+
+        let formato = "";
+        for(let i = 0; i < nombre.length; i++) {
+            formato += 
+            `<li>
+                <p class="mdc-typography--body1 h7">`+ nombre[i] +`</p>
+                <p class="mdc-typography--body1 texto-info">` +  documento.data()[indiceVal[i]] + `</p>
+            </li>
+            `;
+        } 
+        $(".lista-info-consulta").html(formato);
+    });
+}

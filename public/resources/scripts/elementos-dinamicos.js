@@ -49,7 +49,7 @@ function itemsLista(resultadosPag, nombreLista) {
         resultadosPag.forEach(function(doc) {
             if(doc.data().publico === docPublico) {
                 lista += 
-                    `<li>
+                    `<li id="`+ doc.id +`">
                         <div class="mdc-card mdc-card--outlined">
                             <div class="mdc-card__primary-action lista-resultados-item">
                                 <span class="mdc-list-item__text">
@@ -66,7 +66,7 @@ function itemsLista(resultadosPag, nombreLista) {
         resultadosPag.forEach(function(doc) {
             if(doc.data().publico === docPublico) {
                 lista +=
-                    `<li>
+                    `<li id="`+ doc.id +`">
                         <div class="mdc-card mdc-card--outlined">
                             <div class="mdc-card__primary-action lista-resultados-item">
                                 <span class="mdc-list-item__text">
