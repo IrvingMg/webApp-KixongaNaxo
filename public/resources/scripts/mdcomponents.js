@@ -9,6 +9,7 @@ import {MDCRadio} from '@material/radio';
 import {MDCList} from '@material/list';
 import {MDCIconToggle} from '@material/icon-toggle';
 import {MDCSnackbar} from '@material/snackbar';
+import {MDCDialog} from '@material/dialog';
 
 /* Instancias de Material Design Componentes for Web */
 function componentesMDC() {
@@ -64,6 +65,10 @@ function componentesMDC() {
 
     if (document.querySelector('.mdc-snackbar')) {
         const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'))
+    }
+
+    if(document.querySelector('.mdc-dialog')) {
+        const dialog = new MDCDialog(document.querySelector('.mdc-dialog'));
     }
 }
 

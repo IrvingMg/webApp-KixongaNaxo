@@ -1,3 +1,14 @@
+/* Controla el acceso a páginas de usuarios no registrados */
+function accesoPagina() {
+    $.post( "http://localhost:5001/webapp-kixonganaxo/us-central1/accesoPagina", //Cambiar URL para producción 
+        { urlPath: window.location.pathname }
+    ).done(function(data) {
+        if(!data){
+            window.location.replace("iniciar-sesion.html");
+        }
+    });
+}
+
 /* Activa o desactiva las alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
 function alertaSistema(mensaje, tipo){
     if(tipo === "mensaje-error") {
@@ -13,17 +24,6 @@ function alertaSistema(mensaje, tipo){
 
     $("#cerrar-snackbar").click(function() {
         $(".mdc-snackbar").removeClass("mdc-snackbar--open " + tipo);
-    });
-}
-
-/* Controla el acceso a páginas de usuarios no registrados */
-function accesoPagina() {
-    $.post( "http://localhost:5001/webapp-kixonganaxo/us-central1/accesoPagina", //Cambiar URL para producción 
-        { urlPath: window.location.pathname }
-    ).done(function(data) {
-        if(!data){
-            window.location.replace("iniciar-sesion.html");
-        }
     });
 }
 
@@ -59,15 +59,15 @@ function criteriofiltro(valorSelect) {
 let siguientePag;
 let totalResultados;
 let resultadosVisibles = 0;
-function listaResultados(nombreColeccion, nombreLista) {
+function listaResultados(nombreColeccion, nombreLista, idUsuario) {
     const ordenCriterio = criteriofiltro($("#filtro-opciones").val());
     const limitePag = 5;
     
-    leerTotalResultados(nombreColeccion).then(function(total) {
+    leerTotalResultados(nombreColeccion, idUsuario).then(function(total) {
         totalResultados = total;
 
         if(totalResultados != 0){
-            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag).then(function(objetoRes) {
+            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario).then(function(objetoRes) {
                 resultadosVisibles += objetoRes.resultadosPag.size;
                 siguientePag = objetoRes.siguientePag;
     
@@ -87,16 +87,17 @@ function listaResultados(nombreColeccion, nombreLista) {
 /* Manejadores de eventos */
 function eventos() {
 
-    // Barra de navegación 
+    //Eventos *.html
     $("#cerrar-sesion").click(function() {
         cerrarSesion();
     });
 
-    // Contenido
-    $("#form-registrar").submit(function() {
-        crearCuenta();
+    // Eventos de iniciar-sesion.html y registrar.html
+    $("#contrasena-visible").click(function() {
+        visibilidadContrasena();
     });
 
+    // Eventos de iniciar-sesion.html
     $("#form-login").submit(function() {
         iniciarSesion();
     });
@@ -105,14 +106,22 @@ function eventos() {
         restablecerContrasena();
     });
 
+    // Eventos de registrar.html
+    $("#form-registrar").submit(function() {
+        crearCuenta();
+    });
+
+    // Eventos de formato-planeacion.html
     $("#form-nuevaPlaneacion1").submit(function() {
         crearColecta();
     });
 
-    $("#contrasena-visible").click(function() {
-        visibilidadContrasena();
-    });
+    // Eventos de consulta-planeacion.html
+    if($("#formato-planeacion").get().length){
+        formatoPlaneacion();
+    }
 
+    // Eventos de index.html, planeaciones.html y etiquetas.html 
     $("#filtro-opciones").change(function(){
         siguientePag = null;
         resultadosVisibles = 0;
@@ -120,13 +129,12 @@ function eventos() {
         $(".lista-resultados").empty();
 
         if($("#lista-colectas").get().length){
-            console.log("Lista colectas");
             listaResultados("colectas", "lista-colectas");
         }
 
         if($("#lista-planeaciones").get().length){
-            console.log("Lista planeaciones");
-            listaResultados("colectas", "lista-planeaciones");
+            const user = firebase.auth().currentUser;
+            listaResultados("colectas", "lista-planeaciones", user.uid);
         }
     });
 
@@ -136,19 +144,42 @@ function eventos() {
         }
 
         if($("#lista-planeaciones").get().length){
-            listaResultados("colectas", "lista-planeaciones");
+            const user = firebase.auth().currentUser;
+            listaResultados("colectas", "lista-planeaciones", user.uid);
         }
     });
 
+    // Eventos de index.html
     $("#lista-colectas").on("click", "li", function() {
-        const docId = $(this).attr("id");
+        const docId = $(this).closest("li").attr("id");
         window.location.replace("consulta-planeacion.html?query=" + docId);
     });
 
-    if($("#formato-planeacion").get().length){
-        console.log("Leer..");
-        formatoPlaneacion();
-    }
+    // Eventos de planeaciones.html    
+    $("#lista-planeaciones").on("click", ".lista-resultados-item", function() {
+        const docId = $(this).closest("li").attr("id");
+        window.location.replace("formato-planeacion.html?query=" + docId);
+    });
+
+    $("#lista-planeaciones").on("click", "#btn-eliminar", function() {
+        const itemSelecionado = $(this).closest("li");
+        const docId = itemSelecionado.attr("id");
+        const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
+
+        $("#id-documento").html(docId);
+        $("#my-dialog-title").html(docTitulo);
+        $(".mdc-dialog").addClass("mdc-dialog--open");
+    });
+
+    $("#dialog-aceptar").click(function() {
+        const docId = $("#id-documento").text();
+        borrarDocumento("colectas", docId);
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
+    });
+
+    $("#dialog-cancelar").click(function() {
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
+    });
 }
 
 /* Función principal de la aplicación web */
@@ -165,13 +196,12 @@ function aplicacionWeb() {
         eventos();
 
         if($("#lista-colectas").get().length){
-            console.log("Lista colectas");
             listaResultados("colectas", "lista-colectas");
         }
 
         if($("#lista-planeaciones").get().length){
-            console.log("Lista planeaciones");
-            listaResultados("colectas", "lista-planeaciones");
+            const user = firebase.auth().currentUser;
+            listaResultados("colectas", "lista-planeaciones", user.uid);
         }
     });
 }
@@ -180,10 +210,11 @@ $(document).ready(function() {
     aplicacionWeb();
 });
 
+//Funciones para incluir en otros archivos...
 function formatoPlaneacion() {
     const docId = location.search.substring(7);
 
-    leerDocumento(docId).then(function(documento) {
+    leerDocumento("colectas", docId).then(function(documento) {
         console.log(documento.data());
         const encabezado =
         `<h5 class="mdc-typography--headline5">`+ documento.data().titulo +`</h5>
@@ -207,4 +238,27 @@ function formatoPlaneacion() {
         } 
         $(".lista-info-consulta").html(formato);
     });
+}
+
+function crearColecta() {
+    const formValores = $("#form-nuevaPlaneacion1").serializeArray();
+    const user = firebase.auth().currentUser;
+    let planeacion = {};
+ 
+    event.preventDefault();
+    
+    for(let i = 0; i < formValores.length; i++){
+        if(formValores[i].value != "") {
+            planeacion[formValores[i].name] = formValores[i].value;
+        } else {
+            planeacion[formValores[i].name] = "No hay información disponible."
+        }
+    }
+    planeacion["id_usuario"] = user.uid;
+    planeacion["id_participantes"] = [];
+    planeacion["material-campo"] = [];
+    planeacion["info-consulta"] = []
+    planeacion["publico"] = false;
+
+    agregarDocumento("colectas", planeacion);
 }

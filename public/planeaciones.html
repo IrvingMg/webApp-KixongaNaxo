@@ -57,7 +57,7 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="contenedor">
 
             <!-- Filtro de resultados -->
             <header class="encabezado-filtro">
@@ -104,6 +104,26 @@
                 </div>
                 <div class="mdc-snackbar__actions">
                     <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                </div>
+            </div>
+        </div>
+        <div class="mdc-dialog">
+            <div class="mdc-dialog__scrim"></div>
+            <div class="mdc-dialog__container">
+                <div class="mdc-dialog__surface">
+                    <h2 class="mdc-dialog__title" id="my-dialog-title"></h2>
+                    <div class="mdc-dialog__content" id="my-dialog-content">
+                        <p>¿Eliminar el elemento?</p>
+                    </div>
+                    <div id="id-documento" hidden></div>
+                    <footer class="mdc-dialog__actions">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="dialog-cancelar">
+                            <span class="mdc-button__label">Cancelar</span>
+                        </button>
+                        <button type="button" class="mdc-button mdc-dialog__button" id="dialog-aceptar">
+                            <span class="mdc-button__label">Aceptar</span>
+                        </button>
+                    </footer>
                 </div>
             </div>
         </div>
