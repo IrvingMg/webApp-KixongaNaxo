@@ -112,9 +112,20 @@ function eventos() {
     });
 
     // Eventos de formato-planeacion.html
-    $("#form-nuevaPlaneacion1").submit(function() {
-        crearColecta();
-    });
+    if($("#form-nuevaPlaneacion1").get().length){
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        if(docId) {
+            leerDocumento("colectas", docId).then(function(documento) {
+                cargarInformacionColecta(documento.data());
+            });
+            console.log("No Vacio");
+        }
+
+        $("#form-nuevaPlaneacion1").submit(function() {
+            crearColecta(docId);
+        });
+    }
 
     // Eventos de consulta-planeacion.html
     if($("#formato-planeacion").get().length){
@@ -212,10 +223,10 @@ $(document).ready(function() {
 
 //Funciones para incluir en otros archivos...
 function formatoPlaneacion() {
-    const docId = location.search.substring(7);
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
 
     leerDocumento("colectas", docId).then(function(documento) {
-        console.log(documento.data());
         const encabezado =
         `<h5 class="mdc-typography--headline5">`+ documento.data().titulo +`</h5>
         <p class="mdc-typography--body2">`+ documento.data().id_participantes.length +` colectores</p>`;
@@ -240,7 +251,7 @@ function formatoPlaneacion() {
     });
 }
 
-function crearColecta() {
+function crearColecta(docId) {
     const formValores = $("#form-nuevaPlaneacion1").serializeArray();
     const user = firebase.auth().currentUser;
     let planeacion = {};
@@ -260,5 +271,17 @@ function crearColecta() {
     planeacion["info-consulta"] = []
     planeacion["publico"] = false;
 
-    agregarDocumento("colectas", planeacion);
+    agregarDocumento("colectas", planeacion, docId);
+}
+
+function cargarInformacionColecta(doc) {
+    for(let name in doc){
+        if(name === "tipo") {
+            if(doc[name] != "Exploratoria")
+            $("#tipo-especifico").prop("checked", true);;
+        } else {
+            $("[name="+ name +"]").focus();
+            $("[name="+ name +"]").val(doc[name]);
+        }
+    }
 }
