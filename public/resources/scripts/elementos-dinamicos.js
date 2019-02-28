@@ -35,12 +35,6 @@ function opcionesBarNavegacion(sesionIniciada) {
     $("#bar-nav-menu").html(opcionesBarNav);
 }
 
-function mensajeContenedor(mensaje){
-    $("#contenedor").html(
-        `<p class="mdc-typography--body1 cont-mensaje">`+ mensaje +`</p>`
-    );
-}
-
 function itemsLista(resultadosPag, nombreLista) {
     let lista = "";
     

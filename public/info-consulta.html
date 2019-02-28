@@ -95,18 +95,6 @@
                     <ol>
                         <li class="campo-ing-dato">
                             <div class="mdc-text-field mdc-text-field--outlined">
-                                <input type="text" name="descripcion-enlace" id="desc-enlace" class="mdc-text-field__input">
-                                <div class="mdc-notched-outline">
-                                    <div class="mdc-notched-outline__leading"></div>
-                                    <div class="mdc-notched-outline__notch">
-                                        <label for="desc-enlace" class="mdc-floating-label">Descripción del enlace</label>
-                                    </div>
-                                    <div class="mdc-notched-outline__trailing"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="campo-ing-dato">
-                            <div class="mdc-text-field mdc-text-field--outlined">
                                 <input type="url" name="enlace" id="item-enlace" class="mdc-text-field__input">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
@@ -118,12 +106,13 @@
                             </div>
                         </li>
                     </ol>
+                    <footer>
+                        <button type="submit" class="mdc-button mdc-button--raised boton-principal" id="agregar-enlace">
+                            <span class="mdc-button__label">Agregar</span>
+                        </button>
+                    </footer>
                 </form>
-                <footer>
-                    <button class="mdc-button mdc-button--raised boton-principal">
-                        <span class="mdc-button__label">Agregar</span>
-                    </button>
-                </footer>
+                
             </section>
             <section>
                 <header class="encabezado-section">
@@ -131,18 +120,6 @@
                 </header>
                 <form>
                     <ol>
-                        <li class="campo-ing-dato">
-                            <div class="mdc-text-field mdc-text-field--outlined">
-                                <input type="text" name="descripcion-archivo" id="desc-archivo" class="mdc-text-field__input">
-                                <div class="mdc-notched-outline">
-                                    <div class="mdc-notched-outline__leading"></div>
-                                    <div class="mdc-notched-outline__notch">
-                                        <label for="desc-archivo" class="mdc-floating-label">Descripción del archivo</label>
-                                    </div>
-                                    <div class="mdc-notched-outline__trailing"></div>
-                                </div>
-                            </div>
-                        </li>
                         <li class="campo-ing-dato">
                             <div class="mdc-text-field mdc-text-field--outlined">
                                 <input type="file" name="archivo" id="item-archivo" class="mdc-text-field__input">
@@ -156,12 +133,12 @@
                             </div>
                         </li>
                     </ol>
+                    <footer>
+                        <button type="submit" class="mdc-button mdc-button--raised boton-principal" id="agregar-archivo">
+                            <span class="mdc-button__label">Agregar</span>
+                        </button>
+                    </footer>
                 </form>
-                <footer>
-                    <button class="mdc-button mdc-button--raised boton-principal">
-                        <span class="mdc-button__label">Agregar</span>
-                    </button>
-                </footer>
             </section>
         </section>
         
@@ -170,33 +147,15 @@
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Información de consulta</h5>
             </header>
-            <ul class="mdc-list lista-icono-mediano">
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
+            <ul class="mdc-list lista-icono-mediano" id="lista-items-info">
+                <li id="mensaje-default">
+                    <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
                 </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Single-line item">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                </li>
-                <li class="mdc-list-divider"></li>
             </ul>
 
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
+                <button class="mdc-button mdc-button--raised boton-principal" id="form-nuevaPlaneacion3" disabled>
                     <span class="mdc-button__label">Guardar</span>
                 </button>
             </footer>

@@ -53,7 +53,7 @@
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text" id="chip-resultados"></div>
+                        <div class="mdc-chip__text" id="chip-resultados">Resultados 0 de 0</div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
@@ -77,11 +77,14 @@
 
             <!-- Lista de resultados -->
             <ol class="lista-resultados" id="lista-colectas">
+                <li id="mensaje-default">
+                    <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
+                </li>
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas">
+                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas" disabled>
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>

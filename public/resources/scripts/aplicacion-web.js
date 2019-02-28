@@ -11,6 +11,10 @@ function accesoPagina() {
 
 /* Activa o desactiva las alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
 function alertaSistema(mensaje, tipo){
+    //Reseta el estilo del elemento
+    $(".mdc-snackbar").removeClass("mensaje-error")
+    $(".mdc-snackbar").removeClass("mensaje-advertencia")
+
     if(tipo === "mensaje-error") {
         $(".mdc-text-field").addClass("mdc-text-field--invalid");
     }
@@ -67,6 +71,9 @@ function listaResultados(nombreColeccion, nombreLista, idUsuario) {
         totalResultados = total;
 
         if(totalResultados != 0){
+            $("#mensaje-default").remove();
+            $("#btn-mas").prop("disabled", false);
+
             leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario).then(function(objetoRes) {
                 resultadosVisibles += objetoRes.resultadosPag.size;
                 siguientePag = objetoRes.siguientePag;
@@ -78,8 +85,6 @@ function listaResultados(nombreColeccion, nombreLista, idUsuario) {
                     $("#btn-mas").prop("disabled", true); 
                 }
             });    
-        } else {
-            mensajeContenedor("No se encontraron resultados para mostrar.");
         }
     });
 }
@@ -129,7 +134,7 @@ function eventos() {
     if($("#lista-items-material").get().length) {
         const params = new URLSearchParams(location.search.substring(1));
         const docId = params.get("query");
-
+        
         editarListaMaterial(docId);
     }
 
@@ -139,10 +144,14 @@ function eventos() {
 
         event.preventDefault();
         
-        agregarItemIconoLista(itemMaterial, "lista-items-material");
+        if(itemMaterial) {
+            agregarItemIconoLista(itemMaterial, "lista-items-material");
+            $("#mensaje-default").remove();
+            $("#form-nuevaPlaneacion2").prop("disabled", false);
+        }
     });
 
-    $("#lista-items-material").on("click", "#eliminar-item", function(){
+    $("#lista-items-material, #lista-items-info").on("click", "#eliminar-item", function(){
         $(this).closest("li").next().remove();
         $(this).closest("li").remove();
     });
@@ -165,19 +174,64 @@ function eventos() {
         $("#planeacion2-atras").attr("href", "formato-planeacion.html?query=" + docId);
     });
 
-    $("#planeacion3-finalizar").click(function(){ 
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
+    //Eventos de info-consulta.html
+    $("#agregar-enlace").click(function() {
+        const itemEnlace = $("#item-enlace").val();
+        $("#item-enlace").val("");
 
-        console.log("Finalizar y publicar");
+        event.preventDefault();
+        
+        if(itemEnlace){
+            agregarItemIconoLista(itemEnlace, "lista-items-info");
+            $("#mensaje-default").remove();
+            $("#form-nuevaPlaneacion3").prop("disabled", false);
+        }
     });
 
-    //Eventos de info-consulta.html
+    $("#agregar-archivo").click(function() {
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        event.preventDefault();
+
+        if($("#item-archivo").val()) {
+            const storageRef = storage.ref();
+            const file = $("#item-archivo").get(0).files[0];
+            const metadata = {
+                contentType: file.type
+            };
+            const uploadTask = storageRef.child("info-consulta/"+ docId + "/" + file.name).put(file, metadata);
+
+            uploadTask.on('state_changed', function(snapshot){
+                let progress = Math.round( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
+                
+                alertaSistema("Por favor, espere mientras se carga el archivo. Cargando: " + progress +"%" , "mensaje-advertencia");
+            }, function(error) {
+                alertaSistema(error.message, "mensaje-error");
+            }, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    alertaSistema("Archivo " + file.name + " cargado con éxito.");
+                    agregarItemIconoLista(file.name, "lista-items-info");
+
+                    $("#item-archivo").val("");
+                    $("#mensaje-default").remove();
+                    $("#form-nuevaPlaneacion3").prop("disabled", false);
+                });
+            });
+        }
+    });
+
     $("#planeacion3-atras").click(function(){ 
         const params = new URLSearchParams(location.search.substring(1));
         const docId = params.get("query");
 
         $("#planeacion3-atras").attr("href", "material-campo.html?query=" + docId);
+    });
+
+    $("#planeacion3-finalizar").click(function(){ 
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        console.log("Finalizar y publicar");
     });
 
     // Eventos de consulta-planeacion.html
@@ -326,6 +380,11 @@ function editarFormatoPlaneacion(docId) {
 function editarListaMaterial(docId) {
     leerDocumento("colectas", docId).then(function(documento) {
         let doc = documento.data();
+
+        if(doc["material-campo"].length){
+            $("#mensaje-default").remove();
+            $("#form-nuevaPlaneacion2").prop("disabled", false);
+        }
 
         for(let index in doc["material-campo"]) {
             agregarItemIconoLista(doc["material-campo"][index], "lista-items-material");
