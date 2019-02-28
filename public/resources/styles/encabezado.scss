@@ -38,13 +38,19 @@
     display: inline;
 }
 
+
+.mdc-tab {
+    cursor: initial;
+}
+
+/* Elimina efecto ripple */
+.mdc-tab__ripple {
+    width: 0;
+}
+
 .encabezado-body .mdc-tab  {    
     padding: 0 12px;
     text-transform: initial;
-}
-
-.encabezado-body .mdc-tab .mdc-tab__text-label { 
-    font-weight: 400;
 }
 
 /* Estilos para el encabezado del elemento 'section' */

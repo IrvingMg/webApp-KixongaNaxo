@@ -16,6 +16,7 @@
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/elementos-dinamicos.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -40,39 +41,33 @@
             </section>
             <!-- Menú de pestañas -->
             <section class="encabezado-menu-tab">
-                <a href="formato-planeacion.html" class="enlace-boton">
-                    <button class="mdc-tab">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">1. Formato de planeación</span>
-                        </span>
-                        <span class="mdc-tab-indicator">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
-                <a href="material-campo.html" class="enlace-boton">
-                    <button class="mdc-tab">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">2. Material de campo</span>
-                        </span>
-                        <span class="mdc-tab-indicator">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
-                <a href="#" class="enlace-boton">
-                    <button class="mdc-tab mdc-tab--active">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">3. Información de consulta</span>
-                        </span>
-                        <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
+                <button class="mdc-tab">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">1. Formato de planeación</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">2. Material de campo</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab mdc-tab--active">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">3. Información de consulta</span>
+                    </span>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
             </section>
         </header>
             
@@ -220,16 +215,16 @@
 
         <!-- Acciones de secuencia -->
         <footer>
-            <a href="planeaciones.html" class="enlace-boton">
-                <button class="mdc-button mdc-button--raised boton-siguiente">
-                    <span class="mdc-button__label">Finalizar</span>
-                </button>
-            </a>
-            <a href="material-campo.html" class="enlace-boton">
-                <button class="mdc-button mdc-button--raised boton-atras">
-                    <span class="mdc-button__label">Atrás</span>
-                </button>
-            </a>
+        <a href="#" class="enlace-boton" id="planeacion3-finalizar">
+            <button class="mdc-button mdc-button--raised boton-siguiente">
+                <span class="mdc-button__label">Finalizar</span>
+            </button>
+        </a>
+        <a href="#" class="enlace-boton" id="planeacion3-atras">
+            <button class="mdc-button mdc-button--raised boton-atras">
+                <span class="mdc-button__label">Atrás</span>
+            </button>
+        </a>
         </footer>
     </body>
 </html>

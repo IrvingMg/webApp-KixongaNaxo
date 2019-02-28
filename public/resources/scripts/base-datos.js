@@ -1,15 +1,19 @@
 /* Agrega un documento a la colección indicada */
-function agregarDocumento(nombreColeccion, doc, docId) {
-    let query;
-    //Si recibe id de documento, actualízalo, sino crea uno nuevo
-    if(docId) {
-        query =  db.collection(nombreColeccion).doc(docId).update(doc);
-    } else {
-        query = db.collection(nombreColeccion).add(doc);
-    }
-
-    query
+function agregarDocumento(nombreColeccion, documento) {
+    return db.collection(nombreColeccion).add(documento)
     .then(function(docRef) {
+        alertaSistema("Información guardada con éxito.");
+        return docRef.id;
+    })
+    .catch(function(error) {
+        alertaSistema(error.message, "mensaje-error");
+    });
+}
+
+/* Actualiza un documento a partir de su ID */
+function actualizarDocumento(nombreColeccion, documento, docId) {
+    db.collection(nombreColeccion).doc(docId).update(documento)
+    .then(function() {
         alertaSistema("Información guardada con éxito.");
     })
     .catch(function(error) {

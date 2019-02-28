@@ -42,39 +42,33 @@
 
             <!-- Menú de pestañas -->
             <section class="encabezado-menu-tab">
-                <a href="#" class="enlace-boton">
-                    <button class="mdc-tab  mdc-tab--active">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">1. Formato de planeación</span>
-                        </span>
-                        <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
-                <a href="material-campo.html" class="enlace-boton">
-                    <button class="mdc-tab">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">2. Material de campo</span>
-                        </span>
-                        <span class="mdc-tab-indicator">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
-                <a href="info-consulta.html" class="enlace-boton">
-                    <button class="mdc-tab">
-                        <span class="mdc-tab__content">
-                            <span class="mdc-tab__text-label">3. Información de consulta</span>
-                        </span>
-                        <span class="mdc-tab-indicator">
-                            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                        </span>
-                        <span class="mdc-tab__ripple"></span>
-                    </button>
-                </a>
+                <button class="mdc-tab  mdc-tab--active">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">1. Formato de planeación</span>
+                    </span>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">2. Material de campo</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab">
+                    <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">3. Información de consulta</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                </button>
             </section>
         </header>
 
@@ -102,7 +96,7 @@
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="titulo" id="planeacion-titulo" class="mdc-text-field__input">
+                            <input type="text" name="titulo" id="planeacion-titulo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -114,7 +108,7 @@
                     </li>
                     <li class="campo-ing-dato">                
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input">
+                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -126,7 +120,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="objetivo" id="planeacion-objetivo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="objetivo" id="planeacion-objetivo" class="mdc-text-field__input" rows="3" cols="40" required></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -158,7 +152,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="date" name="fecha" id="planeacion-fecha" class="mdc-text-field__input">
+                            <input type="date" name="fecha" id="planeacion-fecha" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -171,7 +165,7 @@
                     <li class="campo-ing-dato">
                         <!-- Seleccionar lugar de colecta a través de Google Maps  -->
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="lugar" id="planeacion-lugar" class="mdc-text-field__input">
+                            <input type="text" name="lugar" id="planeacion-lugar" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -187,7 +181,7 @@
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-especies" class="mdc-floating-label">Especies de interés</label>
+                                    <label for="planeacion-especies" class="mdc-floating-label">Especies de interés (Opcional)</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -199,7 +193,7 @@
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-info-adicional" class="mdc-floating-label">Información adicional</label>
+                                    <label for="planeacion-info-adicional" class="mdc-floating-label">Información adicional (Opcional)</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -229,10 +223,10 @@
 
         <!-- Acciones de secuencia -->
         <footer>
-            <a href="material-campo.html" class="enlace-boton">
-            <button class="mdc-button mdc-button--raised boton-siguiente">
-                <span class="mdc-button__label">Siguiente</span>
-            </button>
+            <a href="#" class="enlace-boton" id="planeacion1-siguiente">
+                <button class="mdc-button mdc-button--raised boton-siguiente">
+                    <span class="mdc-button__label">Siguiente</span>
+                </button>
             </a>
         </footer>
     </body>

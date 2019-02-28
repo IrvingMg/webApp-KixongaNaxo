@@ -85,3 +85,15 @@ function itemsLista(resultadosPag, nombreLista) {
     }
     $("#"+nombreLista).append(lista);
 }
+
+function agregarItemIconoLista(nombreItem, nombreLista) {
+    const item =
+    `<li>
+        <div class="mdc-list-item">
+            <span class="mdc-list-item__text" title="`+ nombreItem +`">`+ nombreItem +`</span>
+        </div>
+        <button class="mdc-icon-button material-icons" title="Eliminar" id="eliminar-item">delete</button>
+    </li>
+    <li class="mdc-list-divider"></li>`
+    $("#"+nombreLista).append(item);
+}

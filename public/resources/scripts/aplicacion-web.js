@@ -116,10 +116,8 @@ function eventos() {
         const params = new URLSearchParams(location.search.substring(1));
         const docId = params.get("query");
         if(docId) {
-            leerDocumento("colectas", docId).then(function(documento) {
-                cargarInformacionColecta(documento.data());
-            });
-            console.log("No Vacio");
+            $("#planeacion1-siguiente").attr("href", "material-campo.html?query=" + docId);
+            editarFormatoPlaneacion(docId);
         }
 
         $("#form-nuevaPlaneacion1").submit(function() {
@@ -127,9 +125,64 @@ function eventos() {
         });
     }
 
+    // Eventos de material-campo.html
+    if($("#lista-items-material").get().length) {
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        editarListaMaterial(docId);
+    }
+
+    $("#agregar-material").click(function() {
+        let itemMaterial = $("#item-material").val();
+        $("#item-material").val("");
+
+        event.preventDefault();
+        
+        agregarItemIconoLista(itemMaterial, "lista-items-material");
+    });
+
+    $("#lista-items-material").on("click", "#eliminar-item", function(){
+        $(this).closest("li").next().remove();
+        $(this).closest("li").remove();
+    });
+
+    $("#form-nuevaPlaneacion2").click(function() {
+        crearListaMaterial();
+    });
+
+    $("#planeacion2-siguiente").click(function(){ 
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        $("#planeacion2-siguiente").attr("href", "info-consulta.html?query=" + docId);
+    });
+
+    $("#planeacion2-atras").click(function(){ 
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        $("#planeacion2-atras").attr("href", "formato-planeacion.html?query=" + docId);
+    });
+
+    $("#planeacion3-finalizar").click(function(){ 
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        console.log("Finalizar y publicar");
+    });
+
+    //Eventos de info-consulta.html
+    $("#planeacion3-atras").click(function(){ 
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        $("#planeacion3-atras").attr("href", "material-campo.html?query=" + docId);
+    });
+
     // Eventos de consulta-planeacion.html
     if($("#formato-planeacion").get().length){
-        formatoPlaneacion();
+        consultaFormatoPlaneacion();
     }
 
     // Eventos de index.html, planeaciones.html y etiquetas.html 
@@ -191,6 +244,8 @@ function eventos() {
     $("#dialog-cancelar").click(function() {
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
+
+    
 }
 
 /* Función principal de la aplicación web */
@@ -222,7 +277,8 @@ $(document).ready(function() {
 });
 
 //Funciones para incluir en otros archivos...
-function formatoPlaneacion() {
+//Corregir función
+function consultaFormatoPlaneacion() {
     const params = new URLSearchParams(location.search.substring(1));
     const docId = params.get("query");
 
@@ -251,6 +307,32 @@ function formatoPlaneacion() {
     });
 }
 
+function editarFormatoPlaneacion(docId) {
+    leerDocumento("colectas", docId).then(function(documento) {
+        let doc = documento.data();
+
+        for(let name in doc){
+            if(name === "tipo") {
+                if(doc[name] != "Exploratoria")
+                $("#tipo-especifico").prop("checked", true);;
+            } else {
+                $("[name="+ name +"]").focus();
+                $("[name="+ name +"]").val(doc[name]);
+            }
+        }
+    });   
+}
+
+function editarListaMaterial(docId) {
+    leerDocumento("colectas", docId).then(function(documento) {
+        let doc = documento.data();
+
+        for(let index in doc["material-campo"]) {
+            agregarItemIconoLista(doc["material-campo"][index], "lista-items-material");
+        }
+    });   
+}
+
 function crearColecta(docId) {
     const formValores = $("#form-nuevaPlaneacion1").serializeArray();
     const user = firebase.auth().currentUser;
@@ -267,21 +349,32 @@ function crearColecta(docId) {
     }
     planeacion["id_usuario"] = user.uid;
     planeacion["id_participantes"] = [];
-    planeacion["material-campo"] = [];
+    planeacion["material-campo"] = [
+        "Tijeras de podar", "Navaja o cuchillo", "Lupa", "Cinta métrica", "Bolsas de plástico",
+        "Periódico", "Cartón corrugado", "Prensa", "GPS Manual"];
     planeacion["info-consulta"] = []
     planeacion["publico"] = false;
 
-    agregarDocumento("colectas", planeacion, docId);
+    if(docId) {
+        actualizarDocumento("colectas", planeacion, docId);
+    } else {
+        agregarDocumento("colectas", planeacion).then(function(docId) {
+            $("#planeacion1-siguiente").attr("href", "material-campo.html?query=" + docId);
+        });
+    }
+    
 }
 
-function cargarInformacionColecta(doc) {
-    for(let name in doc){
-        if(name === "tipo") {
-            if(doc[name] != "Exploratoria")
-            $("#tipo-especifico").prop("checked", true);;
-        } else {
-            $("[name="+ name +"]").focus();
-            $("[name="+ name +"]").val(doc[name]);
-        }
+function crearListaMaterial(){
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+
+    const itemsLista = $("#lista-items-material span").get();
+    let planeacion = {"material-campo" : []};
+
+    for(index in itemsLista) {
+        planeacion["material-campo"].push(itemsLista[index].innerText);
     }
+    
+    actualizarDocumento("colectas", planeacion, docId);
 }
