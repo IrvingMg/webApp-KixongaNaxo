@@ -15,6 +15,10 @@ function alertaSistema(mensaje, tipo){
     $(".mdc-snackbar").removeClass("mensaje-error")
     $(".mdc-snackbar").removeClass("mensaje-advertencia")
 
+    if(tipo == null) {
+        $(".mdc-snackbar").trigger("operacionExitosa");
+    }
+
     if(tipo === "mensaje-error") {
         $(".mdc-text-field").addClass("mdc-text-field--invalid");
     }
@@ -151,7 +155,7 @@ function eventos() {
         }
     });
 
-    $("#lista-items-material, #lista-items-info").on("click", "#eliminar-item", function(){
+    $("#lista-items-material").on("click", "#eliminar-item", function(){
         $(this).closest("li").next().remove();
         $(this).closest("li").remove();
     });
@@ -175,6 +179,13 @@ function eventos() {
     });
 
     //Eventos de info-consulta.html
+    if($("#lista-items-info").get().length) {
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        
+        editarListaInfoConsulta(docId);
+    }
+
     $("#agregar-enlace").click(function() {
         const itemEnlace = $("#item-enlace").val();
         $("#item-enlace").val("");
@@ -182,7 +193,7 @@ function eventos() {
         event.preventDefault();
         
         if(itemEnlace){
-            agregarItemIconoLista(itemEnlace, "lista-items-info");
+            agregarItemIconoLista("Enlace: " + itemEnlace, "lista-items-info");
             $("#mensaje-default").remove();
             $("#form-nuevaPlaneacion3").prop("disabled", false);
         }
@@ -204,13 +215,13 @@ function eventos() {
             uploadTask.on('state_changed', function(snapshot){
                 let progress = Math.round( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
                 
-                alertaSistema("Por favor, espere mientras se carga el archivo. Cargando: " + progress +"%" , "mensaje-advertencia");
+                alertaSistema("Por favor, espere mientras se carga el archivo. Cargado: " + progress + "%" , "mensaje-advertencia");
             }, function(error) {
                 alertaSistema(error.message, "mensaje-error");
             }, function() {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                     alertaSistema("Archivo " + file.name + " cargado con éxito.");
-                    agregarItemIconoLista(file.name, "lista-items-info");
+                    agregarItemIconoLista("Archivo: " +file.name, "lista-items-info");
 
                     $("#item-archivo").val("");
                     $("#mensaje-default").remove();
@@ -220,6 +231,36 @@ function eventos() {
         }
     });
 
+    $("#lista-items-info").on("click", "#eliminar-item", function(){
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        const liElement = $(this).closest("li");
+        const item = liElement.find("span").text();
+        let nombre;
+
+        if(item.search("Enlace: ") === 0) {
+            nombre = item.substring(8);
+            console.log(nombre);
+            liElement.next().remove();
+            liElement.remove();
+        } else {
+            nombre = item.substring(9);
+            const storageRef = storage.ref();
+            const desertRef = storageRef.child("info-consulta/"+ docId + "/" + nombre);
+
+            desertRef.delete().then(function() {
+                liElement.next().remove();
+                liElement.remove();
+            }).catch(function(error) {
+                alertaSistema(error.message, "mensaje-error");
+            });
+        }
+    });
+
+    $("#form-nuevaPlaneacion3").click(function() {
+        crearListaInfoConsulta();
+    });
+
     $("#planeacion3-atras").click(function(){ 
         const params = new URLSearchParams(location.search.substring(1));
         const docId = params.get("query");
@@ -227,11 +268,16 @@ function eventos() {
         $("#planeacion3-atras").attr("href", "material-campo.html?query=" + docId);
     });
 
-    $("#planeacion3-finalizar").click(function(){ 
+    $("#planeacion3-publicar").click(function(){ 
         const params = new URLSearchParams(location.search.substring(1));
         const docId = params.get("query");
+        const documento = {"publico": true};
 
-        console.log("Finalizar y publicar");
+        actualizarDocumento("colectas", documento, docId);
+        
+        $(".mdc-snackbar").bind("operacionExitosa", function() {
+            window.location.assign("planeaciones.html");
+        });  
     });
 
     // Eventos de consulta-planeacion.html
@@ -329,111 +375,3 @@ function aplicacionWeb() {
 $(document).ready(function() {
     aplicacionWeb();
 });
-
-//Funciones para incluir en otros archivos...
-//Corregir función
-function consultaFormatoPlaneacion() {
-    const params = new URLSearchParams(location.search.substring(1));
-    const docId = params.get("query");
-
-    leerDocumento("colectas", docId).then(function(documento) {
-        const encabezado =
-        `<h5 class="mdc-typography--headline5">`+ documento.data().titulo +`</h5>
-        <p class="mdc-typography--body2">`+ documento.data().id_participantes.length +` colectores</p>`;
-        $(".encabezado-section").html(encabezado);
-
-        const nombre = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
-            "Lugar de colecta", "Especies de interés", "Material de campo", 
-            "Información de consulta","Información adicional"];
-        const indiceVal = ["responsable", "objetivo", "tipo", "fecha", "lugar", 
-            "especies", "material-campo", "info-consulta","info-adicional"];
-
-        let formato = "";
-        for(let i = 0; i < nombre.length; i++) {
-            formato += 
-            `<li>
-                <p class="mdc-typography--body1 h7">`+ nombre[i] +`</p>
-                <p class="mdc-typography--body1 texto-info">` +  documento.data()[indiceVal[i]] + `</p>
-            </li>
-            `;
-        } 
-        $(".lista-info-consulta").html(formato);
-    });
-}
-
-function editarFormatoPlaneacion(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
-        let doc = documento.data();
-
-        for(let name in doc){
-            if(name === "tipo") {
-                if(doc[name] != "Exploratoria")
-                $("#tipo-especifico").prop("checked", true);;
-            } else {
-                $("[name="+ name +"]").focus();
-                $("[name="+ name +"]").val(doc[name]);
-            }
-        }
-    });   
-}
-
-function editarListaMaterial(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
-        let doc = documento.data();
-
-        if(doc["material-campo"].length){
-            $("#mensaje-default").remove();
-            $("#form-nuevaPlaneacion2").prop("disabled", false);
-        }
-
-        for(let index in doc["material-campo"]) {
-            agregarItemIconoLista(doc["material-campo"][index], "lista-items-material");
-        }
-    });   
-}
-
-function crearColecta(docId) {
-    const formValores = $("#form-nuevaPlaneacion1").serializeArray();
-    const user = firebase.auth().currentUser;
-    let planeacion = {};
- 
-    event.preventDefault();
-    
-    for(let i = 0; i < formValores.length; i++){
-        if(formValores[i].value != "") {
-            planeacion[formValores[i].name] = formValores[i].value;
-        } else {
-            planeacion[formValores[i].name] = "No hay información disponible."
-        }
-    }
-    planeacion["id_usuario"] = user.uid;
-    planeacion["id_participantes"] = [];
-    planeacion["material-campo"] = [
-        "Tijeras de podar", "Navaja o cuchillo", "Lupa", "Cinta métrica", "Bolsas de plástico",
-        "Periódico", "Cartón corrugado", "Prensa", "GPS Manual"];
-    planeacion["info-consulta"] = []
-    planeacion["publico"] = false;
-
-    if(docId) {
-        actualizarDocumento("colectas", planeacion, docId);
-    } else {
-        agregarDocumento("colectas", planeacion).then(function(docId) {
-            $("#planeacion1-siguiente").attr("href", "material-campo.html?query=" + docId);
-        });
-    }
-    
-}
-
-function crearListaMaterial(){
-    const params = new URLSearchParams(location.search.substring(1));
-    const docId = params.get("query");
-
-    const itemsLista = $("#lista-items-material span").get();
-    let planeacion = {"material-campo" : []};
-
-    for(index in itemsLista) {
-        planeacion["material-campo"].push(itemsLista[index].innerText);
-    }
-    
-    actualizarDocumento("colectas", planeacion, docId);
-}

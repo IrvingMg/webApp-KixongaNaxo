@@ -68,7 +68,7 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
             pagina = db.collection(nombreColeccion).where("id_usuario", "==", idUsuario)
                 .orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
         } else {
-            pagina = db.collection(nombreColeccion).where("publico", "==", false)
+            pagina = db.collection(nombreColeccion).where("publico", "==", true)
                 .orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
         }            
     } else {
@@ -89,7 +89,7 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
                         .orderBy(ordenCriterio[0], ordenCriterio[1])
                         .startAfter(ultimoVisible).limit(limitePag);
                 } else {
-                    siguientePag =  db.collection(nombreColeccion).where("publico", "==", false)
+                    siguientePag =  db.collection(nombreColeccion).where("publico", "==", true)
                         .orderBy(ordenCriterio[0], ordenCriterio[1])
                         .startAfter(ultimoVisible).limit(limitePag);
                 }

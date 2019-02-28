@@ -55,6 +55,17 @@ function itemsLista(resultadosPag, nombreLista) {
         });
     } else {
         resultadosPag.forEach(function(doc) {
+            let tituloIcono;
+            let icono;
+
+            if(doc.data().publico) {
+                tituloIcono = "Información pública";
+                icono = "public";
+            } else {
+                tituloIcono = "Información privada";
+                icono = "person";
+            }
+
             lista +=
                 `<li id="`+ doc.id +`">
                     <div class="mdc-card mdc-card--outlined">
@@ -71,6 +82,9 @@ function itemsLista(resultadosPag, nombreLista) {
                                     <i class="material-icons mdc-button__icon">delete</i>
                                     <span class="mdc-button__label">Eliminar</span>
                                 </button>
+                            </div>
+                            <div class="mdc-card__action-icons">
+                                <i class="material-icons mdc-button__icon" title="`+ tituloIcono +`">`+ icono +`</i>
                             </div>
                         </div>
                     </div>
