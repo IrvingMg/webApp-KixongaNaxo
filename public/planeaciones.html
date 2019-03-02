@@ -8,17 +8,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="resources/styles/bundle.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
-        <script src="resources/scripts/admin-planeaciones.js"></script>
-        <script src="resources/scripts/elementos-dinamicos.js"></script>
+        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
@@ -117,14 +117,14 @@
                 <div class="mdc-dialog__surface">
                     <h2 class="mdc-dialog__title" id="my-dialog-title"></h2>
                     <div class="mdc-dialog__content" id="my-dialog-content">
-                        <p>¿Eliminar el elemento?</p>
+                        <p>¿Eliminar planeación de colecta?</p>
                     </div>
                     <div id="id-documento" hidden></div>
                     <footer class="mdc-dialog__actions">
                         <button type="button" class="mdc-button mdc-dialog__button" id="dialog-cancelar">
                             <span class="mdc-button__label">Cancelar</span>
                         </button>
-                        <button type="button" class="mdc-button mdc-dialog__button" id="dialog-aceptar">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="planeaciones-dialog-aceptar">
                             <span class="mdc-button__label">Aceptar</span>
                         </button>
                     </footer>

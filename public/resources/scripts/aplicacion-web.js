@@ -2,9 +2,9 @@
 function accesoPagina() {
     $.post( "http://localhost:5001/webapp-kixonganaxo/us-central1/accesoPagina", //Cambiar URL para producción 
         { urlPath: window.location.pathname }
-    ).done(function(data) {
-        if(!data){
-            window.location.replace("iniciar-sesion.html");
+    ).done(function(acceso) {
+        if(!acceso){
+            window.location.assign("iniciar-sesion.html");
         }
     });
 }
@@ -67,18 +67,18 @@ function criteriofiltro(valorSelect) {
 let siguientePag;
 let totalResultados;
 let resultadosVisibles = 0;
-function listaResultados(nombreColeccion, nombreLista, idUsuario) {
+function listaResultados(nombreColeccion, nombreLista, idUsuario, nombreUsuario) {
     const ordenCriterio = criteriofiltro($("#filtro-opciones").val());
     const limitePag = 5;
     
-    leerTotalResultados(nombreColeccion, idUsuario).then(function(total) {
+    leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario).then(function(total) {
         totalResultados = total;
 
         if(totalResultados != 0){
             $("#mensaje-default").remove();
             $("#btn-mas").prop("disabled", false);
 
-            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario).then(function(objetoRes) {
+            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario, nombreUsuario).then(function(objetoRes) {
                 resultadosVisibles += objetoRes.resultadosPag.size;
                 siguientePag = objetoRes.siguientePag;
     
@@ -280,12 +280,21 @@ function eventos() {
         });  
     });
 
-    // Eventos de consulta-planeacion.html
-    if($("#formato-planeacion").get().length){
-        consultaFormatoPlaneacion();
+    // Eventos de index.html, planeaciones.html y etiquetas.html 
+    if($("#lista-colectas").get().length){
+        listaResultados("colectas", "lista-colectas");
     }
 
-    // Eventos de index.html, planeaciones.html y etiquetas.html 
+    if($("#lista-planeaciones").get().length){
+        const user = firebase.auth().currentUser;
+        listaResultados("colectas", "lista-planeaciones", user.uid);
+    }
+
+    if($("#lista-etiquetas").get().length){
+        const user = firebase.auth().currentUser;
+        listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
+    }
+
     $("#filtro-opciones").change(function(){
         siguientePag = null;
         resultadosVisibles = 0;
@@ -300,6 +309,11 @@ function eventos() {
             const user = firebase.auth().currentUser;
             listaResultados("colectas", "lista-planeaciones", user.uid);
         }
+
+        if($("#lista-etiquetas").get().length){
+            const user = firebase.auth().currentUser;
+            listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
+        }
     });
 
     $("#btn-mas").click(function() {
@@ -310,6 +324,11 @@ function eventos() {
         if($("#lista-planeaciones").get().length){
             const user = firebase.auth().currentUser;
             listaResultados("colectas", "lista-planeaciones", user.uid);
+        }
+
+        if($("#lista-etiquetas").get().length){
+            const user = firebase.auth().currentUser;
+            listaResultados("colectas", "lista-etiquetas", user.uid, true);
         }
     });
 
@@ -335,7 +354,7 @@ function eventos() {
         $(".mdc-dialog").addClass("mdc-dialog--open");
     });
 
-    $("#dialog-aceptar").click(function() {
+    $("#planeaciones-dialog-aceptar").click(function() {
         const docId = $("#id-documento").text();
         borrarDocumento("colectas", docId);
         $(".mdc-dialog").removeClass("mdc-dialog--open");
@@ -345,6 +364,62 @@ function eventos() {
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 
+    // Eventos de etiquetas.html    
+    $("#lista-etiquetas").on("click", ".lista-resultados-item", function() {
+        const docId = $(this).closest("li").attr("id");
+        window.location.replace("etiquetar.html?query=" + docId);
+    });
+
+    $("#lista-etiquetas").on("click", "#btn-eliminar", function() {
+        const itemSelecionado = $(this).closest("li");
+        const docId = itemSelecionado.attr("id");
+        const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
+
+        $("#id-documento").html(docId);
+        $("#my-dialog-title").html(docTitulo);
+        $(".mdc-dialog").addClass("mdc-dialog--open");
+    });
+
+    $("#etiquetas-dialog-aceptar").click(function() {
+        const docId = $("#id-documento").text();
+        const user = firebase.auth().currentUser;
+
+        eliminarEtiquetas(docId, user.uid);
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
+    });
+
+    // Eventos de consulta-planeacion.html
+    if($("#consulta-planeacion").get().length){
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+
+        $("#op-formato").attr("href", "consulta-planeacion.html?query=" + docId);
+        $("#op-etiquetas").attr("href", "consulta-etiquetas.html?query=" + docId);
+        consultaFormatoPlaneacion(docId);
+    }
+
+    // Eventos de consulta-etiquetas.html
+    if($("#consulta-etiquetas").get().length){
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        const tipoEtiqueta = params.get("etiquetas");
+
+        $("#op-formato").attr("href", "consulta-planeacion.html?query=" + docId);
+        $("#op-etiquetas").attr("href", "consulta-etiquetas.html?query=" + docId);
+        consultaEtiquetas(docId, tipoEtiqueta);
+    }
+
+    $("#etiquetas-colector").change(function(){
+        const params = new URLSearchParams(location.search.substring(1));
+        const docId = params.get("query");
+        const usuarioId = $("#etiquetas-colector").val();
+        $("#lista-etiquetas").empty();
+
+        leerEtiquetas(docId, usuarioId)
+        .then(function(docs) {
+            compItemsListaEtiquetas(docs);
+        });
+    });
     
 }
 
@@ -352,6 +427,7 @@ function eventos() {
 function aplicacionWeb() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            console.log(user.displayName);
             if(!user.emailVerified) {
                 alertaSistema("Por favor, verifique su dirección de correo electrónico.", "mensaje-advertencia");
             }
@@ -360,15 +436,6 @@ function aplicacionWeb() {
         }
         opcionesBarNavegacion(user);
         eventos();
-
-        if($("#lista-colectas").get().length){
-            listaResultados("colectas", "lista-colectas");
-        }
-
-        if($("#lista-planeaciones").get().length){
-            const user = firebase.auth().currentUser;
-            listaResultados("colectas", "lista-planeaciones", user.uid);
-        }
     });
 }
 

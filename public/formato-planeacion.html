@@ -8,17 +8,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="resources/styles/bundle.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/admin-usuarios.js"></script>
-        <script src="resources/scripts/admin-planeaciones.js"></script>
-        <script src="resources/scripts/elementos-dinamicos.js"></script>
+        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
@@ -97,7 +97,7 @@
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="titulo" id="planeacion-titulo" class="mdc-text-field__input" required>
+                            <input type="text" name="titulo" id="planeacion-titulo" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -109,7 +109,7 @@
                     </li>
                     <li class="campo-ing-dato">                
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input" required>
+                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -121,7 +121,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="objetivo" id="planeacion-objetivo" class="mdc-text-field__input" rows="3" cols="40" required></textarea>
+                            <textarea name="objetivo" id="planeacion-objetivo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -153,7 +153,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="date" name="fecha" id="planeacion-fecha" class="mdc-text-field__input" required>
+                            <input type="date" name="fecha" id="planeacion-fecha" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -166,7 +166,7 @@
                     <li class="campo-ing-dato">
                         <!-- Seleccionar lugar de colecta a través de Google Maps  -->
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="lugar" id="planeacion-lugar" class="mdc-text-field__input" required>
+                            <input type="text" name="lugar" id="planeacion-lugar" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">

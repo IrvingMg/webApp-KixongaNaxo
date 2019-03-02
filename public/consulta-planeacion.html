@@ -8,16 +8,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="resources/styles/bundle.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
-        <script src="resources/scripts/admin-usuarios.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
-        <script src="resources/scripts/elementos-dinamicos.js"></script>
+        <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
     <body class="mdc-typography">
@@ -36,7 +37,7 @@
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
             <h4 class="mdc-typography--headline4">Consultar</h4>
-            <p class="mdc-typography--body2">Examine la información de colecta.</p>
+            <p class="mdc-typography--body2">Examine el formato de planeación de colecta.</p>
         </header>
 
         <!-- Ruta de navegación -->
@@ -55,31 +56,28 @@
             <h6 class="mdc-typography--headline6">Información de colecta</h6>
             <ul class="mdc-list">
                 <li>
-                    <div class="mdc-list-item mdc-list-item--selected">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Formato de planeación">Formato de planeación</span>
-                    </div>
+                    <a href="#" class="enlace-boton" id="op-formato">
+                        <div class="mdc-list-item mdc-list-item--selected">
+                            <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                            <span class="mdc-list-item__text" title="Formato de planeación">Formato de planeación</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="mdc-list-divider"></li>
                 <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Etiquetas de colecta">Etiquetas de colecta</span>
-                    </div>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Etiquetas de herbario">Etiquetas de herbario</span>
-                    </div>
+                    <a href="#" class="enlace-boton" id="op-etiquetas">
+                        <div class="mdc-list-item">
+                            <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                            <span class="mdc-list-item__text" title="Etiquetas de colecta">Etiquetas</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="mdc-list-divider"></li>
             </ul>
         </aside>
 
         <!-- 2da columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna" id="formato-planeacion">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna" id="consulta-planeacion">
             <header class="encabezado-section">
             </header>
             <article>

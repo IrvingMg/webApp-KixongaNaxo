@@ -13,7 +13,7 @@ function crearColecta(docId) {
         }
     }
     planeacion["id_usuario"] = user.uid;
-    planeacion["id_participantes"] = [];
+    planeacion["participantes"] = [];
     planeacion["material-campo"] = [
         "Tijeras de podar", "Navaja o cuchillo", "Lupa", "Cinta métrica", "Bolsas de plástico",
         "Periódico", "Cartón corrugado", "Prensa", "GPS Manual"];
@@ -104,31 +104,55 @@ function editarListaInfoConsulta(docId) {
     });   
 }
 
-function consultaFormatoPlaneacion() {
-    const params = new URLSearchParams(location.search.substring(1));
-    const docId = params.get("query");
-
+function consultaFormatoPlaneacion(docId) {
     leerDocumento("colectas", docId).then(function(documento) {
-        const encabezado =
-        `<h5 class="mdc-typography--headline5">`+ documento.data().titulo +`</h5>
-        <p class="mdc-typography--body2">`+ documento.data().id_participantes.length +` colectores</p>`;
-        $(".encabezado-section").html(encabezado);
-
-        const nombre = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
-            "Lugar de colecta", "Especies de interés", "Material de campo", 
-            "Información de consulta","Información adicional"];
-        const indiceVal = ["responsable", "objetivo", "tipo", "fecha", "lugar", 
-            "especies", "material-campo", "info-consulta","info-adicional"];
-
-        let formato = "";
-        for(let i = 0; i < nombre.length; i++) {
-            formato += 
-            `<li>
-                <p class="mdc-typography--body1 h7">`+ nombre[i] +`</p>
-                <p class="mdc-typography--body1 texto-info">` +  documento.data()[indiceVal[i]] + `</p>
-            </li>
-            `;
-        } 
-        $(".lista-info-consulta").html(formato);
+        compFormatoPlaneacion(documento.data());
     });
+}
+
+function consultaEtiquetas(docId, tipoEtiqueta) {
+    leerDocumento("colectas", docId).then(function(documento) {
+        compListaEtiquetas(documento.data(), tipoEtiqueta);
+    });
+}
+
+function eliminarEtiquetas(docId, usuarioId) {
+    leerEtiquetas(docId, usuarioId).then(function(docs){
+        docs.forEach(function(doc) {
+            borrarDocumento("etiquetas", doc.id);
+        });
+    });
+}
+// Función de prueba
+function crearEtiqueta(nombrePlanta) {
+    const user = firebase.auth().currentUser;
+    let etiqueta = {
+        "id_usuario" : user.uid,
+        "id_colecta" : "Z3aqqLXBNxf5ZIi8tpGV",  //Colecta Eliminar
+        "fecha_colecta" : "2019-03-01",
+        "fotografias" : ["string"],
+        "ubicacion" : { 
+            "longitud" : "number", 
+            "latitud" : "number", 
+            "altitud" : "number"
+        },
+        "caracteristicas_lugar" :"string",
+        "nombre_comun" : nombrePlanta,
+        "nombre_cientifico" : "string",
+        "habito" : "string",
+        "diametro" : "number",
+        "abundancia" : "number",
+        "descripcion_planta" : "string",
+        "descripcion_flores" : "string",
+        "descripcion_hojas" : "string",
+        "descripcion_latex" : "string",
+        "familia_botanica" : "string",
+        "info_etnobotanica" : "string",
+        "uso_medicinal" : "string",
+        "modo_empleo" : "string",
+        "numero_colecta" : "number",
+        "audios" : ["string"]
+    };
+
+    agregarDocumento("etiquetas", etiqueta);
 }

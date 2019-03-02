@@ -25,7 +25,6 @@ function actualizarDocumento(nombreColeccion, documento, docId) {
 function borrarDocumento(nombreColeccion, docId) {
     db.collection(nombreColeccion).doc(docId).delete().then(function() {
         alertaSistema("Información eliminada con éxito.");
-        location.reload();
     }).catch(function(error) {
         alertaSistema(error.message, "mensaje-error");
     });
@@ -40,13 +39,18 @@ function leerDocumento(nombreColeccion, docId) {
 }
 
 /* Obtiene el tamaño de una colección */
-function leerTotalResultados(nombreColeccion, idUsuario) {
+function leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario) {
     let query;
 
     /* Si se recibe el parámetro idUsuario se hace una consulta por usuario
     sino se hace una consulta de los documentos públicos */
     if(idUsuario) {
-        query = db.collection(nombreColeccion).where("id_usuario", "==", idUsuario);
+        if(nombreUsuario){
+            query = db.collection("colectas")
+            .where("participantes", "array-contains", {"id_usuario" : idUsuario, "nombre_usuario": nombreUsuario})
+        } else {
+            query = db.collection(nombreColeccion).where("id_usuario", "==", idUsuario);
+        }
     } else {
         query = db.collection(nombreColeccion).where("publico", "==", true);
     }
@@ -59,14 +63,19 @@ function leerTotalResultados(nombreColeccion, idUsuario) {
 }
 
 /* Obtiene resultados de una colección por páginas/lotes */
-function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario) {
+function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario, nombreUsuario) {
     let pagina; 
-
     // Si es la primera vez que se invoca a la función devuelve la primera página de resultados
     if(siguientePag == null){
         if(idUsuario) {
-            pagina = db.collection(nombreColeccion).where("id_usuario", "==", idUsuario)
+            if(nombreUsuario){
+                pagina = db.collection(nombreColeccion)
+                .where("participantes", "array-contains", {"id_usuario" : idUsuario, "nombre_usuario": nombreUsuario})
                 .orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
+            } else {
+                pagina = db.collection(nombreColeccion).where("id_usuario", "==", idUsuario)
+                    .orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
+            }
         } else {
             pagina = db.collection(nombreColeccion).where("publico", "==", true)
                 .orderBy(ordenCriterio[0], ordenCriterio[1]).limit(limitePag);
@@ -85,9 +94,16 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
             //Verifica que existen más resultados por mostrar
             if(ultimoVisible){
                 if(idUsuario) {
-                    siguientePag =  db.collection(nombreColeccion).where("id_usuario", "==", idUsuario)
+                    if(nombreUsuario) {
+                        siguientePag =  db.collection(nombreColeccion)
+                        .where("participantes", "array-contains", {"id_usuario" : idUsuario, "nombre_usuario": nombreUsuario})
                         .orderBy(ordenCriterio[0], ordenCriterio[1])
                         .startAfter(ultimoVisible).limit(limitePag);
+                    } else {
+                        siguientePag =  db.collection(nombreColeccion).where("id_usuario", "==", idUsuario)
+                            .orderBy(ordenCriterio[0], ordenCriterio[1])
+                            .startAfter(ultimoVisible).limit(limitePag);
+                    }
                 } else {
                     siguientePag =  db.collection(nombreColeccion).where("publico", "==", true)
                         .orderBy(ordenCriterio[0], ordenCriterio[1])
@@ -99,4 +115,9 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
             
             return {resultadosPag, siguientePag};
         });
+}
+
+function leerEtiquetas(docId, usuarioId) {
+    return db.collection("etiquetas").where("id_usuario", "==", usuarioId ).where("id_colecta", "==", docId)
+            .orderBy("nombre_comun", "asc").get(); 
 }
