@@ -9,14 +9,15 @@ function accesoPagina() {
     });
 }
 
-/* Activa o desactiva las alertas del sistema tipo 'mensaje-error' y 'mensaje-advertencia' */
-function alertaSistema(mensaje, tipo){
-    //Reseta el estilo del elemento
+/* Recibe un string con el mensaje de la alerta y otro string con el tipo de mensaje.
+ * La función permite mostrar mensajes del sistema después de realizar una operación */
+function appAlerta(mensaje, tipo){
+    //Reseta el estilo de la alerta
     $(".mdc-snackbar").removeClass("mensaje-error")
     $(".mdc-snackbar").removeClass("mensaje-advertencia")
 
-    if(tipo == null) {
-        $(".mdc-snackbar").trigger("operacionExitosa");
+    if(tipo == "mensaje-exito") {
+        $(".mdc-snackbar").trigger("OperacionExitosa");
     }
 
     if(tipo === "mensaje-error") {
@@ -27,98 +28,90 @@ function alertaSistema(mensaje, tipo){
         $(".mdc-snackbar__dismiss").addClass("boton-advertencia");
     }
     
-    $(".mdc-snackbar").addClass("mdc-snackbar--open " + tipo);
+    $("#appAlerta").addClass("mdc-snackbar--open " + tipo);
     $(".mdc-snackbar__label").html(mensaje);
 
-    $("#cerrar-snackbar").click(function() {
+    $("#app-cerrarAlerta").click(function() {
         $(".mdc-snackbar").removeClass("mdc-snackbar--open " + tipo);
     });
 }
 
-/* Convierte el criterio de ordenamiento en valores válidos para Cloud Firestore */
-function criteriofiltro(valorSelect) {
-    let criterio;
+function pagIndex() {
+    /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
+     * declaradas en 'modulo-colectas.js' */
+    const user = firebase.auth().currentUser;
+    let valorFiltro = $("#index-filtro").val();
+    let ordenarPor = valoresFirestore(valorFiltro);
 
-    switch(valorSelect) {
-        case "t-asc":
-            criterio = ["titulo", "asc"];
-        break;
-        case "l-asc":
-            criterio = ["lugar", "asc"];
-        break;
-        case "f-asc":
-            criterio = ["fecha", "asc"];
-        break;
-        case "t-desc":
-            criterio = ["titulo", "desc"];
-        break;
-        case "l-desc":
-            criterio = ["lugar", "desc"];
-        break;
-        default:
-            criterio = ["fecha", "desc"];
+    if($("#index").length) {
+        compBarNavegacion(user, "index-barNav");
+        listaResultados("colectas", ordenarPor, "index-listaRes");
     }
 
-    return criterio;
-}
-
-/* Función para crear lista de resultados con paginación */
-//Variables globales necesarias para paginar
-let siguientePag;
-let totalResultados;
-let resultadosVisibles = 0;
-function listaResultados(nombreColeccion, nombreLista, idUsuario, nombreUsuario) {
-    const ordenCriterio = criteriofiltro($("#filtro-opciones").val());
-    const limitePag = 5;
-    
-    leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario).then(function(total) {
-        totalResultados = total;
-
-        if(totalResultados != 0){
-            $("#mensaje-default").remove();
-            $("#btn-mas").prop("disabled", false);
-
-            leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguientePag, idUsuario, nombreUsuario).then(function(objetoRes) {
-                resultadosVisibles += objetoRes.resultadosPag.size;
-                siguientePag = objetoRes.siguientePag;
-    
-                $("#chip-resultados").html("Resultados " + resultadosVisibles + " de " + totalResultados);
-                itemsLista(objetoRes.resultadosPag, nombreLista);
-    
-                if(resultadosVisibles === totalResultados){
-                    $("#btn-mas").prop("disabled", true); 
-                }
-            });    
-        }
-    });
-}
-
-/* Manejadores de eventos */
-function eventos() {
-
-    //Eventos *.html
-    $("#cerrar-sesion").click(function() {
+    $("#index-barNav").on("click", "#cerrarSesion", function(){
         cerrarSesion();
     });
 
-    // Eventos de iniciar-sesion.html y registrar.html
-    $("#contrasena-visible").click(function() {
-        visibilidadContrasena();
+    $("#index-listaRes").bind("ConsultaExitosa", function() {
+        $("#index-totalRes").html("Resultados " + resultadosVisibles + " de " + totalResultados);
+        $("#index-mensajeDefault").remove();
+        $("#index-verMas").prop("disabled", false);
+        
+        if(resultadosVisibles === totalResultados){
+            $("#index-verMas").prop("disabled", true); 
+        }
     });
 
-    // Eventos de iniciar-sesion.html
-    $("#form-login").submit(function() {
+    $("#index-filtro").change(function(){
+        siguientePag = null;
+        resultadosVisibles = 0;
+        valorFiltro = $("#index-filtro").val();
+        ordenarPor = valoresFirestore(valorFiltro);
+
+        $("#index-listaRes").empty();
+        $("#index-verMas").prop("disabled", false); 
+        
+        listaResultados("colectas", ordenarPor, "index-listaRes");
+    });
+
+    $("#index-verMas").click(function() {
+        listaResultados("colectas", ordenarPor, "index-listaRes");
+    });
+
+    $("#index-listaRes").on("click", "li", function() {
+        const docId = $(this).closest("li").attr("id");
+        window.location.assign("consulta-planeacion.html?query=" + docId);
+    });
+}
+
+function pagIniciarSesion() {
+    $("#is-form").submit(function() {
         iniciarSesion();
     });
+    
+    $("#is-verContrasena").click(function() {
+        visibilidadContrasena("is-verContrasena", "is-contrasena");
+    });
+}
 
-    $("#form-restablecer").submit(function() {
+function pagRestablecerContrasena() {
+    $("#rc-form").submit(function() {
         restablecerContrasena();
     });
+}
 
-    // Eventos de registrar.html
-    $("#form-registrar").submit(function() {
+function pagRegistrar() {
+    $("#reg-form").submit(function() {
         crearCuenta();
     });
+
+    $("#reg-verContrasena").click(function() {
+        visibilidadContrasena("reg-verContrasena", "reg-contrasena");
+    });
+}
+
+/* Separar en funciones... */
+function eventos() {
 
     // Eventos de formato-planeacion.html
     if($("#form-nuevaPlaneacion1").get().length){
@@ -213,14 +206,14 @@ function eventos() {
             const uploadTask = storageRef.child("info-consulta/"+ docId + "/" + file.name).put(file, metadata);
 
             uploadTask.on('state_changed', function(snapshot){
-                let progress = Math.round( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
+                let progress = Math.floor( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
                 
-                alertaSistema("Por favor, espere mientras se carga el archivo. Cargado: " + progress + "%" , "mensaje-advertencia");
+                appAlerta("Por favor, espere mientras se carga el archivo. Cargado: " + progress + "%" , "mensaje-advertencia");
             }, function(error) {
-                alertaSistema(error.message, "mensaje-error");
+                appAlerta(error.message, "mensaje-error");
             }, function() {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    alertaSistema("Archivo " + file.name + " cargado con éxito.");
+                    appAlerta("Archivo " + file.name + " cargado con éxito.");
                     agregarItemIconoLista("Archivo: " +file.name, "lista-items-info");
 
                     $("#item-archivo").val("");
@@ -252,7 +245,7 @@ function eventos() {
                 liElement.next().remove();
                 liElement.remove();
             }).catch(function(error) {
-                alertaSistema(error.message, "mensaje-error");
+                appAlerta(error.message, "mensaje-error");
             });
         }
     });
@@ -280,10 +273,7 @@ function eventos() {
         });  
     });
 
-    // Eventos de index.html, planeaciones.html y etiquetas.html 
-    if($("#lista-colectas").get().length){
-        listaResultados("colectas", "lista-colectas");
-    }
+    // Eventos de planeaciones.html y etiquetas.html 
 
     if($("#lista-planeaciones").get().length){
         const user = firebase.auth().currentUser;
@@ -301,10 +291,6 @@ function eventos() {
         $("#btn-mas").prop("disabled", false); 
         $(".lista-resultados").empty();
 
-        if($("#lista-colectas").get().length){
-            listaResultados("colectas", "lista-colectas");
-        }
-
         if($("#lista-planeaciones").get().length){
             const user = firebase.auth().currentUser;
             listaResultados("colectas", "lista-planeaciones", user.uid);
@@ -317,9 +303,6 @@ function eventos() {
     });
 
     $("#btn-mas").click(function() {
-        if($("#lista-colectas").get().length){
-            listaResultados("colectas", "lista-colectas");
-        }
 
         if($("#lista-planeaciones").get().length){
             const user = firebase.auth().currentUser;
@@ -332,11 +315,6 @@ function eventos() {
         }
     });
 
-    // Eventos de index.html
-    $("#lista-colectas").on("click", "li", function() {
-        const docId = $(this).closest("li").attr("id");
-        window.location.replace("consulta-planeacion.html?query=" + docId);
-    });
 
     // Eventos de planeaciones.html    
     $("#lista-planeaciones").on("click", ".lista-resultados-item", function() {
@@ -427,15 +405,17 @@ function eventos() {
 function aplicacionWeb() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            console.log(user.displayName);
             if(!user.emailVerified) {
-                alertaSistema("Por favor, verifique su dirección de correo electrónico.", "mensaje-advertencia");
+                appAlerta("Por favor, revise su correo electrónico y verifique su cuenta.", "mensaje-advertencia");
             }
         } else {
             accesoPagina();
         }
-        opcionesBarNavegacion(user);
-        eventos();
+
+        pagIndex();
+        pagIniciarSesion();
+        pagRestablecerContrasena();
+        pagRegistrar();
     });
 }
 

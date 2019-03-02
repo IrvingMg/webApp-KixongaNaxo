@@ -1,10 +1,10 @@
-/* Recibe un valor booleano indicando si se ha iniciado sesión
-y genera una cadena con las opciones de la barra de navegación */
-function opcionesBarNavegacion(sesionIniciada) {
-    let opcionesBarNav;
+/* Recibe un valor booleano y un string con el id de un elemento html.
+La función genera los botones de la barra de navegación */
+function compBarNavegacion(sesionIniciada, elementoId) {
+    let botones;
     
     if (sesionIniciada) {  
-        opcionesBarNav = 
+        botones = 
             `<a href="planeaciones.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--raised bar-nav-boton">
                     <span class="mdc-button__label">Mis planeaciones</span>
@@ -15,11 +15,11 @@ function opcionesBarNavegacion(sesionIniciada) {
                     <span class="mdc-button__label">Mis etiquetas</span>
                 </button>
             </a>
-            <button class="mdc-button mdc-button--raised bar-nav-boton" id="cerrar-sesion">
+            <button class="mdc-button mdc-button--raised bar-nav-boton" id="cerrarSesion">
                 <span class="mdc-button__label">Cerrar sesión</span>
             </button>`;
     } else {
-        opcionesBarNav =
+        botones =
             `<a href="iniciar-sesion.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--raised bar-nav-boton">
                     <span class="mdc-button__label">Iniciar sesión</span>
@@ -32,15 +32,17 @@ function opcionesBarNavegacion(sesionIniciada) {
             </a>`;
     }
 
-    $("#bar-nav-menu").html(opcionesBarNav);
+    $("#"+elementoId).html(botones);
 }
 
-function itemsLista(resultadosPag, nombreLista) {
-    let lista = "";
+/* Recibe un conjunto de documentos de la BD y un string con el id de un elemento html.
+La función genera una lista de colectas, planeaciones o etiquetas */
+function compItemsListaResultados(documentos, elementoId) {
+    let itemsLista = "";
     
-    if(nombreLista === "lista-colectas") {
-        resultadosPag.forEach(function(doc) {
-            lista += 
+    if(elementoId === "index-listaRes") {
+        documentos.forEach(function(doc) {
+            itemsLista += 
                 `<li id="`+ doc.id +`">
                     <div class="mdc-card mdc-card--outlined">
                         <div class="mdc-card__primary-action lista-resultados-item">
@@ -54,7 +56,7 @@ function itemsLista(resultadosPag, nombreLista) {
                 </li>`;
         });
     } else {
-        resultadosPag.forEach(function(doc) {
+        documentos.forEach(function(doc) {
             let tituloIcono;
             let icono;
 
@@ -66,7 +68,7 @@ function itemsLista(resultadosPag, nombreLista) {
                 icono = "person";
             }
 
-            lista +=
+            itemsLista +=
                 `<li id="`+ doc.id +`">
                     <div class="mdc-card mdc-card--outlined">
                         <div class="mdc-card__primary-action lista-resultados-item">
@@ -91,7 +93,7 @@ function itemsLista(resultadosPag, nombreLista) {
                 </li>`;
         });
     }
-    $("#"+nombreLista).append(lista);
+    $("#"+elementoId).append(itemsLista);
 }
 
 function agregarItemIconoLista(nombreItem, nombreLista) {

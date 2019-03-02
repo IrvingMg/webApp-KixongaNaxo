@@ -2,11 +2,11 @@
 function agregarDocumento(nombreColeccion, documento) {
     return db.collection(nombreColeccion).add(documento)
     .then(function(docRef) {
-        alertaSistema("Información guardada con éxito.");
+        appAlerta("Información guardada con éxito.");
         return docRef.id;
     })
     .catch(function(error) {
-        alertaSistema(error.message, "mensaje-error");
+        appAlerta(error.message, "mensaje-error");
     });
 }
 
@@ -14,19 +14,19 @@ function agregarDocumento(nombreColeccion, documento) {
 function actualizarDocumento(nombreColeccion, documento, docId) {
     db.collection(nombreColeccion).doc(docId).update(documento)
     .then(function() {
-        alertaSistema("Información guardada con éxito.");
+        appAlerta("Información guardada con éxito.");
     })
     .catch(function(error) {
-        alertaSistema(error.message, "mensaje-error");
+        appAlerta(error.message, "mensaje-error");
     });
 }
 
 /* Elimina un documento de la colección indicada a partir de su ID */
 function borrarDocumento(nombreColeccion, docId) {
     db.collection(nombreColeccion).doc(docId).delete().then(function() {
-        alertaSistema("Información eliminada con éxito.");
+        appAlerta("Información eliminada con éxito.");
     }).catch(function(error) {
-        alertaSistema(error.message, "mensaje-error");
+        appAlerta(error.message, "mensaje-error");
     });
 }
 

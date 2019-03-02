@@ -15,7 +15,7 @@
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
-        <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/modulo-usuarios.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
@@ -48,18 +48,18 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-pequeno cont-alinear-centro" id="iniciarSesion">
 
             <!-- Formulario para iniciar sesión -->
-            <form id="form-login">
+            <form id="is-form">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="email" name="correo" id="login-correo" class="mdc-text-field__input" required>
+                            <input type="email" name="correo" id="is-correo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="login-correo" class="mdc-floating-label">Correo</label>
+                                    <label for="is-correo" class="mdc-floating-label">Correo</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -68,15 +68,15 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="password" name="contrasena" id="login-contrasena" class="mdc-text-field__input" required>
+                            <input type="password" name="contrasena" id="is-contrasena" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="login-contrasena" class="mdc-floating-label">Contraseña</label>
+                                    <label for="is-contrasena" class="mdc-floating-label">Contraseña</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
-                            <i class="mdc-icon-toggle material-icons" id="contrasena-visible" title="Mostrar contraseña">visibility</i>
+                            <i class="mdc-icon-toggle material-icons" id="is-verContrasena" title="Mostrar contraseña">visibility</i>
                         </div>
                     </li>
                 </ol>
@@ -99,12 +99,12 @@
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
-        <script src="resources/scripts/admin-usuarios.js"></script>
+        <script src="resources/scripts/modulo-usuarios.js"></script>
         <script src="resources/scripts/admin-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
@@ -29,7 +29,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                         <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="index-barNav">
                 </section>
             </div>
         </nav>
@@ -48,24 +48,24 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="contenedor">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="index">
 
             <!-- Filtro de resultados -->
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text" id="chip-resultados">Resultados 0 de 0</div>
+                        <div class="mdc-chip__text" id="index-totalRes">Resultados 0 de 0</div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch">
-                            <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
+                            <label for="index-filtro" class="mdc-floating-label">Ordenar por </label>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
-                    <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                    <select name="filtro" id="index-filtro" class="mdc-select__native-control">
                         <option value="t-asc">Titulo: A-Z</option>
                         <option value="t-desc">Titulo: Z-A</option>
                         <option value="l-asc">Lugar: A-Z</option>
@@ -77,27 +77,27 @@
             </header>
 
             <!-- Lista de resultados -->
-            <ol class="lista-resultados" id="lista-colectas">
-                <li id="mensaje-default">
+            <ol class="lista-resultados" id="index-listaRes">
+                <li id="index-mensajeDefault">
                     <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
                 </li>
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas" disabled>
+                <button class="mdc-button mdc-button--raised boton-principal" id="index-verMas" disabled>
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>

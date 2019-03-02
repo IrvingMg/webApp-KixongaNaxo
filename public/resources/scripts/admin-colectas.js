@@ -123,12 +123,68 @@ function eliminarEtiquetas(docId, usuarioId) {
         });
     });
 }
-// Función de prueba
+
+/* Recibe un string con el tipo de ordenamiento de la lista de resultados.
+ * La función devuelve un Array con valores válidos para ordenar los resultados en Firestore */
+function valoresFirestore(valorFiltro) {
+    let ordenarPor;
+
+    switch(valorFiltro) {
+        case "t-asc":
+            ordenarPor = ["titulo", "asc"];
+        break;
+        case "l-asc":
+            ordenarPor = ["lugar", "asc"];
+        break;
+        case "f-asc":
+            ordenarPor = ["fecha", "asc"];
+        break;
+        case "t-desc":
+            ordenarPor = ["titulo", "desc"];
+        break;
+        case "l-desc":
+            ordenarPor = ["lugar", "desc"];
+        break;
+        default:
+            ordenarPor = ["fecha", "desc"];
+    }
+
+    return ordenarPor;
+}
+
+/* Recibe el nombre de la colección en la que se buscarán los documentos, el criterio de ordenamiento
+ * de los resultados y el id del elemento en el que se mostrará la lista. Opcionalmente, se envía el id 
+ * y nombre del usuario. 
+ * La función genera la lista de resultados de colectas, planeaciones y etiquetas de manera paginada */
+let siguientePag;
+let totalResultados;
+let resultadosVisibles = 0;
+function listaResultados(nombreColeccion, ordenarPor, elementoId, idUsuario, nombreUsuario) {
+    leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario).then(function(totalDocumentos) {
+        totalResultados = totalDocumentos;
+
+        if(totalResultados != 0){
+            const limitePag = 5;
+
+            leerPagResultados(nombreColeccion, ordenarPor, limitePag, siguientePag, idUsuario, nombreUsuario)
+            .then(function(objetoRes) {
+                resultadosVisibles += objetoRes.resultadosPag.size;
+                siguientePag = objetoRes.siguientePag;
+    
+                compItemsListaResultados(objetoRes.resultadosPag, elementoId);
+
+                $("#"+elementoId).trigger("ConsultaExitosa");
+            });    
+        }
+    });
+}
+
+// Función de prueba...
 function crearEtiqueta(nombrePlanta) {
     const user = firebase.auth().currentUser;
     let etiqueta = {
         "id_usuario" : user.uid,
-        "id_colecta" : "Z3aqqLXBNxf5ZIi8tpGV",  //Colecta Eliminar
+        "id_colecta" : "Z3aqqLXBNxf5ZIi8tpGV", 
         "fecha_colecta" : "2019-03-01",
         "fotografias" : ["string"],
         "ubicacion" : { 
