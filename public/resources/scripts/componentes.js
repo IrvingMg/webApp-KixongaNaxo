@@ -5,12 +5,12 @@ function compBarNavegacion(sesionIniciada, elementoId) {
     
     if (sesionIniciada) {  
         botones = 
-            `<a href="planeaciones.html" class="enlace-boton">
+            `<a href="mis-planeaciones.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--raised bar-nav-boton">
                     <span class="mdc-button__label">Mis planeaciones</span>
                 </button>
             </a>
-            <a href="etiquetas.html" class="enlace-boton">
+            <a href="mis-etiquetas.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--raised bar-nav-boton">
                     <span class="mdc-button__label">Mis etiquetas</span>
                 </button>
@@ -35,12 +35,12 @@ function compBarNavegacion(sesionIniciada, elementoId) {
     $("#"+elementoId).html(botones);
 }
 
-/* Recibe un conjunto de documentos de la BD y un string con el id de un elemento html.
+/* Recibe un conjunto de documentos de la BD y un string con el id de un lista.
 La función genera una lista de colectas, planeaciones o etiquetas */
-function compItemsListaResultados(documentos, elementoId) {
+function compItemsListaResultados(documentos, listaId) {
     let itemsLista = "";
     
-    if(elementoId === "index-listaRes") {
+    if(listaId === "index-listaRes") {
         documentos.forEach(function(doc) {
             itemsLista += 
                 `<li id="`+ doc.id +`">
@@ -80,7 +80,7 @@ function compItemsListaResultados(documentos, elementoId) {
                         </div>
                         <div class="mdc-card__actions">
                             <div class="mdc-card__action-buttons">
-                                <button class="mdc-button  mdc-card__action mdc-card__action--button" id="btn-eliminar">
+                                <button class="mdc-button  mdc-card__action mdc-card__action--button" id="eliminar-itemListaRes">
                                     <i class="material-icons mdc-button__icon">delete</i>
                                     <span class="mdc-button__label">Eliminar</span>
                                 </button>
@@ -93,19 +93,20 @@ function compItemsListaResultados(documentos, elementoId) {
                 </li>`;
         });
     }
-    $("#"+elementoId).append(itemsLista);
+    $("#"+listaId).append(itemsLista);
 }
 
-function agregarItemIconoLista(nombreItem, nombreLista) {
-    const item =
+/* Recibe el nombre del item y el id de una lista */
+function compItemListaIcono(item, listaId) {
+    const itemLista =
     `<li>
         <div class="mdc-list-item">
-            <span class="mdc-list-item__text" title="`+ nombreItem +`">`+ nombreItem +`</span>
+            <span class="mdc-list-item__text" title="`+ item +`">`+ item +`</span>
         </div>
-        <button class="mdc-icon-button material-icons" title="Eliminar" id="eliminar-item">delete</button>
+        <button class="mdc-icon-button material-icons" title="Eliminar" id="eliminar-itemListaIcono">delete</button>
     </li>
     <li class="mdc-list-divider"></li>`
-    $("#"+nombreLista).append(item);
+    $("#"+listaId).append(itemLista);
 }
 
 function compFormatoPlaneacion(doc) {

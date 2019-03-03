@@ -1,4 +1,5 @@
-/* Controla el acceso a páginas de usuarios no registrados */
+/* La función verifica que la url accesada sea publica 
+ * y devuelve un valor booleano */
 function accesoPagina() {
     $.post( "http://localhost:5001/webapp-kixonganaxo/us-central1/accesoPagina", //Cambiar URL para producción 
         { urlPath: window.location.pathname }
@@ -13,8 +14,9 @@ function accesoPagina() {
  * La función permite mostrar mensajes del sistema después de realizar una operación */
 function appAlerta(mensaje, tipo){
     //Reseta el estilo de la alerta
-    $(".mdc-snackbar").removeClass("mensaje-error")
-    $(".mdc-snackbar").removeClass("mensaje-advertencia")
+    $(".mdc-snackbar").removeClass("mensaje-error");
+    $(".mdc-snackbar").removeClass("mensaje-advertencia");
+    $(".mdc-snackbar").removeClass("boton-advertencia");
 
     if(tipo == "mensaje-exito") {
         $(".mdc-snackbar").trigger("OperacionExitosa");
@@ -37,20 +39,14 @@ function appAlerta(mensaje, tipo){
 }
 
 function pagIndex() {
-    /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
-     * declaradas en 'modulo-colectas.js' */
-    const user = firebase.auth().currentUser;
     let valorFiltro = $("#index-filtro").val();
     let ordenarPor = valoresFirestore(valorFiltro);
+    /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
+     * declaradas en 'modulo-colectas.js' */
 
     if($("#index").length) {
-        compBarNavegacion(user, "index-barNav");
         listaResultados("colectas", ordenarPor, "index-listaRes");
     }
-
-    $("#index-barNav").on("click", "#cerrarSesion", function(){
-        cerrarSesion();
-    });
 
     $("#index-listaRes").bind("ConsultaExitosa", function() {
         $("#index-totalRes").html("Resultados " + resultadosVisibles + " de " + totalResultados);
@@ -110,176 +106,219 @@ function pagRegistrar() {
     });
 }
 
-/* Separar en funciones... */
-function eventos() {
-
-    // Eventos de formato-planeacion.html
-    if($("#form-nuevaPlaneacion1").get().length){
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-        if(docId) {
-            $("#planeacion1-siguiente").attr("href", "material-campo.html?query=" + docId);
-            editarFormatoPlaneacion(docId);
-        }
-
-        $("#form-nuevaPlaneacion1").submit(function() {
-            crearColecta(docId);
-        });
+function pagMisPlaneaciones() {
+    const user = firebase.auth().currentUser;
+    let valorFiltro = $("#mp-filtro").val();
+    let ordenarPor = valoresFirestore(valorFiltro);
+    /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
+     * declaradas en 'modulo-colectas.js' */
+    
+    if($("#misPlaneaciones").length) {
+        listaResultados("colectas", ordenarPor, "mp-listaRes", user.uid);
     }
 
-    // Eventos de material-campo.html
-    if($("#lista-items-material").get().length) {
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
+    $("#mp-listaRes").bind("ConsultaExitosa", function() {
+        $("#mp-totalRes").html("Resultados " + resultadosVisibles + " de " + totalResultados);
+        $("#mp-mensajeDefault").remove();
+        $("#mp-verMas").prop("disabled", false);
         
-        editarListaMaterial(docId);
-    }
-
-    $("#agregar-material").click(function() {
-        let itemMaterial = $("#item-material").val();
-        $("#item-material").val("");
-
-        event.preventDefault();
-        
-        if(itemMaterial) {
-            agregarItemIconoLista(itemMaterial, "lista-items-material");
-            $("#mensaje-default").remove();
-            $("#form-nuevaPlaneacion2").prop("disabled", false);
+        if(resultadosVisibles === totalResultados){
+            $("#mp-verMas").prop("disabled", true); 
         }
     });
 
-    $("#lista-items-material").on("click", "#eliminar-item", function(){
+    $("#mp-filtro").change(function(){
+        siguientePag = null;
+        resultadosVisibles = 0;
+        valorFiltro = $("#mp-filtro").val();
+        ordenarPor = valoresFirestore(valorFiltro);
+
+        $("#mp-listaRes").empty();
+        $("#mp-verMas").prop("disabled", false); 
+        
+        listaResultados("colectas", ordenarPor, "mp-listaRes", user.uid);
+    });
+
+    $("#mp-verMas").click(function() {
+        listaResultados("colectas", ordenarPor, "mp-listaRes", user.uid);
+    });
+
+    $("#mp-listaRes").on("click", ".lista-resultados-item", function() {
+        const docId = $(this).closest("li").attr("id");
+        window.location.assign("planear-formato.html?query=" + docId);
+    });
+
+    $("#mp-listaRes").on("click", "#eliminar-itemListaRes", function() {
+        const itemSelecionado = $(this).closest("li");
+        const docId = itemSelecionado.attr("id");
+        const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
+
+        $("#mp-dialogTitulo").html(docTitulo);
+        $("#mp-docId").html(docId);
+        $(".mdc-dialog").addClass("mdc-dialog--open");
+    });
+
+    $("#mp-dialogCancelar").click(function() {
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
+    });
+
+    $("#mp-dialogAceptar").click(function() {
+        const docId = $("#mp-docId").text();
+    
+        eliminarColecta(docId); //Corregir función eliminarColecta
+        /*
+        $(".mdc-snackbar").bind("OperacionExitosa", function() {
+            location.reload();
+        });
+        */
+    });
+}
+
+function pagPlanearFormato() {
+    const params = new URLSearchParams(location.search.substring(1));
+    let docId = params.get("query");
+
+    if($("#planearFormato").length && docId) {
+        $("#pf-siguiente").attr("href", "planear-material.html?query=" + docId);
+        editarFormatoPlaneacion(docId);
+    }
+
+    $("#pf-form").submit(function() {
+        crearColecta(docId);
+
+        $(".mdc-snackbar").bind("OperacionExitosa", function() {
+            docId = $("#app-docId").text();
+            $("#pf-siguiente").attr("href", "planear-material.html?query=" + docId);
+        });
+    });
+}
+
+function pagPlanearMaterial() {
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+
+    if($("#planearMaterial").length) {
+        $("#pm-siguiente").attr("href", "planear-info.html?query=" + docId);
+        $("#pm-atras").attr("href", "planear-formato.html?query=" + docId);
+        editarListaMaterial(docId);
+    }
+
+    $("#pm-agregarItem").click(function() {
+        event.preventDefault();
+
+        const itemMaterial = $("#pm-itemMaterial").val();
+
+        if(itemMaterial) {
+            $("#pm-mensajeDefault").remove();
+            $("#pm-guardarItems").prop("disabled", false);
+
+            compItemListaIcono(itemMaterial, "pm-listaItems");
+            
+            $("#pm-itemMaterial").val("");
+        }
+    });
+
+    $("#pm-listaItems").on("click", "#eliminar-itemListaIcono", function(){
         $(this).closest("li").next().remove();
         $(this).closest("li").remove();
     });
 
-    $("#form-nuevaPlaneacion2").click(function() {
-        crearListaMaterial();
+    $("#pm-guardarItems").click(function() {
+        crearListaMaterial(docId);
     });
+}
 
-    $("#planeacion2-siguiente").click(function(){ 
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
+function pagPlanearInfo() {
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+    let archivosSubir = [];
+    let nombreArchivosSubir = [];
+    let nombreArchivosEliminar = [];
 
-        $("#planeacion2-siguiente").attr("href", "info-consulta.html?query=" + docId);
-    });
-
-    $("#planeacion2-atras").click(function(){ 
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-
-        $("#planeacion2-atras").attr("href", "formato-planeacion.html?query=" + docId);
-    });
-
-    //Eventos de info-consulta.html
-    if($("#lista-items-info").get().length) {
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-        
+    if($("#planearInfo").length) {
+        $("#pi-atras").attr("href", "planear-material.html?query=" + docId);
         editarListaInfoConsulta(docId);
     }
 
-    $("#agregar-enlace").click(function() {
-        const itemEnlace = $("#item-enlace").val();
-        $("#item-enlace").val("");
-
+    $("#pi-agregarEnlace").click(function() {
         event.preventDefault();
-        
-        if(itemEnlace){
-            agregarItemIconoLista("Enlace: " + itemEnlace, "lista-items-info");
-            $("#mensaje-default").remove();
-            $("#form-nuevaPlaneacion3").prop("disabled", false);
+
+        const itemEnlace = $("#pi-itemEnlace").val();
+
+        if(itemEnlace) {
+            $("#pi-mensajeDefault").remove();
+            $("#pi-guardarItems").prop("disabled", false);
+
+            compItemListaIcono("Enlace: "+itemEnlace, "pi-listaItems");
+            
+            $("#pi-itemEnlace").val("");
         }
     });
 
-    $("#agregar-archivo").click(function() {
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
+    $("#pi-agregarArchivo").click(function() {
         event.preventDefault();
 
-        if($("#item-archivo").val()) {
-            const storageRef = storage.ref();
-            const file = $("#item-archivo").get(0).files[0];
-            const metadata = {
-                contentType: file.type
-            };
-            const uploadTask = storageRef.child("info-consulta/"+ docId + "/" + file.name).put(file, metadata);
+        const itemArchivo = $("#pi-itemArchivo").val();
 
-            uploadTask.on('state_changed', function(snapshot){
-                let progress = Math.floor( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
-                
-                appAlerta("Por favor, espere mientras se carga el archivo. Cargado: " + progress + "%" , "mensaje-advertencia");
-            }, function(error) {
-                appAlerta(error.message, "mensaje-error");
-            }, function() {
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    appAlerta("Archivo " + file.name + " cargado con éxito.");
-                    agregarItemIconoLista("Archivo: " +file.name, "lista-items-info");
+        if(itemArchivo) {
+            const itemArchivo = $("#pi-itemArchivo").get(0).files[0];
 
-                    $("#item-archivo").val("");
-                    $("#mensaje-default").remove();
-                    $("#form-nuevaPlaneacion3").prop("disabled", false);
-                });
-            });
+            archivosSubir.push(itemArchivo);
+            nombreArchivosSubir.push(itemArchivo.name);
+            
+            $("#pi-mensajeDefault").remove();
+            $("#pi-guardarItems").prop("disabled", false);
+
+            compItemListaIcono("Archivo: "+itemArchivo.name, "pi-listaItems");
+
+            $("#pi-itemArchivo").val("");
         }
     });
 
-    $("#lista-items-info").on("click", "#eliminar-item", function(){
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-        const liElement = $(this).closest("li");
-        const item = liElement.find("span").text();
-        let nombre;
+    $("#pi-listaItems").on("click", "#eliminar-itemListaIcono", function(){
+        const itemSelecionado = $(this).closest("li");
+        const itemSelTexto = itemSelecionado.find("span").text();
+        let itemNombre;
 
-        if(item.search("Enlace: ") === 0) {
-            nombre = item.substring(8);
-            console.log(nombre);
-            liElement.next().remove();
-            liElement.remove();
+        if(itemSelTexto.search("Enlace: ") === 0) {
+            itemNombre = itemSelTexto.substring(8);
+            itemSelecionado.next().remove();
+            itemSelecionado.remove();
         } else {
-            nombre = item.substring(9);
-            const storageRef = storage.ref();
-            const desertRef = storageRef.child("info-consulta/"+ docId + "/" + nombre);
-
-            desertRef.delete().then(function() {
-                liElement.next().remove();
-                liElement.remove();
-            }).catch(function(error) {
-                appAlerta(error.message, "mensaje-error");
-            });
+            itemNombre = itemSelTexto.substring(9);
+            
+            const index = nombreArchivosSubir.indexOf(itemNombre);
+            if(index >= 0) {
+                archivosSubir.splice(index, 1);
+                nombreArchivosSubir.splice(index, 1);
+            } else {
+                nombreArchivosEliminar.push(itemNombre);
+            }
+ 
+            itemSelecionado.next().remove();
+            itemSelecionado.remove();
         }
     });
 
-    $("#form-nuevaPlaneacion3").click(function() {
-        crearListaInfoConsulta();
+    $("#pi-guardarItems").click(function() {
+        crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar);
     });
 
-    $("#planeacion3-atras").click(function(){ 
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-
-        $("#planeacion3-atras").attr("href", "material-campo.html?query=" + docId);
-    });
-
-    $("#planeacion3-publicar").click(function(){ 
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
+    $("#pi-publicar").click(function(){ 
         const documento = {"publico": true};
 
-        actualizarDocumento("colectas", documento, docId);
+        actualizarDoc("colectas", documento, docId);
         
-        $(".mdc-snackbar").bind("operacionExitosa", function() {
-            window.location.assign("planeaciones.html");
+        $(".mdc-snackbar").bind("OperacionExitosa", function() {
+            window.location.assign("mis-planeaciones.html");
         });  
     });
+}
 
-    // Eventos de planeaciones.html y etiquetas.html 
 
-    if($("#lista-planeaciones").get().length){
-        const user = firebase.auth().currentUser;
-        listaResultados("colectas", "lista-planeaciones", user.uid);
-    }
+function eventos() {
 
+    // Eventos de etiquetas.html 
     if($("#lista-etiquetas").get().length){
         const user = firebase.auth().currentUser;
         listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
@@ -291,11 +330,6 @@ function eventos() {
         $("#btn-mas").prop("disabled", false); 
         $(".lista-resultados").empty();
 
-        if($("#lista-planeaciones").get().length){
-            const user = firebase.auth().currentUser;
-            listaResultados("colectas", "lista-planeaciones", user.uid);
-        }
-
         if($("#lista-etiquetas").get().length){
             const user = firebase.auth().currentUser;
             listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
@@ -303,43 +337,10 @@ function eventos() {
     });
 
     $("#btn-mas").click(function() {
-
-        if($("#lista-planeaciones").get().length){
-            const user = firebase.auth().currentUser;
-            listaResultados("colectas", "lista-planeaciones", user.uid);
-        }
-
         if($("#lista-etiquetas").get().length){
             const user = firebase.auth().currentUser;
             listaResultados("colectas", "lista-etiquetas", user.uid, true);
         }
-    });
-
-
-    // Eventos de planeaciones.html    
-    $("#lista-planeaciones").on("click", ".lista-resultados-item", function() {
-        const docId = $(this).closest("li").attr("id");
-        window.location.replace("formato-planeacion.html?query=" + docId);
-    });
-
-    $("#lista-planeaciones").on("click", "#btn-eliminar", function() {
-        const itemSelecionado = $(this).closest("li");
-        const docId = itemSelecionado.attr("id");
-        const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
-
-        $("#id-documento").html(docId);
-        $("#my-dialog-title").html(docTitulo);
-        $(".mdc-dialog").addClass("mdc-dialog--open");
-    });
-
-    $("#planeaciones-dialog-aceptar").click(function() {
-        const docId = $("#id-documento").text();
-        borrarDocumento("colectas", docId);
-        $(".mdc-dialog").removeClass("mdc-dialog--open");
-    });
-
-    $("#dialog-cancelar").click(function() {
-        $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 
     // Eventos de etiquetas.html    
@@ -412,10 +413,20 @@ function aplicacionWeb() {
             accesoPagina();
         }
 
+        compBarNavegacion(user, "app-barNav");
+        $("#app-barNav").on("click", "#cerrarSesion", function(){
+            cerrarSesion();
+            location.reload();
+        });
+
         pagIndex();
         pagIniciarSesion();
         pagRestablecerContrasena();
         pagRegistrar();
+        pagMisPlaneaciones();
+        pagPlanearFormato();
+        pagPlanearMaterial();
+        pagPlanearInfo();
     });
 }
 

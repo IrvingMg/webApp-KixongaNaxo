@@ -1,17 +1,17 @@
+/* Opcionalmente, recibe el id de un documento para actualizarlo.
+ * La función crea o actualiza la información del formato de planeación
+ * de una colecta */
 function crearColecta(docId) {
-    const formValores = $("#form-nuevaPlaneacion1").serializeArray();
+    event.preventDefault();
+
     const user = firebase.auth().currentUser;
+    const formValores = $("#pf-form").serializeArray();
     let planeacion = {};
  
-    event.preventDefault();
-    
-    for(let i = 0; i < formValores.length; i++){
-        if(formValores[i].value != "") {
-            planeacion[formValores[i].name] = formValores[i].value;
-        } else {
-            planeacion[formValores[i].name] = "No hay información disponible."
-        }
+    for(let i = 0; i < formValores.length; i++) {
+        planeacion[formValores[i].name] = formValores[i].value;
     }
+    
     planeacion["id_usuario"] = user.uid;
     planeacion["participantes"] = [];
     planeacion["material-campo"] = [
@@ -21,51 +21,113 @@ function crearColecta(docId) {
     planeacion["publico"] = false;
 
     if(docId) {
-        actualizarDocumento("colectas", planeacion, docId);
+        actualizarDoc("colectas", planeacion, docId);
     } else {
-        agregarDocumento("colectas", planeacion).then(function(docId) {
-            $("#planeacion1-siguiente").attr("href", "material-campo.html?query=" + docId);
-        });
+        crearDoc("colectas", planeacion);
     }
-    
 }
 
-function crearListaMaterial(){
-    const params = new URLSearchParams(location.search.substring(1));
-    const docId = params.get("query");
-
-    const itemsLista = $("#lista-items-material span").get();
+function crearListaMaterial(docId){
+    const itemsLista = $("#pm-listaItems span").get();
     let planeacion = {"material-campo" : []};
 
     for(index in itemsLista) {
         planeacion["material-campo"].push(itemsLista[index].innerText);
     }
     
-    actualizarDocumento("colectas", planeacion, docId);
+    actualizarDoc("colectas", planeacion, docId);
 }
 
-function crearListaInfoConsulta(){
-    const params = new URLSearchParams(location.search.substring(1));
-    const docId = params.get("query");
-
-    const itemsLista = $("#lista-items-info span").get();
+function crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar){
+    const itemsLista = $("#pi-listaItems span").get();
+    const totalSubir = archivosSubir.length;
+    const totalEliminar = nombreArchivosEliminar.length;
+    let casoGuardar;
+    let archivosSubidos = 0;
+    let archivosEliminados = 0;
     let planeacion = {"info-consulta" : []};
-
+    
     for(index in itemsLista) {
         planeacion["info-consulta"].push(itemsLista[index].innerText);
     }
-    
-    actualizarDocumento("colectas", planeacion, docId);
+
+    /* Casos para guardar lista
+     * Caso 1: Se eliminarán archivos y luego se subirán otros.
+     * Caso 2: Únicamente se eliminarán archivos.
+     * Caso 3: Únicamente se subirán archivos.
+     * Caso 4: No se eliminarán archivos ni se subirán.*/
+    if(totalEliminar && totalSubir) {
+        casoGuardar = 1;
+    } else if(totalEliminar) {
+        casoGuardar = 2;
+    } else if(totalSubir) {
+        casoGuardar = 3;
+    } else {
+        casoGuardar = 4;
+    }
+
+    switch(casoGuardar) {
+        case 1:
+            for(index in nombreArchivosEliminar) {
+                eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivosEliminar[index]);
+            }
+
+            $("#planearInfo").bind("ArchivoEliminado", function() {
+                archivosEliminados++;
+                if(archivosEliminados === totalEliminar) {
+                    for(index in archivosSubir) {
+                        guardarArchivo(docId, archivosSubir[index]);
+                    }
+        
+                    $("#planearInfo").bind("ArchivoSubido", function() {
+                        archivosSubidos++;
+                        if(archivosSubidos === totalSubir) {
+                            actualizarDoc("colectas", planeacion, docId);
+                        }
+                    });
+                }
+            });
+            break;
+        case 2:
+            for(index in nombreArchivosEliminar) {
+                eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivosEliminar[index]);
+            }
+
+            $("#planearInfo").bind("ArchivoEliminado", function() {
+                archivosEliminados++;
+                if(archivosEliminados === totalEliminar) {
+                    actualizarDoc("colectas", planeacion, docId);
+                }
+            });
+            break;
+        case 3:
+            for(index in archivosSubir) {
+                guardarArchivo(docId, archivosSubir[index]);
+            }
+
+            $("#planearInfo").bind("ArchivoSubido", function() {
+                archivosSubidos++;
+                if(archivosSubidos === totalSubir) {
+                    actualizarDoc("colectas", planeacion, docId);
+                }
+            });
+            break;
+        default:
+            actualizarDoc("colectas", planeacion, docId);
+    }
 }
 
+/* Recibe el id de un documento para leer su información y cargarla en el formato
+ * de planeación para que pueda ser editada */
 function editarFormatoPlaneacion(docId) {
     leerDocumento("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         for(let name in doc){
             if(name === "tipo") {
-                if(doc[name] != "Exploratoria")
-                $("#tipo-especifico").prop("checked", true);;
+                if(doc[name] === "Interés específico") {
+                    $("#pf-especifica").prop("checked", true);
+                }
             } else {
                 $("[name="+ name +"]").focus();
                 $("[name="+ name +"]").val(doc[name]);
@@ -74,34 +136,56 @@ function editarFormatoPlaneacion(docId) {
     });   
 }
 
+/* Recibe el id de un documento para leer su información y cargarla en la lista
+ * de material de campo para que pueda ser editada */
 function editarListaMaterial(docId) {
     leerDocumento("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         if(doc["material-campo"].length){
-            $("#mensaje-default").remove();
-            $("#form-nuevaPlaneacion2").prop("disabled", false);
+            $("#pm-mensajeDefault").remove();
+            $("#pm-guardarItems").prop("disabled", false);
         }
 
         for(let index in doc["material-campo"]) {
-            agregarItemIconoLista(doc["material-campo"][index], "lista-items-material");
+            compItemListaIcono(doc["material-campo"][index], "pm-listaItems");
         }
     });   
 }
 
+/* Recibe el id de un documento para leer su información y cargarla en la lista
+ * de información de consulta para que pueda ser editada */
 function editarListaInfoConsulta(docId) {
     leerDocumento("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         if(doc["info-consulta"].length){
-            $("#mensaje-default").remove();
-            $("#form-nuevaPlaneacion3").prop("disabled", false);
+            $("#pi-mensajeDefault").remove();
+            $("#pi-guardarItems").prop("disabled", false);
         }
 
         for(let index in doc["info-consulta"]) {
-            agregarItemIconoLista(doc["info-consulta"][index], "lista-items-info");
+            compItemListaIcono(doc["info-consulta"][index], "pi-listaItems");
         }
     });   
+}
+
+/* Recibe el id de un documento de la colección 'colectas'.
+ * La función elimina toda la información relacionada a la colecta tanto en
+ * almacenamiento como en base de datos */
+function eliminarColecta(docId) {
+    buscarEtiquetasPorColecta(docId).then(function(documentos) {
+        console.log(1);
+        documentos.forEach(function(etiqueta) {
+            console.log(2);
+            eliminarDoc("etiquetas", etiqueta.id);
+            eliminarArchivo("audios/"+etiqueta.id+"/");
+            eliminarArchivo("fotografias/"+etiqueta.id +"/");
+        });
+    });
+    console.log(3);
+    eliminarArchivo("info-consulta/"+docId+"/");
+    eliminarDoc("colectas", docId);
 }
 
 function consultaFormatoPlaneacion(docId) {

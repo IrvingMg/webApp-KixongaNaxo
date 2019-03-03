@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title>Nueva planeación</title>
+        <title>Planear colecta</title>
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,7 +17,7 @@
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
-        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/modulo-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -29,7 +29,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -37,7 +37,7 @@
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
             <div class="encabezado-body-texto">
-                <h4 class="mdc-typography--headline4">Nueva planeación</h4>
+                <h4 class="mdc-typography--headline4">Planear colecta</h4>
                 <p class="mdc-typography--body2">(Opcional) Ingrese el material de campo requerido para la colecta.</p>
             </div>
             <!-- Menú de pestañas -->
@@ -78,33 +78,33 @@
                 <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
+                <a href="mis-planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
             </li>
             <li>
-                <a href="#" class="mdc-typography--subtitle2">Nueva planeación</a>
+                <a href="#" class="mdc-typography--subtitle2">Planear colecta</a>
             </li>
         </ol>
         
         <!-- Contenido -->
         <!-- 1ra columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna" id="planearMaterial">
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Agregar material</h5>
             </header>
 
             <form class="form-campo">
                 <div class="mdc-text-field mdc-text-field--outlined">
-                    <input type="text" name="material" id="item-material" class="mdc-text-field__input">
+                    <input type="text" name="material" id="pm-itemMaterial" class="mdc-text-field__input">
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch">
-                            <label for="item-material" class="mdc-floating-label">Material</label>
+                            <label for="pm-itemMaterial" class="mdc-floating-label">Material</label>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
                 </div>
                 <footer>
-                    <button type="submit" class="mdc-button mdc-button--raised boton-principal" id="agregar-material">
+                    <button type="submit" class="mdc-button mdc-button--raised boton-principal" id="pm-agregarItem">
                         <span class="mdc-button__label">Agregar</span>
                     </button>
                 </footer>
@@ -116,39 +116,39 @@
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Lista de material</h5>
             </header>
-            <ul class="mdc-list lista-icono-mediano" id="lista-items-material">
-                <li id="mensaje-default">
+            <ul class="mdc-list lista-icono-mediano" id="pm-listaItems">
+                <li id="pm-mensajeDefault">
                     <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
                 </li>
             </ul>
 
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal" id="form-nuevaPlaneacion2" disabled>
+                <button class="mdc-button mdc-button--raised boton-principal" id="pm-guardarItems" disabled>
                     <span class="mdc-button__label">Guardar</span>
                 </button>
             </footer>
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>
         
         <!-- Acciones de secuencia -->
         <footer>
-            <a href="#" class="enlace-boton" id="planeacion2-siguiente">
+            <a href="#" class="enlace-boton" id="pm-siguiente">
                 <button class="mdc-button mdc-button--raised boton-siguiente">
                     <span class="mdc-button__label">Siguiente</span>
                 </button>
             </a>
-            <a href="#" class="enlace-boton" id="planeacion2-atras">
+            <a href="#" class="enlace-boton" id="pm-atras">
                 <button class="mdc-button mdc-button--raised boton-atras">
                     <span class="mdc-button__label">Atrás</span>
                 </button>

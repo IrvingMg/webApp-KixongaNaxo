@@ -16,8 +16,9 @@
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
+        <script src="resources/scripts/almacenamiento.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
-        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/modulo-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -29,7 +30,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -40,9 +41,9 @@
                 <h4 class="mdc-typography--headline4">Mis planeaciones</h4>
                 <p class="mdc-typography--body2">Seleccione una colecta para editar la información de planeación.</p>
             </div>
-            <a href="formato-planeacion.html" class="enlace-boton">
+            <a href="planear-formato.html" class="enlace-boton">
                 <button class="mdc-button mdc-button--outlined">
-                    <span class="mdc-button__label">Nueva planeación</span>
+                    <span class="mdc-button__label">Planear colecta</span>
                 </button>
             </a>
         </header>
@@ -58,24 +59,24 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="contenedor">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="misPlaneaciones">
 
             <!-- Filtro de resultados -->
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text" id="chip-resultados">Resultados 0 de 0</div>
+                        <div class="mdc-chip__text" id="mp-totalRes">Resultados 0 de 0</div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch">
-                            <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
+                            <label for="mp-filtro" class="mdc-floating-label">Ordenar por </label>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
-                    <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                    <select name="filtro" id="mp-filtro" class="mdc-select__native-control">
                         <option value="t-asc">Titulo: A-Z</option>
                         <option value="t-desc">Titulo: Z-A</option>
                         <option value="l-asc">Lugar: A-Z</option>
@@ -87,27 +88,27 @@
             </header>
 
             <!-- Lista de resultados -->
-            <ol class="lista-resultados" id="lista-planeaciones">
-                <li id="mensaje-default">
+            <ol class="lista-resultados" id="mp-listaRes">
+                <li id="mp-mensajeDefault">
                     <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
                 </li>
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas" disabled>
+                <button class="mdc-button mdc-button--raised boton-principal" id="mp-verMas" disabled>
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>
@@ -115,16 +116,19 @@
             <div class="mdc-dialog__scrim"></div>
             <div class="mdc-dialog__container">
                 <div class="mdc-dialog__surface">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title"></h2>
-                    <div class="mdc-dialog__content" id="my-dialog-content">
-                        <p>¿Eliminar planeación de colecta?</p>
+                    <h2 class="mdc-dialog__title" id="mp-dialogTitulo"></h2>
+                    <div class="mdc-dialog__content" id="mp-dialogMensaje">
+                        <p>¿Eliminar planeación de colecta? 
+                            Se eliminará toda la información relacionada a la colecta, 
+                            incluyendo etiquetas y archivos guardados por los usuarios participantes.
+                        </p>
                     </div>
-                    <div id="id-documento" hidden></div>
+                    <div id="mp-docId" hidden></div>
                     <footer class="mdc-dialog__actions">
-                        <button type="button" class="mdc-button mdc-dialog__button" id="dialog-cancelar">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="mp-dialogCancelar">
                             <span class="mdc-button__label">Cancelar</span>
                         </button>
-                        <button type="button" class="mdc-button mdc-dialog__button" id="planeaciones-dialog-aceptar">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="mp-dialogAceptar">
                             <span class="mdc-button__label">Aceptar</span>
                         </button>
                     </footer>

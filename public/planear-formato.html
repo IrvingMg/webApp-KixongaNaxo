@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title>Nueva planeación</title>
+        <title>Planear colecta</title>
         <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,7 +17,7 @@
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
-        <script src="resources/scripts/admin-colectas.js"></script>
+        <script src="resources/scripts/modulo-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -29,7 +29,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -37,7 +37,7 @@
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
             <section class="encabezado-body-texto">
-                <h4 class="mdc-typography--headline4">Nueva planeación</h4>
+                <h4 class="mdc-typography--headline4">Planear colecta</h4>
                 <p class="mdc-typography--body2">Ingrese la información del formato de planeación de colecta.</p>
             </section>
 
@@ -79,29 +79,54 @@
                 <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
+                <a href="mis-planeaciones.html" class="mdc-typography--subtitle2">Mis planeaciones</a>
             </li>
             <li>
-                <a href="#" class="mdc-typography--subtitle2">Nueva planeación</a>
+                <a href="#" class="mdc-typography--subtitle2">Planear colecta</a>
             </li>
         </ol>
             
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-alinear-centro">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-alinear-centro" id="planearFormato">
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Formato de planeación</h5>
             </header>
 
             <!-- Formulario para el formato de planeación -->
-            <form id="form-nuevaPlaneacion1">
+            <form id="pf-form">
                 <ol>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="titulo" id="planeacion-titulo" class="mdc-text-field__input">
+                            <input type="text" name="titulo" id="pf-titulo" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-titulo" class="mdc-floating-label">Titulo</label>
+                                    <label for="pf-titulo" class="mdc-floating-label">Titulo</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="campo-ing-dato">
+                        <!-- Seleccionar lugar de colecta a través de Google Maps  -->
+                        <div class="mdc-text-field mdc-text-field--outlined">
+                            <input type="text" name="lugar" id="pf-lugar" class="mdc-text-field__input" required>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="pf-lugar" class="mdc-floating-label">Lugar de colecta</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="campo-ing-dato">
+                        <div class="mdc-text-field mdc-text-field--outlined">
+                            <input type="date" name="fecha" id="pf-fecha" class="mdc-text-field__input" required>
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="pf-fecha" class="mdc-floating-label">Fecha de colecta</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -109,11 +134,11 @@
                     </li>
                     <li class="campo-ing-dato">                
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="responsable" id="planeacion-responsable" class="mdc-text-field__input">
+                            <input type="text" name="responsable" id="pf-responsable" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-responsable" class="mdc-floating-label">Responsable</label>
+                                    <label for="pf-responsable" class="mdc-floating-label">Responsable</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -121,11 +146,11 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="objetivo" id="planeacion-objetivo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="objetivo" id="pf-objetivo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-objetivo" class="mdc-floating-label">Objetivo</label>
+                                    <label for="pf-objetivo" class="mdc-floating-label">Objetivo</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -134,7 +159,7 @@
                     <li class="campo-ing-dato">
                         <div class="mdc-form-field mdc-text-field--outlined">
                             <div class="mdc-radio">
-                                <input class="mdc-radio__native-control" type="radio" name="tipo" id="tipo-exploratoria" value="Exploratoria" checked>
+                                <input class="mdc-radio__native-control" type="radio" name="tipo" id="pf-exploratoria" value="Exploratoria" checked>
                                 <div class="mdc-radio__background">
                                     <div class="mdc-radio__outer-circle"></div>
                                     <div class="mdc-radio__inner-circle"></div>
@@ -142,7 +167,7 @@
                             </div>
                             <label for="tipo-exploratoria">Colecta exploratoria</label>
                             <div class="mdc-radio">
-                                <input class="mdc-radio__native-control" type="radio" name="tipo" id="tipo-especifico" value="Interés específico">
+                                <input class="mdc-radio__native-control" type="radio" name="tipo" id="pf-especifica" value="Interés específico">
                                 <div class="mdc-radio__background">
                                     <div class="mdc-radio__outer-circle"></div>
                                     <div class="mdc-radio__inner-circle"></div>
@@ -152,25 +177,12 @@
                         </div>
                     </li>
                     <li class="campo-ing-dato">
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="date" name="fecha" id="planeacion-fecha" class="mdc-text-field__input">
+                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
+                            <textarea name="especies" id="pf-especies" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-fecha" class="mdc-floating-label">Fecha de colecta</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="campo-ing-dato">
-                        <!-- Seleccionar lugar de colecta a través de Google Maps  -->
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="lugar" id="planeacion-lugar" class="mdc-text-field__input">
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-lugar" class="mdc-floating-label">Lugar de colecta</label>
+                                    <label for="pf-especies" class="mdc-floating-label">Especies de interés (Opcional)</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -178,23 +190,11 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="especies" id="planeacion-especies" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="info-adicional" id="pf-info-adicional" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-especies" class="mdc-floating-label">Especies de interés (Opcional)</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="campo-ing-dato">
-                        <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="info-adicional" id="planeacion-info-adicional" class="mdc-text-field__input" rows="3" cols="40"></textarea>
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="planeacion-info-adicional" class="mdc-floating-label">Información adicional (Opcional)</label>
+                                    <label for="pf-info-adicional" class="mdc-floating-label">Información adicional (Opcional)</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -212,19 +212,20 @@
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
+            <div id="app-docId" hidden></div>
         </div>
 
         <!-- Acciones de secuencia -->
         <footer>
-            <a href="#" class="enlace-boton" id="planeacion1-siguiente">
+            <a href="#" class="enlace-boton" id="pf-siguiente">
                 <button class="mdc-button mdc-button--raised boton-siguiente">
                     <span class="mdc-button__label">Siguiente</span>
                 </button>
