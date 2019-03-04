@@ -33,12 +33,25 @@ function eliminarDoc(nombreColeccion, docId) {
     });
 }
 
-/* Obtiene un documento de la colección indicada a partir de su ID */
-function leerDocumento(nombreColeccion, docId) {
+function buscarDocPorId(nombreColeccion, docId) {
     return db.collection(nombreColeccion).doc(docId).get() 
     .then(function(doc) {
         return doc;
     });
+}
+
+/* Recibe el id de un documento de colecta.
+ * La función devuelve todos los documentos etiqueta relacionados con una colecta */
+function buscarEtiquetasPorColecta(colectaId) {
+    return db.collection("etiquetas").where("id_colecta", "==", colectaId).get();
+}
+
+/* Recibe el id de un documento de colecta y el id de un usuario.
+ * La función devuelve todos los documentos etiqueta relacionados con una colecta 
+ * pertenecientes a un usuario */
+function buscarEtiquetasColectasPorUsuario(docId, usuarioId) {
+    return db.collection("etiquetas").where("id_usuario", "==", usuarioId ).where("id_colecta", "==", docId)
+            .orderBy("nombre_comun", "asc").get(); 
 }
 
 /* Obtiene el tamaño de una colección */
@@ -118,15 +131,4 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
             
             return {resultadosPag, siguientePag};
         });
-}
-
-function leerEtiquetas(docId, usuarioId) {
-    return db.collection("etiquetas").where("id_usuario", "==", usuarioId ).where("id_colecta", "==", docId)
-            .orderBy("nombre_comun", "asc").get(); 
-}
-
-/* Recibe el id de un documento de colecta.
- * La función devuelve todos los documentos etiqueta relacionados con una colecta */
-function buscarEtiquetasPorColecta(colectaId) {
-    return db.collection("etiquetas").where("id_colecta", "==", colectaId).get();
 }

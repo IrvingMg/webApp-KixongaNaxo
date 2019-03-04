@@ -114,19 +114,48 @@ function compFormatoPlaneacion(doc) {
         `<h5 class="mdc-typography--headline5">`+ doc.titulo +`</h5>
         <p class="mdc-typography--body2">`+ doc.participantes.length +` colectores</p>`;
 
-    const nombreCampo = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
-        "Lugar de colecta", "Especies de interés", "Material de campo", 
-        "Información de consulta","Información adicional"];
+    let listaMaterial; 
+    if(doc["material-campo"].length) {
+        listaMaterial = "<ul>";
+        for(index in doc["material-campo"]) {
+            listaMaterial += "<li>"+doc["material-campo"][index]+"</li>";  
+        }
+        listaMaterial += "</ul>";
+    }
 
+    let listaInfo;
+    if(doc["info-consulta"].length) {
+        listaInfo = "<ul>";
+        for(index in doc["info-consulta"]) {
+            listaInfo += "<li>"+doc["info-consulta"][index]+"</li>";  
+        }
+        listaInfo += "</ul>";
+    }
+
+    const nombreCampo = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
+    "Lugar de colecta", "Especies de interés", "Material de campo", 
+    "Información de consulta","Información adicional"];
     const indices = ["responsable", "objetivo", "tipo", "fecha", "lugar", 
         "especies", "material-campo", "info-consulta","info-adicional"];
-
     let formato = "";
+    
     for(let i = 0; i < indices.length; i++) {
+        let valorCampo = doc[indices[i]]; 
+
+        if(nombreCampo[i] === "Material de campo") {
+            valorCampo = listaMaterial;
+        }
+        if(nombreCampo[i] === "Información de consulta") {
+            valorCampo = listaInfo;
+        }
+        if(valorCampo === "" || valorCampo == null) {
+            valorCampo = "No hay información disponible.";
+        }
+
         formato += 
             `<li>
                 <p class="mdc-typography--body1 h7">`+ nombreCampo[i]  +`</p>
-                <p class="mdc-typography--body1 texto-info">` +  doc[indices[i]] + `</p>
+                <p class="mdc-typography--body1 texto-info">` + valorCampo + `</p>
             </li>`;
     }
 
@@ -134,17 +163,17 @@ function compFormatoPlaneacion(doc) {
     $(".lista-info-consulta").html(formato);
 }
 
-function compListaEtiquetas(doc, tipoEtiqueta){
+function compSelectColector(doc){
     const encabezado =
-        `<h5 class="mdc-typography--headline5">`+ doc.titulo +`</h5>
-        <p class="mdc-typography--body2">`+ doc.participantes.length +` colectores</p>`;
+        `<h5 class="mdc-typography--headline5">`+ doc.data().titulo +`</h5>
+        <p class="mdc-typography--body2">`+ doc.data().participantes.length +` colectores</p>`;
     
-    const participantes = doc.participantes;
+    const participantes = doc.data().participantes;
     for(index in participantes) {
         const idUsuario = participantes[index]["id_usuario"];
         const nombreUsuario = participantes[index]["nombre_usuario"];
 
-        $("#etiquetas-colector").append(`<option value="`+ idUsuario +`">`+ nombreUsuario +`</option>`);
+        $("#ce-nombreColector").append(`<option value="`+ idUsuario +`">`+ nombreUsuario +`</option>`);
     }
 
     $(".encabezado-section").html(encabezado);
@@ -155,7 +184,7 @@ function compItemsListaEtiquetas(docs) {
         docs.forEach(function(doc) {
             const nombrePlanta = doc.data().nombre_comun;
             const etiquetaId = doc.data().id;
-            $("#lista-etiquetas").append(
+            $("#ce-listaItems").append(
                 `<li id="`+ etiquetaId  +`">
                     <div class="mdc-list-item">
                         <span class="mdc-list-item__text" title="`+ nombrePlanta +`">`+ nombrePlanta +`</span>

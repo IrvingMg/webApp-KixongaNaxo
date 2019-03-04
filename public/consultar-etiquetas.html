@@ -29,7 +29,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -37,7 +37,7 @@
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
             <h4 class="mdc-typography--headline4">Consultar</h4>
-            <p class="mdc-typography--body2">Examine el formato de planeación de colecta.</p>
+            <p class="mdc-typography--body2">Seleccione el nombre de un colector para ver sus etiquetas.</p>
         </header>
 
         <!-- Ruta de navegación -->
@@ -56,8 +56,8 @@
             <h6 class="mdc-typography--headline6">Información de colecta</h6>
             <ul class="mdc-list">
                 <li>
-                    <a href="#" class="enlace-boton" id="op-formato">
-                        <div class="mdc-list-item mdc-list-item--selected">
+                    <a href="#" class="enlace-boton" id="ce-verFormato">
+                        <div class="mdc-list-item">
                             <span class="mdc-list-item__graphic material-icons">open_in_new</span>
                             <span class="mdc-list-item__text" title="Formato de planeación">Formato de planeación</span>
                         </div>
@@ -65,8 +65,8 @@
                 </li>
                 <li class="mdc-list-divider"></li>
                 <li>
-                    <a href="#" class="enlace-boton" id="op-etiquetas">
-                        <div class="mdc-list-item">
+                    <a href="#" class="enlace-boton" id="ce-verEtiquetas">
+                        <div class="mdc-list-item mdc-list-item--selected">
                             <span class="mdc-list-item__graphic material-icons">open_in_new</span>
                             <span class="mdc-list-item__text" title="Etiquetas de colecta">Etiquetas</span>
                         </div>
@@ -77,26 +77,46 @@
         </aside>
 
         <!-- 2da columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna" id="consulta-planeacion">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-intermedio cont-columna" id="consultarEtiquetas">
             <header class="encabezado-section">
             </header>
             <article>
                 <header class="encabezado-article">
-                    <h6 class="mdc-typography--headline6">Formato de planeacion</h6>
-                    <button class="mdc-icon-button material-icons" title="Ver PDF" id="formato-pdf">picture_as_pdf</button>
+                        <h6 class="mdc-typography--headline6">Etiquetas</h6>
                 </header>
                 <ul class="lista-info-consulta">
+                    <li class="campo-ing-dato">
+                        <div class="mdc-select mdc-select--outlined">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetas-colector" class="mdc-floating-label">Nombre del colector</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                            <select name="nombre-colector" id="ce-nombreColector" class="mdc-select__native-control">
+                                <option disabled selected></option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <ul class="mdc-list lista-icono2-intermedio" id="ce-listaItems">
+                            <li id="ce-mensajeDefault">
+                                <p class="mdc-typography--body1 cont-mensaje">No se ha seleccionado ningún nombre.</p>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </article>
         </section>
-        
+
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>

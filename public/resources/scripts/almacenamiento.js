@@ -7,7 +7,6 @@ function eliminarArchivo(path) {
         $("#planearInfo").trigger("ArchivoEliminado");
     }).catch(function(error) {
         appAlerta(error.message, "mensaje-error");
-        console.log(error.message);
     });
 }
 

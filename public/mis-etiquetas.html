@@ -16,6 +16,7 @@
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
+        <script src="resources/scripts/almacenamiento.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
         <script src="resources/scripts/modulo-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
@@ -29,7 +30,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -37,7 +38,7 @@
         <!-- Encabezado -->
         <header class="mdc-elevation--z10 encabezado-body">
             <h4 class="mdc-typography--headline4">Mis etiquetas</h4>
-            <p class="mdc-typography--body2">Seleccione una colecta para editar las etiquetas de colecta y herbario.</p>
+            <p class="mdc-typography--body2">Seleccione una colecta para editar sus etiquetas.</p>
         </header>
 
         <!-- Ruta de navegación -->
@@ -51,24 +52,24 @@
         </ol>
         
         <!-- Contenido -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="contenedor">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande" id="misEtiquetas">
 
             <!-- Filtro de resultados -->
             <header class="encabezado-filtro">
                 <div class="mdc-chip-set">
                     <div class="mdc-chip">
-                        <div class="mdc-chip__text" id="chip-resultados">Resultados 0 de 0</div>
+                        <div class="mdc-chip__text" id="me-totalRes">Resultados 0 de 0</div>
                     </div>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch">
-                            <label for="filtro-opciones" class="mdc-floating-label">Ordenar por </label>
+                            <label for="me-filtro" class="mdc-floating-label">Ordenar por </label>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
-                    <select name="filtro" id="filtro-opciones" class="mdc-select__native-control">
+                    <select name="filtro" id="me-filtro" class="mdc-select__native-control">
                         <option value="t-asc">Titulo: A-Z</option>
                         <option value="t-desc">Titulo: Z-A</option>
                         <option value="l-asc">Lugar: A-Z</option>
@@ -80,27 +81,27 @@
             </header>
 
             <!-- Lista de resultados -->
-            <ol class="lista-resultados" id="lista-etiquetas">
-                <li id="mensaje-default">
+            <ol class="lista-resultados" id="me-listaRes">
+                <li id="me-mensajeDefault">
                     <p class="mdc-typography--body1 cont-mensaje">No se encontraron resultados.</p>
                 </li>
             </ol>
             
             <!-- Acciones -->
             <footer>
-                <button class="mdc-button mdc-button--raised boton-principal" id="btn-mas" disabled>
+                <button class="mdc-button mdc-button--raised boton-principal" id="me-verMas" disabled>
                     <span class="mdc-button__label">Ver más</span>
                 </button>
             </footer>
         </section>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>
@@ -108,16 +109,19 @@
             <div class="mdc-dialog__scrim"></div>
             <div class="mdc-dialog__container">
                 <div class="mdc-dialog__surface">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title"></h2>
-                    <div class="mdc-dialog__content" id="my-dialog-content">
-                        <p>¿Eliminar etiquetas de la colecta?</p>
+                    <h2 class="mdc-dialog__title" id="me-dialogTitulo"></h2>
+                    <div class="mdc-dialog__content" id="me-dialogMensaje">
+                        <p>¿Eliminar etiquetas de colecta? 
+                            Se eliminará toda la información relacionada a la etiquetas, 
+                            incluyendo fotografías y audios.
+                        </p>
                     </div>
-                    <div id="id-documento" hidden></div>
+                    <div id="me-docId" hidden></div>
                     <footer class="mdc-dialog__actions">
-                        <button type="button" class="mdc-button mdc-dialog__button" id="dialog-cancelar">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="me-dialogCancelar">
                             <span class="mdc-button__label">Cancelar</span>
                         </button>
-                        <button type="button" class="mdc-button mdc-dialog__button" id="etiquetas-dialog-aceptar">
+                        <button type="button" class="mdc-button mdc-dialog__button" id="me-dialogAceptar">
                             <span class="mdc-button__label">Aceptar</span>
                         </button>
                     </footer>

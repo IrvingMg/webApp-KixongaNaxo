@@ -76,7 +76,7 @@ function pagIndex() {
 
     $("#index-listaRes").on("click", "li", function() {
         const docId = $(this).closest("li").attr("id");
-        window.location.assign("consulta-planeacion.html?query=" + docId);
+        window.location.assign("consultar-formato.html?query=" + docId);
     });
 }
 
@@ -165,12 +165,8 @@ function pagMisPlaneaciones() {
     $("#mp-dialogAceptar").click(function() {
         const docId = $("#mp-docId").text();
     
-        eliminarColecta(docId); //Corregir función eliminarColecta
-        /*
-        $(".mdc-snackbar").bind("OperacionExitosa", function() {
-            location.reload();
-        });
-        */
+        eliminarColecta(docId);
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 }
 
@@ -315,94 +311,121 @@ function pagPlanearInfo() {
     });
 }
 
-
-function eventos() {
-
-    // Eventos de etiquetas.html 
-    if($("#lista-etiquetas").get().length){
-        const user = firebase.auth().currentUser;
-        listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
+function pagMisEtiquetas() {
+    const user = firebase.auth().currentUser;
+    let valorFiltro = $("#mp-filtro").val();
+    let ordenarPor = valoresFirestore(valorFiltro);
+    /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
+     * declaradas en 'modulo-colectas.js' */
+    
+    if($("#misEtiquetas").length) {
+        listaResultados("colectas", ordenarPor, "me-listaRes", user.uid, user.displayName);
     }
 
-    $("#filtro-opciones").change(function(){
+    $("#me-listaRes").bind("ConsultaExitosa", function() {
+        $("#me-totalRes").html("Resultados " + resultadosVisibles + " de " + totalResultados);
+        $("#me-mensajeDefault").remove();
+        $("#me-verMas").prop("disabled", false);
+        
+        if(resultadosVisibles === totalResultados){
+            $("#me-verMas").prop("disabled", true); 
+        }
+    });
+
+    $("#me-filtro").change(function(){
         siguientePag = null;
         resultadosVisibles = 0;
-        $("#btn-mas").prop("disabled", false); 
-        $(".lista-resultados").empty();
+        valorFiltro = $("#me-filtro").val();
+        ordenarPor = valoresFirestore(valorFiltro);
 
-        if($("#lista-etiquetas").get().length){
-            const user = firebase.auth().currentUser;
-            listaResultados("colectas", "lista-etiquetas", user.uid, user.displayName);
-        }
+        $("#me-listaRes").empty();
+        $("#me-verMas").prop("disabled", false); 
+        
+        listaResultados("colectas", ordenarPor, "me-listaRes", user.uid, user.displayName);
     });
 
-    $("#btn-mas").click(function() {
-        if($("#lista-etiquetas").get().length){
-            const user = firebase.auth().currentUser;
-            listaResultados("colectas", "lista-etiquetas", user.uid, true);
-        }
+    $("#me-verMas").click(function() {
+        listaResultados("colectas", ordenarPor, "me-listaRes", user.uid, user.displayName);
     });
 
-    // Eventos de etiquetas.html    
-    $("#lista-etiquetas").on("click", ".lista-resultados-item", function() {
+    $("#me-listaRes").on("click", ".lista-resultados-item", function() {
         const docId = $(this).closest("li").attr("id");
-        window.location.replace("etiquetar.html?query=" + docId);
+        window.location.assign("etiquetar.html?query=" + docId);
     });
 
-    $("#lista-etiquetas").on("click", "#btn-eliminar", function() {
+    $("#me-listaRes").on("click", "#eliminar-itemListaRes", function() {
         const itemSelecionado = $(this).closest("li");
         const docId = itemSelecionado.attr("id");
         const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
 
-        $("#id-documento").html(docId);
-        $("#my-dialog-title").html(docTitulo);
+        $("#me-dialogTitulo").html(docTitulo);
+        $("#me-docId").html(docId);
         $(".mdc-dialog").addClass("mdc-dialog--open");
     });
 
-    $("#etiquetas-dialog-aceptar").click(function() {
-        const docId = $("#id-documento").text();
-        const user = firebase.auth().currentUser;
-
-        eliminarEtiquetas(docId, user.uid);
+    $("#me-dialogCancelar").click(function() {
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 
-    // Eventos de consulta-planeacion.html
-    if($("#consulta-planeacion").get().length){
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-
-        $("#op-formato").attr("href", "consulta-planeacion.html?query=" + docId);
-        $("#op-etiquetas").attr("href", "consulta-etiquetas.html?query=" + docId);
-        consultaFormatoPlaneacion(docId);
-    }
-
-    // Eventos de consulta-etiquetas.html
-    if($("#consulta-etiquetas").get().length){
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-        const tipoEtiqueta = params.get("etiquetas");
-
-        $("#op-formato").attr("href", "consulta-planeacion.html?query=" + docId);
-        $("#op-etiquetas").attr("href", "consulta-etiquetas.html?query=" + docId);
-        consultaEtiquetas(docId, tipoEtiqueta);
-    }
-
-    $("#etiquetas-colector").change(function(){
-        const params = new URLSearchParams(location.search.substring(1));
-        const docId = params.get("query");
-        const usuarioId = $("#etiquetas-colector").val();
-        $("#lista-etiquetas").empty();
-
-        leerEtiquetas(docId, usuarioId)
-        .then(function(docs) {
-            compItemsListaEtiquetas(docs);
-        });
-    });
+    $("#me-dialogAceptar").click(function() {
+        const docId = $("#me-docId").text();
     
+        eliminarEtiquetas(docId, user.uid, user.displayName);
+        $(".mdc-dialog").removeClass("mdc-dialog--open");
+    });
 }
 
-/* Función principal de la aplicación web */
+function pagConsultarFormato() {
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+
+    if($("#consultarFormato").length){
+        $("#cf-verFormato").attr("href", "consultar-formato.html?query=" + docId);
+        $("#cf-verEtiquetas").attr("href", "consultar-etiquetas.html?query=" + docId);
+    
+        buscarDocPorId("colectas", docId).then(function(documento) {
+            compFormatoPlaneacion(documento.data());
+        });
+    }
+
+    $("#cf-verPdf").click(function() {
+        //Corregir...    
+        html2canvas(document.getElementById('consultarFormato')).then(function(canvas){
+            var wid = canvas.width;
+            var hgt = canvas.height;
+            var img = canvas.toDataURL("image/png");
+            var doc = new jsPDF('p','px', [wid, hgt]);
+            var width = doc.internal.pageSize.width;    
+            doc.addImage(img,'JPEG',0,0, width, hgt);
+            doc.save('Test.pdf');
+        });
+    });
+}
+
+function pagConsultarEtiquetas() {
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+
+    if($("#consultarEtiquetas").length){
+        $("#ce-verFormato").attr("href", "consultar-formato.html?query=" + docId);
+        $("#ce-verEtiquetas").attr("href", "consultar-etiquetas.html?query=" + docId);
+
+        buscarDocPorId("colectas", docId).then(function(documento) {
+            compSelectColector(documento);
+        });
+    }
+
+    $("#ce-nombreColector").change(function(){
+        const usuarioId = $("#ce-nombreColector").val();
+        $("#ce-listaItems").empty();
+
+        buscarEtiquetasColectasPorUsuario(docId, usuarioId)
+        .then(function(documentos) {
+            compItemsListaEtiquetas(documentos);
+        });
+    });
+}
+
 function aplicacionWeb() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -427,6 +450,9 @@ function aplicacionWeb() {
         pagPlanearFormato();
         pagPlanearMaterial();
         pagPlanearInfo();
+        pagMisEtiquetas();
+        pagConsultarFormato();
+        pagConsultarEtiquetas();
     });
 }
 

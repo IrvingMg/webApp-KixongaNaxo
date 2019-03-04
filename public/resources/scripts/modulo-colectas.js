@@ -1,3 +1,58 @@
+/* Recibe un string con el tipo de ordenamiento de la lista de resultados.
+ * La función devuelve un Array con valores válidos para ordenar los resultados en Firestore */
+function valoresFirestore(valorFiltro) {
+    let ordenarPor;
+
+    switch(valorFiltro) {
+        case "t-asc":
+            ordenarPor = ["titulo", "asc"];
+        break;
+        case "l-asc":
+            ordenarPor = ["lugar", "asc"];
+        break;
+        case "f-asc":
+            ordenarPor = ["fecha", "asc"];
+        break;
+        case "t-desc":
+            ordenarPor = ["titulo", "desc"];
+        break;
+        case "l-desc":
+            ordenarPor = ["lugar", "desc"];
+        break;
+        default:
+            ordenarPor = ["fecha", "desc"];
+    }
+
+    return ordenarPor;
+}
+
+/* Recibe el nombre de la colección en la que se buscarán los documentos, el criterio de ordenamiento
+ * de los resultados y el id del elemento en el que se mostrará la lista. Opcionalmente, se envía el id 
+ * y nombre del usuario. 
+ * La función genera la lista de resultados de colectas, planeaciones y etiquetas de manera paginada */
+let siguientePag;
+let totalResultados;
+let resultadosVisibles = 0;
+function listaResultados(nombreColeccion, ordenarPor, elementoId, idUsuario, nombreUsuario) {
+    leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario).then(function(totalDocumentos) {
+        totalResultados = totalDocumentos;
+
+        if(totalResultados != 0){
+            const limitePag = 5;
+
+            leerPagResultados(nombreColeccion, ordenarPor, limitePag, siguientePag, idUsuario, nombreUsuario)
+            .then(function(objetoRes) {
+                resultadosVisibles += objetoRes.resultadosPag.size;
+                siguientePag = objetoRes.siguientePag;
+    
+                compItemsListaResultados(objetoRes.resultadosPag, elementoId);
+
+                $("#"+elementoId).trigger("ConsultaExitosa");
+            });    
+        }
+    });
+}
+
 /* Opcionalmente, recibe el id de un documento para actualizarlo.
  * La función crea o actualiza la información del formato de planeación
  * de una colecta */
@@ -120,7 +175,7 @@ function crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar){
 /* Recibe el id de un documento para leer su información y cargarla en el formato
  * de planeación para que pueda ser editada */
 function editarFormatoPlaneacion(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
+    buscarDocPorId("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         for(let name in doc){
@@ -139,7 +194,7 @@ function editarFormatoPlaneacion(docId) {
 /* Recibe el id de un documento para leer su información y cargarla en la lista
  * de material de campo para que pueda ser editada */
 function editarListaMaterial(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
+    buscarDocPorId("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         if(doc["material-campo"].length){
@@ -156,7 +211,7 @@ function editarListaMaterial(docId) {
 /* Recibe el id de un documento para leer su información y cargarla en la lista
  * de información de consulta para que pueda ser editada */
 function editarListaInfoConsulta(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
+    buscarDocPorId("colectas", docId).then(function(documento) {
         let doc = documento.data();
 
         if(doc["info-consulta"].length){
@@ -175,91 +230,68 @@ function editarListaInfoConsulta(docId) {
  * almacenamiento como en base de datos */
 function eliminarColecta(docId) {
     buscarEtiquetasPorColecta(docId).then(function(documentos) {
-        console.log(1);
         documentos.forEach(function(etiqueta) {
-            console.log(2);
+            const doc = etiqueta.data();
+            //Elimina fotografías y audios relacionados a la etiqueta
+            for(let index in doc["fotografias"]) {
+                const nombreArchivo = doc["fotografias"][index];
+
+                eliminarArchivo("fotografias/"+etiqueta.id+"/"+nombreArchivo);
+            }
+
+            for(let index in doc["audios"]) {
+                const nombreArchivo = doc["audios"][index];
+
+                eliminarArchivo("audios/"+etiqueta.id+"/"+nombreArchivo);
+            }
+            //Elimina la etiqueta relacionada a la colecta
             eliminarDoc("etiquetas", etiqueta.id);
-            eliminarArchivo("audios/"+etiqueta.id+"/");
-            eliminarArchivo("fotografias/"+etiqueta.id +"/");
         });
-    });
-    console.log(3);
-    eliminarArchivo("info-consulta/"+docId+"/");
-    eliminarDoc("colectas", docId);
-}
-
-function consultaFormatoPlaneacion(docId) {
-    leerDocumento("colectas", docId).then(function(documento) {
-        compFormatoPlaneacion(documento.data());
-    });
-}
-
-function consultaEtiquetas(docId, tipoEtiqueta) {
-    leerDocumento("colectas", docId).then(function(documento) {
-        compListaEtiquetas(documento.data(), tipoEtiqueta);
-    });
-}
-
-function eliminarEtiquetas(docId, usuarioId) {
-    leerEtiquetas(docId, usuarioId).then(function(docs){
-        docs.forEach(function(doc) {
-            borrarDocumento("etiquetas", doc.id);
+        
+        buscarDocPorId("colectas", docId).then(function(documento) {
+            const doc = documento.data();
+            //Elimina los archivos de información de consulta
+            for(let index in doc["info-consulta"]) {
+                const elemento = doc["info-consulta"][index];
+                if(elemento.search("Archivo: ") === 0) {
+                    const nombreArchivo = elemento.substring(9);
+                
+                    eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivo);
+                }
+            }
+            //Elimina la colecta
+            eliminarDoc("colectas", docId);
+            location.reload();
         });
     });
 }
 
-/* Recibe un string con el tipo de ordenamiento de la lista de resultados.
- * La función devuelve un Array con valores válidos para ordenar los resultados en Firestore */
-function valoresFirestore(valorFiltro) {
-    let ordenarPor;
+function eliminarEtiquetas(docId, usuarioId, nombreUsuario) {
+    buscarEtiquetasColectasPorUsuario(docId, usuarioId).then(function(documentos){
+        documentos.forEach(function(etiqueta) {
+            const doc = etiqueta.data();
+            //Elimina fotografías y audios relacionados a la etiqueta
+            for(let index in doc["fotografias"]) {
+                const nombreArchivo = doc["fotografias"][index];
 
-    switch(valorFiltro) {
-        case "t-asc":
-            ordenarPor = ["titulo", "asc"];
-        break;
-        case "l-asc":
-            ordenarPor = ["lugar", "asc"];
-        break;
-        case "f-asc":
-            ordenarPor = ["fecha", "asc"];
-        break;
-        case "t-desc":
-            ordenarPor = ["titulo", "desc"];
-        break;
-        case "l-desc":
-            ordenarPor = ["lugar", "desc"];
-        break;
-        default:
-            ordenarPor = ["fecha", "desc"];
-    }
+                eliminarArchivo("fotografias/"+etiqueta.id+"/"+nombreArchivo);
+            }
 
-    return ordenarPor;
-}
+            for(let index in doc["audios"]) {
+                const nombreArchivo = doc["audios"][index];
 
-/* Recibe el nombre de la colección en la que se buscarán los documentos, el criterio de ordenamiento
- * de los resultados y el id del elemento en el que se mostrará la lista. Opcionalmente, se envía el id 
- * y nombre del usuario. 
- * La función genera la lista de resultados de colectas, planeaciones y etiquetas de manera paginada */
-let siguientePag;
-let totalResultados;
-let resultadosVisibles = 0;
-function listaResultados(nombreColeccion, ordenarPor, elementoId, idUsuario, nombreUsuario) {
-    leerTotalResultados(nombreColeccion, idUsuario, nombreUsuario).then(function(totalDocumentos) {
-        totalResultados = totalDocumentos;
-
-        if(totalResultados != 0){
-            const limitePag = 5;
-
-            leerPagResultados(nombreColeccion, ordenarPor, limitePag, siguientePag, idUsuario, nombreUsuario)
-            .then(function(objetoRes) {
-                resultadosVisibles += objetoRes.resultadosPag.size;
-                siguientePag = objetoRes.siguientePag;
-    
-                compItemsListaResultados(objetoRes.resultadosPag, elementoId);
-
-                $("#"+elementoId).trigger("ConsultaExitosa");
-            });    
-        }
+                eliminarArchivo("audios/"+etiqueta.id+"/"+nombreArchivo);
+            }
+            //Elimina la etiqueta del usuario relacionada a la colecta
+            eliminarDoc("etiquetas", etiqueta.id);
+        });
+        //Elimina al usuario como participante de la colecta
+        buscarDocPorId("colectas",docId).then(function(documento) {
+            const participantes = documento.data()["participantes"];
+            const index = participantes.indexOf({"id_usuario": usuarioId, "nombre_usuario": nombreUsuario});
+            participantes.splice(index, 1);
+            actualizarDoc("colectas", {"participantes": participantes}, docId);
+        });
     });
 }
 
@@ -268,9 +300,9 @@ function crearEtiqueta(nombrePlanta) {
     const user = firebase.auth().currentUser;
     let etiqueta = {
         "id_usuario" : user.uid,
-        "id_colecta" : "Z3aqqLXBNxf5ZIi8tpGV", 
+        "id_colecta" : "1i2shY2HEViSCItOBtYI", 
         "fecha_colecta" : "2019-03-01",
-        "fotografias" : ["string"],
+        "fotografias" : [],
         "ubicacion" : { 
             "longitud" : "number", 
             "latitud" : "number", 
@@ -291,8 +323,8 @@ function crearEtiqueta(nombrePlanta) {
         "uso_medicinal" : "string",
         "modo_empleo" : "string",
         "numero_colecta" : "number",
-        "audios" : ["string"]
+        "audios" : []
     };
 
-    agregarDocumento("etiquetas", etiqueta);
+    crearDoc("etiquetas", etiqueta);
 }
