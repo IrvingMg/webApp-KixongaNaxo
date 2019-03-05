@@ -1,31 +1,3 @@
-/* Recibe un string con el tipo de ordenamiento de la lista de resultados.
- * La función devuelve un Array con valores válidos para ordenar los resultados en Firestore */
-function valoresFirestore(valorFiltro) {
-    let ordenarPor;
-
-    switch(valorFiltro) {
-        case "t-asc":
-            ordenarPor = ["titulo", "asc"];
-        break;
-        case "l-asc":
-            ordenarPor = ["lugar", "asc"];
-        break;
-        case "f-asc":
-            ordenarPor = ["fecha", "asc"];
-        break;
-        case "t-desc":
-            ordenarPor = ["titulo", "desc"];
-        break;
-        case "l-desc":
-            ordenarPor = ["lugar", "desc"];
-        break;
-        default:
-            ordenarPor = ["fecha", "desc"];
-    }
-
-    return ordenarPor;
-}
-
 /* Recibe el nombre de la colección en la que se buscarán los documentos, el criterio de ordenamiento
  * de los resultados y el id del elemento en el que se mostrará la lista. Opcionalmente, se envía el id 
  * y nombre del usuario. 
@@ -267,7 +239,7 @@ function eliminarColecta(docId) {
 }
 
 function eliminarEtiquetas(docId, usuarioId, nombreUsuario) {
-    buscarEtiquetasColectasPorUsuario(docId, usuarioId).then(function(documentos){
+    buscarEtiquetasColectasPorUsuario(docId, usuarioId, nombreUsuario).then(function(documentos){
         documentos.forEach(function(etiqueta) {
             const doc = etiqueta.data();
             //Elimina fotografías y audios relacionados a la etiqueta
@@ -295,18 +267,101 @@ function eliminarEtiquetas(docId, usuarioId, nombreUsuario) {
     });
 }
 
+/* Recibe los datos de un formato de planeación  y su id.
+ * La función genera un archivo pdf con la información del documento */
+function formatoPlaneacionPDF(infoFormato, docId) {
+    const doc = new jsPDF("p", "cm", "letter");
+    const margenIzq = 3;
+    const margenDer = 3; 
+
+    doc.setFontSize(16);
+    doc.text(infoFormato.titulo, margenIzq, nuevaLinea(0));
+    doc.setFontSize(11);
+    doc.text(infoFormato["participantes"].length + " colectores", margenIzq, nuevaLinea(1));
+    doc.line(margenIzq, nuevaLinea(2), doc.internal.pageSize.getWidth() - margenDer, nuevaLinea(2));
+
+    const nombreCampo = ["Responsable", "Objetivo", "Tipo de colecta", "Fecha de colecta", 
+        "Lugar de colecta", "Especies de interés", "Material de campo", 
+        "Información de consulta","Información adicional"];
+    const indices = ["responsable", "objetivo", "tipo", "fecha", "lugar", 
+        "especies", "material-campo", "info-consulta","info-adicional"];
+        
+    let contenido = [];
+    for(let i=0; i < indices.length; i++) {
+        contenido.push([nombreCampo[i], infoFormato[indices[i]] ]);
+    }
+
+    doc.autoTable({
+        columnStyles: {0: {fontSize: 11, textColor: [0, 0, 0]}},
+        body: contenido,
+        margin: {top: nuevaLinea(3), left: margenIzq, right: 3}
+    });
+
+    doc.save(docId+".pdf");
+}
+
+
+function etiquetaPDF(infoEtiqueta, etiquetaId) {
+    const doc = new jsPDF("p", "cm", "letter");
+    const margenIzq = 3;
+    const margenDer = 3; 
+
+    doc.setFontSize(16);
+    doc.text("Etiqueta de herbario", margenIzq, nuevaLinea(0));
+    //doc.setFontSize(11);
+    //doc.text(infoFormato["participantes"].length + " colectores", margenIzq, nuevaLinea(1));
+    doc.line(margenIzq, nuevaLinea(1), doc.internal.pageSize.getWidth() - margenDer, nuevaLinea(1));
+ 
+
+    const nombreCampo = ["Nombre común", "Nombre científico", "Familia botánica", 
+        "Descripción de la planta", "Sitio de colecta", "Ubicación GPS", "Información etnobotánica",
+        "Uso medicinal", "Modo de empleo", "Fecha de colecta", "Colector", "Número de colecta"];
+    const indices = ["nombre_comun", "nombre_cientifico", "familia_botanica",
+        "descripcion_planta", "lugar", "ubicacion", "info_etnobotanica", "uso_medicinal", "modo_empleo", 
+        "fecha_colecta", "colector", "numero_colecta"];
+        
+    let contenido = [];
+    for(let i=0; i < indices.length; i++) {
+        let valorCampo = infoEtiqueta[indices[i]];
+
+        if(nombreCampo[i] === "Ubicación GPS") {
+            valorCampo = valorCampo["latitud"] + ", "+ valorCampo["longitud"]; 
+        }
+        if(nombreCampo[i] === "Colector") {
+            valorCampo = valorCampo[0]["nombre_usuario"];
+        }
+
+        contenido.push([nombreCampo[i], valorCampo]);
+    }
+
+    doc.autoTable({
+        columnStyles: {0: {fontSize: 11, textColor: [0, 0, 0]}},
+        body: contenido,
+        margin: {top: nuevaLinea(2), left: margenIzq, right: 3}
+    });
+
+    doc.save(etiquetaId+".pdf");
+}
+
+function nuevaLinea(numRenglon) {
+    const margenSup = 2.5;
+    const alturaTexto = 0.5;
+
+    return margenSup + alturaTexto * numRenglon;
+};
+
 // Función de prueba...
 function crearEtiqueta(nombrePlanta) {
     const user = firebase.auth().currentUser;
     let etiqueta = {
-        "id_usuario" : user.uid,
         "id_colecta" : "1i2shY2HEViSCItOBtYI", 
-        "fecha_colecta" : "2019-03-01",
+        "colector" : [{"id_usuario": user.uid, "nombre_usuario": user.displayName}],
+        "fecha_colecta" : "",
         "fotografias" : [],
+        "lugar" : "string",
         "ubicacion" : { 
             "longitud" : "number", 
             "latitud" : "number", 
-            "altitud" : "number"
         },
         "caracteristicas_lugar" :"string",
         "nombre_comun" : nombrePlanta,

@@ -46,12 +46,14 @@ function buscarEtiquetasPorColecta(colectaId) {
     return db.collection("etiquetas").where("id_colecta", "==", colectaId).get();
 }
 
-/* Recibe el id de un documento de colecta y el id de un usuario.
+/* Recibe el id de un documento de colecta y el id de un usuario y su nombre.
  * La función devuelve todos los documentos etiqueta relacionados con una colecta 
  * pertenecientes a un usuario */
-function buscarEtiquetasColectasPorUsuario(docId, usuarioId) {
-    return db.collection("etiquetas").where("id_usuario", "==", usuarioId ).where("id_colecta", "==", docId)
-            .orderBy("nombre_comun", "asc").get(); 
+function buscarEtiquetasColectasPorUsuario(docId, usuarioId, nombreUsuario) {
+    return db.collection("etiquetas")
+        .where("colector", "array-contains", {"id_usuario": usuarioId, "nombre_usuario": nombreUsuario})
+        .where("id_colecta", "==", docId)
+        .orderBy("nombre_comun", "asc").get(); 
 }
 
 /* Obtiene el tamaño de una colección */
@@ -131,4 +133,31 @@ function leerPagResultados(nombreColeccion, ordenCriterio, limitePag, siguienteP
             
             return {resultadosPag, siguientePag};
         });
+}
+
+/* Recibe un string con el tipo de ordenamiento de la lista de resultados.
+ * La función devuelve un Array con valores válidos para ordenar los resultados en Firestore */
+function valorOrdenamiento(valorFiltro) {
+    let ordenarPor;
+
+    switch(valorFiltro) {
+        case "t-asc":
+            ordenarPor = ["titulo", "asc"];
+        break;
+        case "l-asc":
+            ordenarPor = ["lugar", "asc"];
+        break;
+        case "f-asc":
+            ordenarPor = ["fecha", "asc"];
+        break;
+        case "t-desc":
+            ordenarPor = ["titulo", "desc"];
+        break;
+        case "l-desc":
+            ordenarPor = ["lugar", "desc"];
+        break;
+        default:
+            ordenarPor = ["fecha", "desc"];
+    }
+    return ordenarPor;
 }

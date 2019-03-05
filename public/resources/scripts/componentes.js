@@ -172,8 +172,9 @@ function compSelectColector(doc){
     for(index in participantes) {
         const idUsuario = participantes[index]["id_usuario"];
         const nombreUsuario = participantes[index]["nombre_usuario"];
+        const colector = {"id_usuario": idUsuario, "nombre_usuario": nombreUsuario};
 
-        $("#ce-nombreColector").append(`<option value="`+ idUsuario +`">`+ nombreUsuario +`</option>`);
+        $("#ce-nombreColector").append(`<option value="`+ idUsuario +","+ nombreUsuario +`">`+ nombreUsuario +`</option>`);
     }
 
     $(".encabezado-section").html(encabezado);
@@ -183,14 +184,14 @@ function compItemsListaEtiquetas(docs) {
     if(docs.size) {
         docs.forEach(function(doc) {
             const nombrePlanta = doc.data().nombre_comun;
-            const etiquetaId = doc.data().id;
+            const etiquetaId = doc.id;
             $("#ce-listaItems").append(
                 `<li id="`+ etiquetaId  +`">
                     <div class="mdc-list-item">
                         <span class="mdc-list-item__text" title="`+ nombrePlanta +`">`+ nombrePlanta +`</span>
                     </div>
-                    <button class="mdc-icon-button material-icons" title="Ver etiqueta">picture_as_pdf</button>
-                    <button class="mdc-icon-button material-icons" title="Ver fotografías">photo_library</button>
+                    <button class="mdc-icon-button material-icons" title="Descargar etiqueta" id="ce-verPdf">picture_as_pdf</button>
+                    <button class="mdc-icon-button material-icons" title="Descargar fotografías" id="ce-verFotos">photo_library</button>
                 </li>
                 <li class="mdc-list-divider"></li>`);
         });

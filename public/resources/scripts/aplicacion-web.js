@@ -40,7 +40,7 @@ function appAlerta(mensaje, tipo){
 
 function pagIndex() {
     let valorFiltro = $("#index-filtro").val();
-    let ordenarPor = valoresFirestore(valorFiltro);
+    let ordenarPor = valorOrdenamiento(valorFiltro);
     /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
      * declaradas en 'modulo-colectas.js' */
 
@@ -62,7 +62,7 @@ function pagIndex() {
         siguientePag = null;
         resultadosVisibles = 0;
         valorFiltro = $("#index-filtro").val();
-        ordenarPor = valoresFirestore(valorFiltro);
+        ordenarPor = valorOrdenamiento(valorFiltro);
 
         $("#index-listaRes").empty();
         $("#index-verMas").prop("disabled", false); 
@@ -109,7 +109,7 @@ function pagRegistrar() {
 function pagMisPlaneaciones() {
     const user = firebase.auth().currentUser;
     let valorFiltro = $("#mp-filtro").val();
-    let ordenarPor = valoresFirestore(valorFiltro);
+    let ordenarPor = valorOrdenamiento(valorFiltro);
     /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
      * declaradas en 'modulo-colectas.js' */
     
@@ -131,7 +131,7 @@ function pagMisPlaneaciones() {
         siguientePag = null;
         resultadosVisibles = 0;
         valorFiltro = $("#mp-filtro").val();
-        ordenarPor = valoresFirestore(valorFiltro);
+        ordenarPor = valorOrdenamiento(valorFiltro);
 
         $("#mp-listaRes").empty();
         $("#mp-verMas").prop("disabled", false); 
@@ -314,7 +314,7 @@ function pagPlanearInfo() {
 function pagMisEtiquetas() {
     const user = firebase.auth().currentUser;
     let valorFiltro = $("#mp-filtro").val();
-    let ordenarPor = valoresFirestore(valorFiltro);
+    let ordenarPor = valorOrdenamiento(valorFiltro);
     /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
      * declaradas en 'modulo-colectas.js' */
     
@@ -336,7 +336,7 @@ function pagMisEtiquetas() {
         siguientePag = null;
         resultadosVisibles = 0;
         valorFiltro = $("#me-filtro").val();
-        ordenarPor = valoresFirestore(valorFiltro);
+        ordenarPor = valorOrdenamiento(valorFiltro);
 
         $("#me-listaRes").empty();
         $("#me-verMas").prop("disabled", false); 
@@ -378,6 +378,7 @@ function pagMisEtiquetas() {
 function pagConsultarFormato() {
     const params = new URLSearchParams(location.search.substring(1));
     const docId = params.get("query");
+    let infoFormato;
 
     if($("#consultarFormato").length){
         $("#cf-verFormato").attr("href", "consultar-formato.html?query=" + docId);
@@ -385,26 +386,19 @@ function pagConsultarFormato() {
     
         buscarDocPorId("colectas", docId).then(function(documento) {
             compFormatoPlaneacion(documento.data());
+            infoFormato = documento.data();
         });
     }
 
     $("#cf-verPdf").click(function() {
-        //Corregir...    
-        html2canvas(document.getElementById('consultarFormato')).then(function(canvas){
-            var wid = canvas.width;
-            var hgt = canvas.height;
-            var img = canvas.toDataURL("image/png");
-            var doc = new jsPDF('p','px', [wid, hgt]);
-            var width = doc.internal.pageSize.width;    
-            doc.addImage(img,'JPEG',0,0, width, hgt);
-            doc.save('Test.pdf');
-        });
+        formatoPlaneacionPDF(infoFormato, docId);
     });
 }
 
 function pagConsultarEtiquetas() {
     const params = new URLSearchParams(location.search.substring(1));
     const docId = params.get("query");
+    let etiquetas = [];
 
     if($("#consultarEtiquetas").length){
         $("#ce-verFormato").attr("href", "consultar-formato.html?query=" + docId);
@@ -416,12 +410,30 @@ function pagConsultarEtiquetas() {
     }
 
     $("#ce-nombreColector").change(function(){
-        const usuarioId = $("#ce-nombreColector").val();
+        const usuario = $("#ce-nombreColector").val().split(",");
+        const usuarioId = usuario[0];
+        const nombreUsuario = usuario[1];
+        
         $("#ce-listaItems").empty();
 
-        buscarEtiquetasColectasPorUsuario(docId, usuarioId)
+        buscarEtiquetasColectasPorUsuario(docId, usuarioId, nombreUsuario)
         .then(function(documentos) {
             compItemsListaEtiquetas(documentos);
+            documentos.forEach(function(doc) {
+                etiquetas.push(doc);
+            });
+        });
+    });
+
+    $("#ce-listaItems").on("click", "#ce-verPdf", function() {
+        const etiquetaId = $(this).closest("li").attr("id");
+        
+        infoEtiqueta = etiquetas.find(function(doc) {
+            return doc.id === etiquetaId;
+        }).data();
+
+        buscarDocPorId("etiquetas", etiquetaId).then(function(documento) {
+            etiquetaPDF(infoEtiqueta, etiquetaId);
         });
     });
 }

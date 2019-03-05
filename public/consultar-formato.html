@@ -14,8 +14,8 @@
         <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+        <script src="https://unpkg.com/jspdf-autotable"></script>
         <script src="firebase-config.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
@@ -85,7 +85,7 @@
             <article>
                 <header class="encabezado-article">
                     <h6 class="mdc-typography--headline6">Formato de planeacion</h6>
-                    <button class="mdc-icon-button material-icons" title="Ver PDF" id="cf-verPdf">picture_as_pdf</button>
+                    <button class="mdc-icon-button material-icons" title="Descargar formato" id="cf-verPdf">picture_as_pdf</button>
                 </header>
                 <ul class="lista-info-consulta">
                 </ul>
