@@ -29,3 +29,17 @@ function guardarArchivo(docId, archivo) {
     });
 }
 
+function descargarArchivo(path) {
+    const storageRef = storage.ref();
+    const pathReference = storageRef.child(path);
+
+    pathReference.getDownloadURL().then(function(url) {
+        $("#cfotos-galeria").append(
+            `<li class="mdc-image-list__item">
+                <img class="mdc-image-list__image" src="`+url+`">
+            </li>`
+        );
+    }).catch(function(error) {
+        appAlerta(error.message, "mensaje-error");
+    });
+}

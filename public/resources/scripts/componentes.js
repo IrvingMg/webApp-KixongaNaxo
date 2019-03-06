@@ -191,7 +191,7 @@ function compItemsListaEtiquetas(docs) {
                         <span class="mdc-list-item__text" title="`+ nombrePlanta +`">`+ nombrePlanta +`</span>
                     </div>
                     <button class="mdc-icon-button material-icons" title="Descargar etiqueta" id="ce-verPdf">picture_as_pdf</button>
-                    <button class="mdc-icon-button material-icons" title="Descargar fotografías" id="ce-verFotos">photo_library</button>
+                    <button class="mdc-icon-button material-icons" title="Ver fotografías" id="ce-verFotos">photo_library</button>
                 </li>
                 <li class="mdc-list-divider"></li>`);
         });

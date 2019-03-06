@@ -415,7 +415,6 @@ function pagConsultarEtiquetas() {
         const nombreUsuario = usuario[1];
         
         $("#ce-listaItems").empty();
-
         buscarEtiquetasColectasPorUsuario(docId, usuarioId, nombreUsuario)
         .then(function(documentos) {
             compItemsListaEtiquetas(documentos);
@@ -431,11 +430,35 @@ function pagConsultarEtiquetas() {
         infoEtiqueta = etiquetas.find(function(doc) {
             return doc.id === etiquetaId;
         }).data();
-
         buscarDocPorId("etiquetas", etiquetaId).then(function(documento) {
             etiquetaPDF(infoEtiqueta, etiquetaId);
         });
     });
+
+    $("#ce-listaItems").on("click", "#ce-verFotos", function() {
+        const etiquetaId = $(this).closest("li").attr("id");
+        window.open("consultar-fotos.html?query="+etiquetaId);
+    });    
+}
+
+function pagConsultarFotos() {
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+    
+    if($("#consultarFotos").length){
+        buscarDocPorId("etiquetas", docId).then(function(documento) {
+            const nombrePlanta = documento.data()["nombre_comun"];
+            const fotosPlanta = documento.data()["fotografias"];
+
+            $("#cfotos-nombrePlanta").html(nombrePlanta);
+            if(fotosPlanta.length) {
+                $("#cfotos-mensajeDefault").remove();
+                for(index in fotosPlanta) {
+                    descargarArchivo("fotos/"+docId+"/"+fotosPlanta[index]);
+                }
+            }
+        });
+    }
 }
 
 function aplicacionWeb() {
@@ -465,6 +488,7 @@ function aplicacionWeb() {
         pagMisEtiquetas();
         pagConsultarFormato();
         pagConsultarEtiquetas();
+        pagConsultarFotos();
     });
 }
 

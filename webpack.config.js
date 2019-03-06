@@ -33,7 +33,7 @@ module.exports = [
     },
     {
         entry: [
-          "./public/resources/scripts/mdcomponents.js",
+          "./public/resources/scripts/material-design.js",
           //"./firebase-config.js"
         ],
         output: {

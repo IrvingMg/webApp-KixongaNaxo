@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Fotografías</title>
+        <link rel="icon" href="resources/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="resources/styles/bundle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
+        <script src="resources/scripts/bundle.js" async></script>
+        <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
+        <script src="firebase-config.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
+        <script src="resources/scripts/almacenamiento.js"></script>
+        <script src="resources/scripts/modulo-usuarios.js"></script>
+        <script src="resources/scripts/modulo-colectas.js"></script>
+        <script src="resources/scripts/componentes.js"></script>
+        <script src="resources/scripts/aplicacion-web.js"></script>
+    </head>
+    <body class="mdc-typography">
+
+        <!-- Barra de navegación -->
+        <nav class="mdc-top-app-bar" >
+            <div class="mdc-top-app-bar__row">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                        <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
+                </section>
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
+                </section>
+            </div>
+        </nav>
+
+        <!-- Encabezado -->
+        <header class="mdc-elevation--z10 encabezado-body">
+            <h4 class="mdc-typography--headline4">Fotografías</h4>
+            <p class="mdc-typography--body2">Examine las fotografías de la planta.</p>
+        </header>
+            
+        <!-- Ruta de navegación -->
+        <ol class="ruta-nav">
+            <li>
+                <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
+            </li>
+            <li>
+                <a href="consultar-etiquetas.html" class="mdc-typography--subtitle2">Consultar</a>
+            </li>
+            <li>
+                <a href="#" class="mdc-typography--subtitle2">Fotografías</a>
+            </li>
+        </ol>
+        
+        <!-- Contenido -->
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-grande cont-alinear-centro" id="consultarFotos">
+            <header class="encabezado-section"> 
+                    <h5 class="mdc-typography--headline5" id="cfotos-nombrePlanta"></h5>
+            </header>
+            <p class="mdc-typography--body1 cont-mensaje" id="cfotos-mensajeDefault">No se encontraron resultados.</p>
+            <ul class="mdc-image-list mdc-image-list--masonry lista-galeria" id="cfotos-galeria">
+            </ul>
+        </section>
+
+        <!-- Alerta del sistema -->
+        <div class="mdc-snackbar" id="appAlerta">
+            <div class="mdc-snackbar__surface">
+                <div class="mdc-snackbar__label">
+                </div>
+                <div class="mdc-snackbar__actions">
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -58,4 +58,9 @@
     @include mdc-image-list-standard-columns(4);
     margin-bottom: 12px;
 }
+
+/* Galería de fotos */
+.lista-galeria {
+    @include mdc-image-list-masonry-columns(5);
+  }
 //Fin
