@@ -175,6 +175,8 @@ function pagPlanearFormato() {
     let docId = params.get("query");
 
     if($("#planearFormato").length && docId) {
+        $("#pf-tabMaterial").attr("href", "planear-material.html?query=" + docId);
+        $("#pf-tabInfo").attr("href", "planear-info.html?query=" + docId);
         $("#pf-siguiente").attr("href", "planear-material.html?query=" + docId);
         editarFormatoPlaneacion(docId);
     }
@@ -194,6 +196,8 @@ function pagPlanearMaterial() {
     const docId = params.get("query");
 
     if($("#planearMaterial").length) {
+        $("#pf-tabFormato").attr("href", "planear-formato.html?query=" + docId);
+        $("#pf-tabInfo").attr("href", "planear-info.html?query=" + docId);
         $("#pm-siguiente").attr("href", "planear-info.html?query=" + docId);
         $("#pm-atras").attr("href", "planear-formato.html?query=" + docId);
         editarListaMaterial(docId);
@@ -232,6 +236,8 @@ function pagPlanearInfo() {
     let nombreArchivosEliminar = [];
 
     if($("#planearInfo").length) {
+        $("#pf-tabFormato").attr("href", "planear-formato.html?query=" + docId);
+        $("#pf-tabMaterial").attr("href", "planear-material.html?query=" + docId);
         $("#pi-atras").attr("href", "planear-material.html?query=" + docId);
         editarListaInfoConsulta(docId);
     }
@@ -239,7 +245,11 @@ function pagPlanearInfo() {
     $("#pi-agregarEnlace").click(function() {
         event.preventDefault();
 
-        const itemEnlace = $("#pi-itemEnlace").val();
+        let itemEnlace = $("#pi-itemEnlace").val();
+        if(itemEnlace.search("https://") >= 0) {
+        } else {
+            itemEnlace = "https://" + itemEnlace;
+        }
 
         if(itemEnlace) {
             $("#pi-mensajeDefault").remove();
@@ -490,9 +500,15 @@ function pagEtiquetar() {
             compListaPlantas(documentos);
             compListaFotos(fotos, etiquetaId);
             compNotasCampo(audios);
-            //editarEtiqueta(etiquetaId);
+            editarEtiqueta(etiquetaId);
         });
     }
+
+    $("#etiquetar-form").keypress(function(e) {
+        if(e.which == 13) {
+            event.preventDefault();
+        }
+    });
 
     $("#etiquetar-listaPlantas").on("click", "li", function() {
         etiquetaId = $(this).attr("id");
@@ -510,6 +526,7 @@ function pagEtiquetar() {
             $("#etiquetar-nombrePlanta").html(etiqueta["nombre_comun"]);
             compListaFotos(fotos, etiquetaId);
             compNotasCampo(audios);
+            editarEtiqueta(etiquetaId);
         });
     });
 

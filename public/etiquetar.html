@@ -92,21 +92,9 @@
                     </li>
                     <li>
                         <ul class="campo-ing-dato-row">
-                            <li class="campo-ing-dato-col3 campo-ing-dato-col3-izquierda">
-                                <div class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="number" name="longitud" id="etiquetar-longitud" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="etiquetar-longitud" class="mdc-floating-label">Longitud</label>
-                                        </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="campo-ing-dato-col3">
                                 <div class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="number" name="latitud" id="etiquetar-latitud" class="mdc-text-field__input">
+                                    <input type="number" name="latitud" step="0.000001" max="90" min="-90" id="etiquetar-latitud" class="mdc-text-field__input">
                                     <div class="mdc-notched-outline">
                                         <div class="mdc-notched-outline__leading"></div>
                                         <div class="mdc-notched-outline__notch">
@@ -116,11 +104,23 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="campo-ing-dato-col3 campo-ing-dato-col3-derecha">
+                                <div class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="number" name="longitud" step="0.000001" max="180" min="-180" id="etiquetar-longitud" class="mdc-text-field__input">
+                                    <div class="mdc-notched-outline">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                            <label for="etiquetar-longitud" class="mdc-floating-label">Longitud</label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="caract-lugar" id="etiquetar-caract-lugar" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="caracteristicas_lugar" id="etiquetar-caract-lugar" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -134,7 +134,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="nombre-comun" id="etiquetar-nombre-comun" class="mdc-text-field__input">
+                            <input type="text" name="nombre_comun" id="etiquetar-nombre-comun" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -146,7 +146,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="nombre-cientifico" id="etiquetar-nombre-cientifico" class="mdc-text-field__input">
+                            <input type="text" name="nombre_cientifico" id="etiquetar-nombre-cientifico" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -156,33 +156,33 @@
                             </div>
                         </div>
                     </li>
+                    <li class="campo-ing-dato-row">
+                        <div class="mdc-select mdc-select--outlined">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="etiquetar-habito" class="mdc-floating-label">Hábito</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                            <select name="habito" id="etiquetar-habito" class="mdc-select__native-control">
+                                <option>Rastrera</option>
+                                <option>Epifita</option>
+                                <option>Hierba</option>
+                                <option>Arbusto</option>
+                                <option>Árbol</option>
+                            </select>
+                        </div>
+                    </li>
                     <li>
                         <ul class="campo-ing-dato-row">
-                            <li class="campo-ing-dato-col3 campo-ing-dato-col3-izquierda">
-                                <div class="mdc-select mdc-select--outlined">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="etiquetar-habito" class="mdc-floating-label">Hábito</label>
-                                        </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
-                                    </div>
-                                    <select name="habito" id="etiquetar-habito" class="mdc-select__native-control">
-                                        <option>Rastrera</option>
-                                        <option>Epifita</option>
-                                        <option>Hierba</option>
-                                        <option>Arbusto</option>
-                                        <option>Árbol</option>
-                                    </select>
-                                </div>
-                            </li>
                             <li class="campo-ing-dato-col3">
                                 <div class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="number" name="dap" id="etiquetar-dap" class="mdc-text-field__input">
+                                    <input type="number" name="dap" step="0.1" id="etiquetar-dap" class="mdc-text-field__input">
                                     <div class="mdc-notched-outline">
                                         <div class="mdc-notched-outline__leading"></div>
                                         <div class="mdc-notched-outline__notch">
-                                            <label for="etiquetar-dap" class="mdc-floating-label">Diámetro del tallo (DAP)</label>
+                                            <label for="etiquetar-dap" class="mdc-floating-label">Diámetro (DAP)</label>
                                         </div>
                                         <div class="mdc-notched-outline__trailing"></div>
                                     </div>
@@ -190,11 +190,11 @@
                             </li>
                             <li class="campo-ing-dato-col3 campo-ing-dato-col3-derecha">
                                 <div class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="number" name="abundancia" id="etiquetar-abundancia" class="mdc-text-field__input">
+                                    <input type="number" name="abundancia" step="0.1" id="etiquetar-abundancia" class="mdc-text-field__input">
                                     <div class="mdc-notched-outline">
                                         <div class="mdc-notched-outline__leading"></div>
                                         <div class="mdc-notched-outline__notch">
-                                            <label for="etiquetar-abundancia" class="mdc-floating-label">Abundancia de la planta</label>
+                                            <label for="etiquetar-abundancia" class="mdc-floating-label">Abundancia (m2)</label>
                                         </div>
                                         <div class="mdc-notched-outline__trailing"></div>
                                     </div>
@@ -204,7 +204,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="desc-planta" id="etiquetar-desc-planta" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="descripcion_planta" id="etiquetar-desc-planta" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -216,7 +216,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="desc-flores" id="etiquetar-desc-flores" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="descripcion_flores" id="etiquetar-desc-flores" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -228,7 +228,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="desc-hojas" id="etiquetar-desc-hojas" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="descripcion_hojas" id="etiquetar-desc-hojas" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -240,11 +240,11 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="desc-latex" id="etiquetar-desc-latex" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="descripcion_latex" id="etiquetar-desc-latex" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
-                                    <label for="etiquetar-desc-latex" class="mdc-floating-label">Descripción del látex</label>
+                                    <label for="etiquetar-desc-latex" class="mdc-floating-label">Descripción del látex (Opcional)</label>
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
@@ -252,7 +252,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
-                            <input type="text" name="familia" id="etiquetar-familia" class="mdc-text-field__input">
+                            <input type="text" name="familia_botanica" id="etiquetar-familia" class="mdc-text-field__input">
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -264,7 +264,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="info-etnobotanica" id="etiquetar-info-etnobotanica" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="info_etnobotanica" id="etiquetar-info-etnobotanica" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -276,7 +276,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="uso" id="etiquetar-uso" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="uso_medicinal" id="etiquetar-uso" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -288,7 +288,7 @@
                     </li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined">
-                            <textarea name="empleo" id="etiquetar-empleo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
+                            <textarea name="modo_empleo" id="etiquetar-empleo" class="mdc-text-field__input" rows="3" cols="40"></textarea>
                             <div class="mdc-notched-outline">
                                 <div class="mdc-notched-outline__leading"></div>
                                 <div class="mdc-notched-outline__notch">
@@ -299,6 +299,7 @@
                         </div>
                     </li>
                 </ol>
+
                 <!-- Acciones del contenedor -->
                 <footer>
                     <button class="mdc-button mdc-button--raised boton-principal">

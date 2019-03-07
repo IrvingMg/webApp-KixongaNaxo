@@ -74,73 +74,34 @@ function crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar){
     let archivosEliminados = 0;
     let planeacion = {"info-consulta" : []};
     
-    for(index in itemsLista) {
+    for(let index in itemsLista) {
         planeacion["info-consulta"].push(itemsLista[index].innerText);
     }
 
-    /* Casos para guardar lista
-     * Caso 1: Se eliminarán archivos y luego se subirán otros.
-     * Caso 2: Únicamente se eliminarán archivos.
-     * Caso 3: Únicamente se subirán archivos.
-     * Caso 4: No se eliminarán archivos ni se subirán.*/
-    if(totalEliminar && totalSubir) {
-        casoGuardar = 1;
-    } else if(totalEliminar) {
-        casoGuardar = 2;
-    } else if(totalSubir) {
-        casoGuardar = 3;
+    if(!totalEliminar && !totalSubir) {
+        actualizarDoc("colectas", planeacion, docId);
     } else {
-        casoGuardar = 4;
-    }
+        for(let index in nombreArchivosEliminar) {
+            eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivosEliminar[index]);
+        }
 
-    switch(casoGuardar) {
-        case 1:
-            for(index in nombreArchivosEliminar) {
-                eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivosEliminar[index]);
+        for(let index in archivosSubir) {
+            guardarArchivo(archivosSubir[index], "info-consulta/"+ docId + "/" + archivosSubir[index].name);
+        }
+
+        $("#planearInfo").bind("ArchivoEliminado", function() {
+            archivosEliminados++;
+            if(archivosEliminados === totalEliminar && archivosSubidos === totalSubir) {
+                actualizarDoc("colectas", planeacion, docId);
             }
+        });
 
-            $("#planearInfo").bind("ArchivoEliminado", function() {
-                archivosEliminados++;
-                if(archivosEliminados === totalEliminar) {
-                    for(index in archivosSubir) {
-                        guardarArchivo(archivosSubir[index], "info-consulta/"+ docId + "/" + archivosSubir[index].name);
-                    }
-        
-                    $("#planearInfo").bind("ArchivoSubido", function() {
-                        archivosSubidos++;
-                        if(archivosSubidos === totalSubir) {
-                            actualizarDoc("colectas", planeacion, docId);
-                        }
-                    });
-                }
-            });
-            break;
-        case 2:
-            for(index in nombreArchivosEliminar) {
-                eliminarArchivo("info-consulta/"+docId+"/"+nombreArchivosEliminar[index]);
+        $("#planearInfo").bind("ArchivoSubido", function() {
+            archivosSubidos++;
+            if(archivosSubidos === totalSubir && archivosEliminados === totalEliminar) {
+                actualizarDoc("colectas", planeacion, docId);
             }
-
-            $("#planearInfo").bind("ArchivoEliminado", function() {
-                archivosEliminados++;
-                if(archivosEliminados === totalEliminar) {
-                    actualizarDoc("colectas", planeacion, docId);
-                }
-            });
-            break;
-        case 3:
-            for(index in archivosSubir) {
-                guardarArchivo(archivosSubir[index], "info-consulta/"+ docId + "/" + archivosSubir[index].name);
-            }
-
-            $("#planearInfo").bind("ArchivoSubido", function() {
-                archivosSubidos++;
-                if(archivosSubidos === totalSubir) {
-                    actualizarDoc("colectas", planeacion, docId);
-                }
-            });
-            break;
-        default:
-            actualizarDoc("colectas", planeacion, docId);
+        });
     }
 }
 
@@ -198,25 +159,54 @@ function editarListaInfoConsulta(docId) {
 }
 
 function editarEtiqueta(docId) {
-   
+    buscarDocPorId("etiquetas", docId).then(function(documento) {
+        let doc = documento.data();
+
+        for(let name in doc) {
+            if(name != "fotografias") {
+                $("[name="+ name +"]").focus();
+                $("[name="+ name +"]").val(doc[name]);
+            }
+        }
     
+        $("[name=latitud]").val(doc["ubicacion"]["latitude"]);
+        $("[name=longitud]").val(doc["ubicacion"]["longitude"]);
+        $("[name=longitud]").focus();
+        $("[name=latitud]").focus();
+   })
 }
 
 function guardarEtiqueta(etiquetaId, fotos, fotosEliminar) {
-    const etiqueta = {"fotografias": fotos};
     const nuevasFotos = $("#etiquetar-fotografias").get(0).files;
+    let etiqueta = {};
+    let latitud;
+    let longitud;
     let fotosSubir = [];
     let eliminados = 0;
     let subidos = 0;
 
+    const formValores = $("#etiquetar-form").serializeArray();
+
+    for(let index in formValores) {
+        if(formValores[index]["name"] === "latitud") {
+            latitud = parseFloat(formValores[index]["value"]);
+        } else if(formValores[index]["name"] === "longitud") {
+            longitud = parseFloat(formValores[index]["value"]);
+        } else {
+            etiqueta[formValores[index]["name"]] = formValores[index]["value"];
+        }
+    }
+    const ubicacion = new firebase.firestore.GeoPoint(latitud, longitud);
+    etiqueta["ubicacion"] = ubicacion;
+  
     if(!nuevasFotos.length && !fotosEliminar.length) {
         actualizarDoc("etiquetas", etiqueta, etiquetaId);
     } else {
-        
         for(let i = 0; i < nuevasFotos.length; i++) {
             fotos.push(nuevasFotos[i].name);
             fotosSubir.push(nuevasFotos[i]);
         }
+        etiqueta["fotografias"] = fotos;
 
         for(let index in fotosEliminar) {
             eliminarArchivo("fotos/"+etiquetaId+"/"+fotosEliminar[index]);
@@ -291,7 +281,7 @@ function eliminarEtiquetas(docId, usuarioId, nombreUsuario) {
             for(let index in doc["fotografias"]) {
                 const nombreArchivo = doc["fotografias"][index];
 
-                eliminarArchivo("fotografias/"+etiqueta.id+"/"+nombreArchivo);
+                eliminarArchivo("fotos/"+etiqueta.id+"/"+nombreArchivo);
             }
 
             for(let index in doc["audios"]) {
@@ -353,8 +343,6 @@ function etiquetaPDF(infoEtiqueta, etiquetaId) {
 
     doc.setFontSize(16);
     doc.text("Etiqueta de herbario", margenIzq, nuevaLinea(0));
-    //doc.setFontSize(11);
-    //doc.text(infoFormato["participantes"].length + " colectores", margenIzq, nuevaLinea(1));
     doc.line(margenIzq, nuevaLinea(1), doc.internal.pageSize.getWidth() - margenDer, nuevaLinea(1));
  
 
@@ -370,7 +358,7 @@ function etiquetaPDF(infoEtiqueta, etiquetaId) {
         let valorCampo = infoEtiqueta[indices[i]];
 
         if(nombreCampo[i] === "Ubicación GPS") {
-            valorCampo = valorCampo["latitud"] + ", "+ valorCampo["longitud"]; 
+            valorCampo = valorCampo["latitude"] + ", "+ valorCampo["longitude"]; 
         }
         if(nombreCampo[i] === "Colector") {
             valorCampo = valorCampo[0]["nombre_usuario"];
@@ -403,26 +391,23 @@ function crearEtiqueta(nombrePlanta) {
         "colector" : [{"id_usuario": user.uid, "nombre_usuario": user.displayName}],
         "fecha_colecta" : "",
         "fotografias" : [],
-        "lugar" : "string",
-        "ubicacion" : { 
-            "longitud" : "number", 
-            "latitud" : "number", 
-        },
-        "caracteristicas_lugar" :"string",
+        "lugar" : "",
+        "ubicacion" : null,
+        "caracteristicas_lugar" :"",
         "nombre_comun" : nombrePlanta,
-        "nombre_cientifico" : "string",
-        "habito" : "string",
-        "diametro" : "number",
-        "abundancia" : "number",
-        "descripcion_planta" : "string",
-        "descripcion_flores" : "string",
-        "descripcion_hojas" : "string",
-        "descripcion_latex" : "string",
-        "familia_botanica" : "string",
-        "info_etnobotanica" : "string",
-        "uso_medicinal" : "string",
-        "modo_empleo" : "string",
-        "numero_colecta" : "number",
+        "nombre_cientifico" : "",
+        "habito" : "",
+        "dap" : null,
+        "abundancia" : null,
+        "descripcion_planta" : "",
+        "descripcion_flores" : "",
+        "descripcion_hojas" : "",
+        "descripcion_latex" : "",
+        "familia_botanica" : "",
+        "info_etnobotanica" : "",
+        "uso_medicinal" : "",
+        "modo_empleo" : "",
+        "numero_colecta" : null,
         "audios" : []
     };
 
