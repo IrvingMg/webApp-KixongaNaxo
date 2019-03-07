@@ -461,6 +461,92 @@ function pagConsultarFotos() {
     }
 }
 
+function pagEtiquetar() {
+    const user = firebase.auth().currentUser;
+    const params = new URLSearchParams(location.search.substring(1));
+    const docId = params.get("query");
+    let etiquetaId;
+    let etiqueta;
+    let fotos = [];
+    let fotosSubir = [];
+    let fotosEliminar = [];
+
+    if($("#etiquetar").length) {
+        buscarDocPorId("colectas", docId).then(function(doc) {
+            $("#etiquetar-nombreColecta").html(doc.data()["titulo"]);
+            $("#etiquetar-lugarColecta").html(doc.data()["lugar"]);
+            $("#etiquetar-fechaColecta").html(doc.data()["fecha"]);
+
+            const infoConsulta = doc.data()["info-consulta"];
+            compListaInfoConsulta(infoConsulta);
+        });
+
+        buscarEtiquetasColectasPorUsuario(docId, user.uid, user.displayName).then(function(documentos) {
+            etiqueta = documentos["docs"][0].data();
+            etiquetaId = documentos["docs"][0].id;
+            fotos = etiqueta["fotografias"];
+            const audios = etiqueta["audios"];
+            
+            compListaPlantas(documentos);
+            compListaFotos(fotos, etiquetaId);
+            compNotasCampo(audios);
+            //editarEtiqueta(etiquetaId);
+        });
+    }
+
+    $("#etiquetar-listaPlantas").on("click", "li", function() {
+        etiquetaId = $(this).attr("id");
+
+        $(".mdc-list-item--selected").removeClass("mdc-list-item--selected");
+        $(this).find("div").addClass("mdc-list-item--selected");
+        $("#etiquetar-listaFotos").empty();
+        $("#etiquetar-listaNotasCampo").empty();
+
+        buscarDocPorId("etiquetas", etiquetaId).then(function(documento) {
+            etiqueta = documento.data();
+            fotos = etiqueta["fotografias"];
+            const audios = etiqueta["audios"];
+            
+            $("#etiquetar-nombrePlanta").html(etiqueta["nombre_comun"]);
+            compListaFotos(fotos, etiquetaId);
+            compNotasCampo(audios);
+        });
+    });
+
+    $("#etiquetar-listaFotos").on("click", "button", function() {
+        event.preventDefault();
+
+        const fotoEliminar = $(this).attr("id");
+        let index = fotos.indexOf(fotoEliminar);
+        fotosEliminar.push(fotoEliminar);
+        fotos.splice(index,1); 
+        $(this).closest("li").remove();
+    });
+
+    $("#etiquetar-listaNotasCampo").on("click", "#etiquetar-descAudio", function() {
+        const nombreArchivo = $(this).closest("li").attr("id");
+        if(nombreArchivo) {
+            obtenerURL("audios/"+etiquetaId+"/"+nombreArchivo).then(function(url) {
+                window.open(url);
+            });
+        }
+    });
+
+    $("#etiquetar-listaInfoConsulta").on("click", "button", function() {
+        const nombreArchivo = $(this).attr("id");
+        if(nombreArchivo) {
+            obtenerURL("info-consulta/"+docId+"/"+nombreArchivo).then(function(url) {
+                window.open(url);
+            });
+        }
+    });  
+
+    $("#etiquetar-form").submit(function() {
+        event.preventDefault();
+        guardarEtiqueta(etiquetaId, fotos, fotosEliminar);
+    });    
+}
+
 function aplicacionWeb() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -489,6 +575,7 @@ function aplicacionWeb() {
         pagConsultarFormato();
         pagConsultarEtiquetas();
         pagConsultarFotos();
+        pagEtiquetar();
     });
 }
 

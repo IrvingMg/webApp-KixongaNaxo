@@ -202,3 +202,104 @@ function compItemsListaEtiquetas(docs) {
             </li>`);
     }
 }
+
+function compListaPlantas(docs) {
+    let selected = "mdc-list-item--selected";
+
+    docs.forEach(function(doc) {
+        const nombrePlanta = doc.data().nombre_comun;
+        const etiquetaId = doc.id;
+
+        $("#etiquetar-listaPlantas").append(
+            `<li id="`+ etiquetaId  +`">
+                <div class="mdc-list-item `+ selected +`">
+                    <span class="mdc-list-item__graphic material-icons">open_in_new</span>
+                    <span class="mdc-list-item__text" title="`+ nombrePlanta +`">`+ nombrePlanta +`</span>
+                </div>
+            </li>
+            <li class="mdc-list-divider"></li>`);
+        selected = "";
+    });
+}
+
+function compListaInfoConsulta(infoConsulta) {
+
+    if(!infoConsulta.length) {
+        $("#etiquetar-listaInfoConsulta").html(
+            `<p class="mdc-typography--body2 cont-mensaje">No se encontraron resultados.</p>`);
+    }
+
+    for(index in infoConsulta) {
+        if(infoConsulta[index].search("Enlace: ") === 0) {
+            const item = infoConsulta[index].substring(8);
+
+            $("#etiquetar-listaInfoConsulta").append(
+                `<li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__text" title="`+item+`">`+item+`</span>
+                    </div>
+                    <a href="`+item+`" target="_blank" class="enlace-boton">
+                        <button class="mdc-icon-button material-icons" title="Abrir enlace">link</button>
+                    </a>
+                </li>
+                <li class="mdc-list-divider"></li>`
+            );
+        } else {
+            const item = infoConsulta[index].substring(9);
+
+            $("#etiquetar-listaInfoConsulta").append(
+                `<li>
+                    <div class="mdc-list-item">
+                        <span class="mdc-list-item__text" title="`+item+`">`+item+`</span>
+                    </div>
+                    <button class="mdc-icon-button material-icons" title="Descargar archivo" id="`+item+`">get_app</button>
+                </li>
+                <li class="mdc-list-divider"></li>`
+            );
+        }
+    }
+}
+
+function compNotasCampo(audios) {
+    if(!audios.length) {
+        $("#etiquetar-listaNotasCampo").html(
+            `<p class="mdc-typography--body2 cont-mensaje">No se encontraron resultados.</p>`);
+    }
+
+    for(let index in audios) {
+        $("#etiquetar-listaNotasCampo").append(
+            `<li id="`+audios[index]+`">
+                <div class="mdc-list-item" title="`+audios[index]+`">
+                    <span class="mdc-list-item__text">`+audios[index]+`</span>
+                </div>
+                <button class="mdc-icon-button material-icons" title="Descargar" id="etiquetar-descAudio">get_app</button>
+                <button class="mdc-icon-button material-icons" title="Ver transcripción" id="etiquetar-transcAudio">description</button>
+            </li>
+            <li class="mdc-list-divider"></li>`
+        );
+    }
+}
+
+function compListaFotos(fotos, docId) {
+    if(!fotos.length) {
+        $("#etiquetar-listaFotos").addClass("cont-alinear-centro");
+        $("#etiquetar-listaFotos").html(
+            `<p class="mdc-typography--body2 cont-mensaje">Por favor, suba algunas fotografías de la planta.</p>`);
+    }
+
+    for(let index in fotos) {
+        obtenerURL("fotos/"+docId+"/"+fotos[index]).then(function(url) {
+            $("#etiquetar-listaFotos").append(
+                `<li class="mdc-image-list__item">
+                    <div class="mdc-image-list__image-aspect-container">
+                        <img class="mdc-image-list__image" src="`+url+`">
+                    </div>
+                    <div class="mdc-image-list__supporting">
+                        <span class="mdc-image-list__label" title="`+fotos[index]+`">`+fotos[index]+`</span>
+                        <button class="mdc-icon-button material-icons" title="Eliminar" id="`+fotos[index]+`">delete</button>
+                    </div>
+                </li>`
+            );
+        });
+    }
+}

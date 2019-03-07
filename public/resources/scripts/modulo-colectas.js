@@ -103,7 +103,7 @@ function crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar){
                 archivosEliminados++;
                 if(archivosEliminados === totalEliminar) {
                     for(index in archivosSubir) {
-                        guardarArchivo(docId, archivosSubir[index]);
+                        guardarArchivo(archivosSubir[index], "info-consulta/"+ docId + "/" + archivosSubir[index].name);
                     }
         
                     $("#planearInfo").bind("ArchivoSubido", function() {
@@ -129,7 +129,7 @@ function crearListaInfoConsulta(docId, archivosSubir, nombreArchivosEliminar){
             break;
         case 3:
             for(index in archivosSubir) {
-                guardarArchivo(docId, archivosSubir[index]);
+                guardarArchivo(archivosSubir[index], "info-consulta/"+ docId + "/" + archivosSubir[index].name);
             }
 
             $("#planearInfo").bind("ArchivoSubido", function() {
@@ -195,6 +195,51 @@ function editarListaInfoConsulta(docId) {
             compItemListaIcono(doc["info-consulta"][index], "pi-listaItems");
         }
     });   
+}
+
+function editarEtiqueta(docId) {
+   
+    
+}
+
+function guardarEtiqueta(etiquetaId, fotos, fotosEliminar) {
+    const etiqueta = {"fotografias": fotos};
+    const nuevasFotos = $("#etiquetar-fotografias").get(0).files;
+    let fotosSubir = [];
+    let eliminados = 0;
+    let subidos = 0;
+
+    if(!nuevasFotos.length && !fotosEliminar.length) {
+        actualizarDoc("etiquetas", etiqueta, etiquetaId);
+    } else {
+        
+        for(let i = 0; i < nuevasFotos.length; i++) {
+            fotos.push(nuevasFotos[i].name);
+            fotosSubir.push(nuevasFotos[i]);
+        }
+
+        for(let index in fotosEliminar) {
+            eliminarArchivo("fotos/"+etiquetaId+"/"+fotosEliminar[index]);
+        }
+
+        for(let index in fotosSubir) {
+            guardarArchivo(fotosSubir[index] ,"fotos/"+ etiquetaId + "/" + fotosSubir[index].name);
+        }
+
+        $("#etiquetar").bind("ArchivoEliminado", function() {
+            eliminados++;
+            if(eliminados === fotosEliminar.length && subidos === fotosSubir.length) {
+                actualizarDoc("etiquetas", etiqueta, etiquetaId);
+            }
+        });
+
+        $("#etiquetar").bind("ArchivoSubido", function() {
+            subidos++;
+            if(eliminados === fotosEliminar.length && subidos === fotosSubir.length) {
+                actualizarDoc("etiquetas", etiqueta, etiquetaId);
+            }
+        });
+    }
 }
 
 /* Recibe el id de un documento de la colección 'colectas'.

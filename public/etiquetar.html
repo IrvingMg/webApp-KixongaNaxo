@@ -15,7 +15,10 @@
         <script src="resources/scripts/bundle.js" async></script>
         <!-- Scripts para desarrollo, eliminar y utilizar webpack para producción -->
         <script src="firebase-config.js"></script>
+        <script src="resources/scripts/base-datos.js"></script>
+        <script src="resources/scripts/almacenamiento.js"></script>
         <script src="resources/scripts/modulo-usuarios.js"></script>
+        <script src="resources/scripts/modulo-colectas.js"></script>
         <script src="resources/scripts/componentes.js"></script>
         <script src="resources/scripts/aplicacion-web.js"></script>
     </head>
@@ -27,7 +30,7 @@
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <span class="mdc-top-app-bar__title">Kixonga Naxo</span>
                 </section>
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="bar-nav-menu">
+                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" id="app-barNav">
                 </section>
             </div>
         </nav>
@@ -44,7 +47,7 @@
                 <a href="index.html" class="mdc-typography--subtitle2">Inicio</a>
             </li>
             <li>
-                <a href="etiquetas.html" class="mdc-typography--subtitle2">Mis etiquetas</a>
+                <a href="mis-etiquetas.html" class="mdc-typography--subtitle2">Mis etiquetas</a>
             </li>
             <li>
                 <a href="#" class="mdc-typography--subtitle2">Etiquetar</a>
@@ -55,87 +58,27 @@
         <!-- 1ra columna -->
         <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral cont-columna">
             <h6 class="mdc-typography--headline6">Ejemplares recolectados</h6>
-            <ul class="mdc-list">
-                <li>
-                    <div class="mdc-list-item mdc-list-item--selected">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Ejemplar #1">Ejemplar #1</span>
-                    </div>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Ejemplar #2">Ejemplar #2</span>
-                    </div>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__graphic material-icons">open_in_new</span>
-                        <span class="mdc-list-item__text" title="Ejemplar #3">Ejemplar #3</span>
-                    </div>
-                </li>
-                <li class="mdc-list-divider"></li>
-            </ul>
+            <ul class="mdc-list" id="etiquetar-listaPlantas"></ul>
         </aside>
 
         <!-- 2da columna -->
-        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna">
+        <section class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-mediano cont-columna" id="etiquetar">
             <header class="encabezado-section">
-                <h5 class="mdc-typography--headline5">Nombre de la colecta</h5>
-                <p class="mdc-typography--body2">Lugar</p>
-                <p class="mdc-typography--body2">DD/MM/AAAA</p>
+                <h5 class="mdc-typography--headline5" id="etiquetar-nombreColecta"></h5>
+                <p class="mdc-typography--body2" id="etiquetar-lugarColecta"></p>
+                <p class="mdc-typography--body2" id="etiquetar-fechaColecta"></p>
             </header>
 
             <!-- Formulario para las etiquetas de colecta y herbario -->
-            <form>
+            <form id="etiquetar-form">
                 <header class="encabezado-article">
-                    <h6 class="mdc-typography--headline6">Ejemplar #1</h6>
-                    <button class="mdc-icon-button material-icons" title="Ver PDF">picture_as_pdf</button>
+                    <h6 class="mdc-typography--headline6" id="etiquetar-nombrePlanta"></h6>
                 </header>
                 <ol>
                     <li class="campo-ing-dato">
 
                         <!-- Fotografías tomadas con la aplicación móvil -->
-                        <ul class="mdc-image-list mdc-image-list--with-text-protection lista-imagenes">
-                            <li class="mdc-image-list__item">
-                                <div class="mdc-image-list__image-aspect-container">
-                                    <img class="mdc-image-list__image" src="resources/images/plantas.jpg">
-                                </div>
-                                <div class="mdc-image-list__supporting">
-                                    <span class="mdc-image-list__label" title="Nombre de fotografía">Nombre de fotografía</span>
-                                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                                </div>
-                            </li>
-                            <li class="mdc-image-list__item">
-                                <div class="mdc-image-list__image-aspect-container">
-                                    <img class="mdc-image-list__image" src="resources/images/plantas.jpg">
-                                </div>
-                                <div class="mdc-image-list__supporting">
-                                    <span class="mdc-image-list__label" title="Nombre de fotografía">Nombre de fotografía</span>
-                                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                                </div>
-                            </li>
-                            <li class="mdc-image-list__item">
-                                <div class="mdc-image-list__image-aspect-container">
-                                    <img class="mdc-image-list__image" src="resources/images/plantas.jpg">
-                                </div>
-                                <div class="mdc-image-list__supporting">
-                                    <span class="mdc-image-list__label" title="Nombre de fotografía">Nombre de fotografía</span>
-                                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                                </div>
-                            </li>
-                            <li class="mdc-image-list__item">
-                                <div class="mdc-image-list__image-aspect-container">
-                                    <img class="mdc-image-list__image" src="resources/images/plantas.jpg">
-                                </div>
-                                <div class="mdc-image-list__supporting">
-                                    <span class="mdc-image-list__label" title="Nombre de fotografía">Nombre de fotografía</span>
-                                    <button class="mdc-icon-button material-icons" title="Eliminar">delete</button>
-                                </div>
-                            </li>
-                        </ul>
+                        <ul class="mdc-image-list mdc-image-list--with-text-protection lista-imagenes" id="etiquetar-listaFotos"></ul>
                         <div class="mdc-text-field mdc-text-field--outlined">
                             <input type="file" name="fotografias" id="etiquetar-fotografias" class="mdc-text-field__input" multiple>
                             <div class="mdc-notched-outline">
@@ -168,18 +111,6 @@
                                         <div class="mdc-notched-outline__leading"></div>
                                         <div class="mdc-notched-outline__notch">
                                                 <label for="etiquetar-latitud" class="mdc-floating-label">Latitud</label>
-                                        </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="campo-ing-dato-col3 campo-ing-dato-col3-derecha">
-                                <div class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="number" name="altitud" id="etiquetar-altitud" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                                <label for="etiquetar-altitud" class="mdc-floating-label">Altitud</label>
                                         </div>
                                         <div class="mdc-notched-outline__trailing"></div>
                                     </div>
@@ -368,103 +299,37 @@
                         </div>
                     </li>
                 </ol>
+                <!-- Acciones del contenedor -->
+                <footer>
+                    <button class="mdc-button mdc-button--raised boton-principal">
+                        <span class="mdc-button__label">Guardar</span>
+                    </button>
+                </footer>
             </form>
-
-            <!-- Acciones del contenedor -->
-            <footer>
-                <button class="mdc-button mdc-button--raised boton-principal">
-                    <span class="mdc-button__label">Guardar</span>
-                </button>
-                <button class="mdc-button mdc-button--outlined boton-secundario">
-                    <span class="mdc-button__label">Eliminar</span>
-                </button>
-            </footer>
         </section>
 
         <!-- 3ra columna -->
         <!-- 1ra fila -->
         <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral cont-columna">
             <h6 class="mdc-typography--headline6">Información de consulta</h6>
-            <ul class="mdc-list lista-icono-lateral">
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Herbario Nacional de México (MEXU)">
-                            Herbario Nacional de México (MEXU)
-                        </span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Ver enlace">link</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Herbario Virtual CONABIO">
-                            Herbario Virtual CONABIO
-                        </span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Ver enlace">link</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item">
-                        <span class="mdc-list-item__text" title="Plantas de la Reserva de la Biosfera Tehuacán - Cuicatlán Vol. 1">
-                            Plantas de la Reserva de la Biosfera Tehuacán - Cuicatlán Vol. 1
-                        </span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Descargar archivo">get_app</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-            </ul>
+            <ul class="mdc-list lista-icono-lateral" id="etiquetar-listaInfoConsulta"></ul>
         </aside>
 
         <!-- 2da fila -->
         <aside class="mdc-card mdc-card--outlined mdc-elevation--z10 contenedor-lateral cont-columna">
             <h6 class="mdc-typography--headline6">Notas de campo</h6>
-            <ul class="mdc-list">
-                <li>
-                    <div class="mdc-list-item" title="Single-line item">
-                        <span class="mdc-list-item__text">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Descargar">get_app</button>
-                    <button class="mdc-icon-button material-icons" title="Ver transcripción">description</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item" title="Single-line item">
-                        <span class="mdc-list-item__text">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Descargar">get_app</button>
-                    <button class="mdc-icon-button material-icons" title="Ver transcripción">description</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-                <li>
-                    <div class="mdc-list-item" title="Single-line item">
-                        <span class="mdc-list-item__text">Single-line item</span>
-                    </div>
-                    <button class="mdc-icon-button material-icons" title="Descargar">get_app</button>
-                    <button class="mdc-icon-button material-icons" title="Ver transcripción">description</button>
-                </li>
-                <li class="mdc-list-divider"></li>
-            </ul>
+            <ul class="mdc-list" id="etiquetar-listaNotasCampo"></ul>
         </aside>
 
         <!-- Alerta del sistema -->
-        <div class="mdc-snackbar">
+        <div class="mdc-snackbar" id="appAlerta">
             <div class="mdc-snackbar__surface">
                 <div class="mdc-snackbar__label">
                 </div>
                 <div class="mdc-snackbar__actions">
-                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="cerrar-snackbar" title="Cerrar">close</button>
+                    <button type="button" class="mdc-icon-button mdc-snackbar__dismiss material-icons" id="app-cerrarAlerta" title="Cerrar">close</button>
                 </div>
             </div>
         </div>
-
-        <!-- Acciones de secuencia -->
-        <footer>
-            <a href="material-campo.html" class="enlace-boton">
-                <button class="mdc-button mdc-button--raised boton-siguiente">
-                    <span class="mdc-button__label">Siguiente</span>
-                </button>
-            </a>
-        </footer>
     </body>
 </html>

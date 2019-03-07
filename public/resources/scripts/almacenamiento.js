@@ -5,15 +5,16 @@ function eliminarArchivo(path) {
     desertRef.delete().then(function() {
         appAlerta("Archivo eliminado con éxito", "mensaje-exito");
         $("#planearInfo").trigger("ArchivoEliminado");
+        $("#etiquetar").trigger("ArchivoEliminado");
     }).catch(function(error) {
         appAlerta(error.message, "mensaje-error");
     });
 }
 
-function guardarArchivo(docId, archivo) {
+function guardarArchivo(archivo, path) {
     const storageRef = storage.ref();
     const metadata = { contentType: archivo.type };
-    const uploadTask = storageRef.child("info-consulta/"+ docId + "/" + archivo.name).put(archivo, metadata);
+    const uploadTask = storageRef.child(path).put(archivo, metadata);
 
     uploadTask.on('state_changed', function(snapshot){
         let progress = Math.floor( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
@@ -25,6 +26,7 @@ function guardarArchivo(docId, archivo) {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             appAlerta("Archivo " + archivo.name + " cargado con éxito.", "mensaje-exito");
             $("#planearInfo").trigger("ArchivoSubido");
+            $("#etiquetar").trigger("ArchivoSubido");
         });
     });
 }
@@ -42,4 +44,11 @@ function descargarArchivo(path) {
     }).catch(function(error) {
         appAlerta(error.message, "mensaje-error");
     });
+}
+
+function obtenerURL(path) {
+    const storageRef = storage.ref();
+    const pathReference = storageRef.child(path);
+
+    return pathReference.getDownloadURL();
 }
