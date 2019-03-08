@@ -243,7 +243,7 @@ function eliminarColecta(docId) {
             for(let index in doc["fotografias"]) {
                 const nombreArchivo = doc["fotografias"][index];
 
-                eliminarArchivo("fotografias/"+etiqueta.id+"/"+nombreArchivo);
+                eliminarArchivo("fotos/"+etiqueta.id+"/"+nombreArchivo);
             }
 
             for(let index in doc["audios"]) {
@@ -268,7 +268,6 @@ function eliminarColecta(docId) {
             }
             //Elimina la colecta
             eliminarDoc("colectas", docId);
-            location.reload();
         });
     });
 }
@@ -382,34 +381,3 @@ function nuevaLinea(numRenglon) {
 
     return margenSup + alturaTexto * numRenglon;
 };
-
-// Función de prueba...
-function crearEtiqueta(nombrePlanta) {
-    const user = firebase.auth().currentUser;
-    let etiqueta = {
-        "id_colecta" : "1i2shY2HEViSCItOBtYI", 
-        "colector" : [{"id_usuario": user.uid, "nombre_usuario": user.displayName}],
-        "fecha_colecta" : "",
-        "fotografias" : [],
-        "lugar" : "",
-        "ubicacion" : null,
-        "caracteristicas_lugar" :"",
-        "nombre_comun" : nombrePlanta,
-        "nombre_cientifico" : "",
-        "habito" : "",
-        "dap" : null,
-        "abundancia" : null,
-        "descripcion_planta" : "",
-        "descripcion_flores" : "",
-        "descripcion_hojas" : "",
-        "descripcion_latex" : "",
-        "familia_botanica" : "",
-        "info_etnobotanica" : "",
-        "uso_medicinal" : "",
-        "modo_empleo" : "",
-        "numero_colecta" : null,
-        "audios" : []
-    };
-
-    crearDoc("etiquetas", etiqueta);
-}

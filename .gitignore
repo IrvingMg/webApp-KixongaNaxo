@@ -1,6 +1,7 @@
 # ignore all files in the vscode/ directory
 .vscode/
-# ignore all files in the node_modules/ directory
+.firebase/
 node_modules/
 # ignore file
 firebase-config.js
+funcion-prueba.js

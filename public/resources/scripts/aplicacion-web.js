@@ -110,6 +110,7 @@ function pagMisPlaneaciones() {
     const user = firebase.auth().currentUser;
     let valorFiltro = $("#mp-filtro").val();
     let ordenarPor = valorOrdenamiento(valorFiltro);
+    let planeacionEliminar = null;
     /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
      * declaradas en 'modulo-colectas.js' */
     
@@ -153,12 +154,15 @@ function pagMisPlaneaciones() {
         const docId = itemSelecionado.attr("id");
         const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
 
+        planeacionEliminar = itemSelecionado;
+        
         $("#mp-dialogTitulo").html(docTitulo);
         $("#mp-docId").html(docId);
         $(".mdc-dialog").addClass("mdc-dialog--open");
     });
 
     $("#mp-dialogCancelar").click(function() {
+        planeacionEliminar = null;
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 
@@ -166,6 +170,8 @@ function pagMisPlaneaciones() {
         const docId = $("#mp-docId").text();
     
         eliminarColecta(docId);
+        $(planeacionEliminar).remove();
+        planeacionEliminar = null;
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 }
@@ -175,7 +181,7 @@ function pagPlanearFormato() {
     let docId = params.get("query");
 
     if($("#planearFormato").length) {
-        initMap();
+        crearMapa();
     }
 
     $("#pf-form").keypress(function(e) {
@@ -197,6 +203,13 @@ function pagPlanearFormato() {
             if(lugar !== "") {
                 buscarLugar(lugar);
             }
+        }
+    });
+
+    $("#pf-lugar").change(function(e) {
+        const lugar = $("#pf-lugar").val();
+        if(lugar !== "") {
+            buscarLugar(lugar);
         }
     });
 
@@ -351,6 +364,7 @@ function pagMisEtiquetas() {
     const user = firebase.auth().currentUser;
     let valorFiltro = $("#mp-filtro").val();
     let ordenarPor = valorOrdenamiento(valorFiltro);
+    let etiquetasEliminar = null;
     /* Variables globales: 'resultadosVisibles', 'totalResultados' y 'siguientePag'
      * declaradas en 'modulo-colectas.js' */
     
@@ -394,12 +408,14 @@ function pagMisEtiquetas() {
         const docId = itemSelecionado.attr("id");
         const docTitulo = itemSelecionado.find(".mdc-typography--body1").text();
 
+        etiquetasEliminar = itemSelecionado;
         $("#me-dialogTitulo").html(docTitulo);
         $("#me-docId").html(docId);
         $(".mdc-dialog").addClass("mdc-dialog--open");
     });
 
     $("#me-dialogCancelar").click(function() {
+        etiquetasEliminar = null;
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 
@@ -407,6 +423,8 @@ function pagMisEtiquetas() {
         const docId = $("#me-docId").text();
     
         eliminarEtiquetas(docId, user.uid, user.displayName);
+        $(etiquetasEliminar).remove();
+        etiquetasEliminar = null;
         $(".mdc-dialog").removeClass("mdc-dialog--open");
     });
 }
