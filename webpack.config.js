@@ -34,10 +34,9 @@ module.exports = [
     {
         entry: [
           "./public/resources/scripts/material-design.js",
-          //"./firebase-config.js"
         ],
         output: {
-          filename: "./public/resources/scripts/bundle.js"
+          filename: "./public/resources/scripts/mdc-bundle.js"
         },
         module: {
           loaders: [{
