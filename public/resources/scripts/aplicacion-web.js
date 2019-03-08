@@ -1,7 +1,7 @@
 /* La función verifica que la url accesada sea publica 
  * y devuelve un valor booleano */
 function accesoPagina() {
-    $.post( "http://localhost:5001/webapp-kixonganaxo/us-central1/accesoPagina", //Cambiar URL para producción 
+    $.post( "https://us-central1-webapp-kixonganaxo.cloudfunctions.net/accesoPagina",
         { urlPath: window.location.pathname }
     ).done(function(acceso) {
         if(!acceso){
@@ -173,6 +173,32 @@ function pagMisPlaneaciones() {
 function pagPlanearFormato() {
     const params = new URLSearchParams(location.search.substring(1));
     let docId = params.get("query");
+
+    if($("#planearFormato").length) {
+        initMap();
+    }
+
+    $("#pf-form").keypress(function(e) {
+        if(e.which == 13) {
+            event.preventDefault();
+        }
+    });
+
+    $("#pf-buscarMaps").click(function() {
+        const lugar = $("#pf-lugar").val();
+        if(lugar !== "") {
+            buscarLugar(lugar);
+        }
+    });
+
+    $("#pf-lugar").keypress(function(e) {
+        if(e.which == 13) {
+            const lugar = $("#pf-lugar").val();
+            if(lugar !== "") {
+                buscarLugar(lugar);
+            }
+        }
+    });
 
     if($("#planearFormato").length && docId) {
         $("#pf-tabMaterial").attr("href", "planear-material.html?query=" + docId);

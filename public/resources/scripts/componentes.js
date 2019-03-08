@@ -273,7 +273,6 @@ function compNotasCampo(audios) {
                     <span class="mdc-list-item__text">`+audios[index]+`</span>
                 </div>
                 <button class="mdc-icon-button material-icons" title="Descargar" id="etiquetar-descAudio">get_app</button>
-                <button class="mdc-icon-button material-icons" title="Ver transcripción" id="etiquetar-transcAudio">description</button>
             </li>
             <li class="mdc-list-divider"></li>`
         );

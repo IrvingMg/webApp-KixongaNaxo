@@ -10,10 +10,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
         <script src="https://unpkg.com/jspdf-autotable"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFZqf7ArioHyQjNIBfimRwtRdukNCNk5Q&libraries=places"></script>
         <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script>
+        <script src="resources/scripts/maps.js"></script>
         <script src="resources/scripts/firebase-config.js"></script>
         <script src="resources/scripts/almacenamiento.js"></script>
         <script src="resources/scripts/base-datos.js"></script>
@@ -99,7 +101,7 @@
             <header class="encabezado-section">
                 <h5 class="mdc-typography--headline5">Formato de planeación</h5>
             </header>
-
+    
             <!-- Formulario para el formato de planeación -->
             <form id="pf-form">
                 <ol>
@@ -116,7 +118,6 @@
                         </div>
                     </li>
                     <li class="campo-ing-dato">
-                        <!-- Seleccionar lugar de colecta a través de Google Maps  -->
                         <div class="mdc-text-field mdc-text-field--outlined">
                             <input type="text" name="lugar" id="pf-lugar" class="mdc-text-field__input" required>
                             <div class="mdc-notched-outline">
@@ -126,11 +127,10 @@
                                 </div>
                                 <div class="mdc-notched-outline__trailing"></div>
                             </div>
+                            <i class="mdc-icon-toggle material-icons" id="pf-buscarMaps" title="Buscar en Google Maps">search</i>
                         </div>
                     </li>
-                    <li>
-                        <div id="map"></div>
-                    </li>
+                    <li><div id="pf-mapa" class="mapaGoogle"></div></li>
                     <li class="campo-ing-dato">
                         <div class="mdc-text-field mdc-text-field--outlined">
                             <input type="date" name="fecha" id="pf-fecha" class="mdc-text-field__input" required>
