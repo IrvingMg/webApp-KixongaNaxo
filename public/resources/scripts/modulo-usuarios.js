@@ -1,6 +1,4 @@
 function iniciarSesion() {
-    event.preventDefault();
-
     const formValores = $("#is-form").serializeArray();
     const email = formValores[0].value;
     const password = formValores[1].value;
@@ -22,8 +20,6 @@ function cerrarSesion() {
 }
 
 function restablecerContrasena() {
-    event.preventDefault();
-
     const correo = $("#rc-correo").val();
     
     firebase.auth().sendPasswordResetEmail(correo).then(function() {
@@ -39,8 +35,6 @@ function restablecerContrasena() {
 }
 
 function crearCuenta() {
-    event.preventDefault();
-
     const formValores = $("#reg-form").serializeArray();
     const nombre = formValores[0].value;
     const email = formValores[1].value;

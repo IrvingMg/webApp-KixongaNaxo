@@ -29,8 +29,6 @@ function listaResultados(nombreColeccion, ordenarPor, elementoId, idUsuario, nom
  * La función crea o actualiza la información del formato de planeación
  * de una colecta */
 function crearColecta(docId) {
-    event.preventDefault();
-
     const user = firebase.auth().currentUser;
     const formValores = $("#pf-form").serializeArray();
     let planeacion = {};

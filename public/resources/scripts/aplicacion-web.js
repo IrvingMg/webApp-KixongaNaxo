@@ -76,12 +76,15 @@ function pagIndex() {
 
     $("#index-listaRes").on("click", "li", function() {
         const docId = $(this).closest("li").attr("id");
-        window.location.assign("consultar-formato.html?query=" + docId);
+        if(docId != "index-mensajeDefault") {
+            window.location.assign("consultar-formato.html?query=" + docId);
+        }
     });
 }
 
 function pagIniciarSesion() {
-    $("#is-form").submit(function() {
+    $("#is-form").submit(function(event) {
+        event.preventDefault();
         iniciarSesion();
     });
     
@@ -91,13 +94,15 @@ function pagIniciarSesion() {
 }
 
 function pagRestablecerContrasena() {
-    $("#rc-form").submit(function() {
+    $("#rc-form").submit(function(event) {
+        event.preventDefault();
         restablecerContrasena();
     });
 }
 
 function pagRegistrar() {
-    $("#reg-form").submit(function() {
+    $("#reg-form").submit(function(event) {
+        event.preventDefault();
         crearCuenta();
     });
 
@@ -146,7 +151,10 @@ function pagMisPlaneaciones() {
 
     $("#mp-listaRes").on("click", ".lista-resultados-item", function() {
         const docId = $(this).closest("li").attr("id");
-        window.location.assign("planear-formato.html?query=" + docId);
+
+        if(docId != "mp-mensajeDefault") {
+            window.location.assign("planear-formato.html?query=" + docId);
+        }
     });
 
     $("#mp-listaRes").on("click", "#eliminar-itemListaRes", function() {
@@ -184,8 +192,8 @@ function pagPlanearFormato() {
         crearMapa();
     }
 
-    $("#pf-form").keypress(function(e) {
-        if(e.which == 13) {
+    $("#pf-form").keypress(function(event) {
+        if(event.which == 13) {
             event.preventDefault();
         }
     });
@@ -220,7 +228,8 @@ function pagPlanearFormato() {
         editarFormatoPlaneacion(docId);
     }
 
-    $("#pf-form").submit(function() {
+    $("#pf-form").submit(function(event) {
+        event.preventDefault();
         crearColecta(docId);
 
         $(".mdc-snackbar").bind("OperacionExitosa", function() {
@@ -242,7 +251,7 @@ function pagPlanearMaterial() {
         editarListaMaterial(docId);
     }
 
-    $("#pm-agregarItem").click(function() {
+    $("#pm-agregarItem").click(function(event) {
         event.preventDefault();
 
         const itemMaterial = $("#pm-itemMaterial").val();
@@ -281,7 +290,7 @@ function pagPlanearInfo() {
         editarListaInfoConsulta(docId);
     }
 
-    $("#pi-agregarEnlace").click(function() {
+    $("#pi-agregarEnlace").click(function(event) {
         event.preventDefault();
 
         let itemEnlace = $("#pi-itemEnlace").val();
@@ -300,7 +309,7 @@ function pagPlanearInfo() {
         }
     });
 
-    $("#pi-agregarArchivo").click(function() {
+    $("#pi-agregarArchivo").click(function(event) {
         event.preventDefault();
 
         const itemArchivo = $("#pi-itemArchivo").val();
@@ -400,7 +409,10 @@ function pagMisEtiquetas() {
 
     $("#me-listaRes").on("click", ".lista-resultados-item", function() {
         const docId = $(this).closest("li").attr("id");
-        window.location.assign("etiquetar.html?query=" + docId);
+
+        if(docId != "me-mensajeDefault") {
+            window.location.assign("etiquetar.html?query=" + docId);
+        }
     });
 
     $("#me-listaRes").on("click", "#eliminar-itemListaRes", function() {
@@ -548,8 +560,8 @@ function pagEtiquetar() {
         });
     }
 
-    $("#etiquetar-form").keypress(function(e) {
-        if(e.which == 13) {
+    $("#etiquetar-form").keypress(function(event) {
+        if(event.which == 13) {
             event.preventDefault();
         }
     });
@@ -574,7 +586,7 @@ function pagEtiquetar() {
         });
     });
 
-    $("#etiquetar-listaFotos").on("click", "button", function() {
+    $("#etiquetar-listaFotos").on("click", "button", function(event) {
         event.preventDefault();
 
         const fotoEliminar = $(this).attr("id");
@@ -602,7 +614,7 @@ function pagEtiquetar() {
         }
     });  
 
-    $("#etiquetar-form").submit(function() {
+    $("#etiquetar-form").submit(function(event) {
         event.preventDefault();
         guardarEtiqueta(etiquetaId, fotos, fotosEliminar);
     });    
