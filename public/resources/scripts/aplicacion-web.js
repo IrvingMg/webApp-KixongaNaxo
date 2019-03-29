@@ -548,15 +548,17 @@ function pagEtiquetar() {
         });
 
         buscarEtiquetasColectasPorUsuario(docId, user.uid, user.displayName).then(function(documentos) {
-            etiqueta = documentos["docs"][0].data();
-            etiquetaId = documentos["docs"][0].id;
-            fotos = etiqueta["fotografias"];
-            const audios = etiqueta["audios"];
-            
-            compListaPlantas(documentos);
-            compListaFotos(fotos, etiquetaId);
-            compNotasCampo(audios);
-            editarEtiqueta(etiquetaId);
+            if(!documentos.empty) {
+                etiqueta = documentos["docs"][0].data();
+                etiquetaId = documentos["docs"][0].id;
+                fotos = etiqueta["fotografias"];
+                const audios = etiqueta["audios"];
+                
+                compListaPlantas(documentos);
+                compListaFotos(fotos, etiquetaId);
+                compNotasCampo(audios);
+                editarEtiqueta(etiquetaId);
+            }
         });
     }
 
