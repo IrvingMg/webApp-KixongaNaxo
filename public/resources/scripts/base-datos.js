@@ -51,7 +51,7 @@ function buscarEtiquetasPorColecta(colectaId) {
  * pertenecientes a un usuario */
 function buscarEtiquetasColectasPorUsuario(docId, usuarioId, nombreUsuario) {
     return db.collection("etiquetas")
-        .where("colector", "array-contains", {"id_usuario": usuarioId, "nombre_usuario": nombreUsuario})
+        .where("colector", "==", {"id_usuario": usuarioId, "nombre_usuario": nombreUsuario})
         .where("id_colecta", "==", docId)
         .orderBy("nombre_comun", "asc").get(); 
 }
