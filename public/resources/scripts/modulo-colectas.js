@@ -358,7 +358,7 @@ function etiquetaPDF(infoEtiqueta, etiquetaId) {
             valorCampo = valorCampo["latitude"] + ", "+ valorCampo["longitude"]; 
         }
         if(nombreCampo[i] === "Colector") {
-            valorCampo = valorCampo[0]["nombre_usuario"];
+            valorCampo = valorCampo["nombre_usuario"];
         }
 
         contenido.push([nombreCampo[i], valorCampo]);
