@@ -5,23 +5,24 @@ _Aplicación web desarrollada para Planear Colectas y Etiquetar ejemplares del h
 Para ejecutar el proyecto de forma local seguir las siguientes instrucciones:
 
 ### Requisitos
-- Crear proyecto en [Firebase](https://firebase.google.com/).
+* Crear proyecto en [Firebase](https://firebase.google.com/).
 
 ### Instalación
-- Clonar proyecto
-`git clone https://github.com/IrvingMg/KixongaNaxo-WebApp.git`
+1. Clonar proyecto
+```
+git clone https://github.com/IrvingMg/KixongaNaxo-WebApp.git
+```
 
-- Instalar dependencias
-`npm install`
+2. Instalar dependencias
+```
+npm install
+```
 
-- Abrir proyecto en la ruta
-`\public\resources\scripts`
+3. Crear script con el nombre `firebase-config.js` en la ruta `\public\resources\scripts`
 
-- Crear script con el nombre
-`firebase-config.js`
-
-- Registrar aplicación web en Firebase y copiar información de configuración 
+4. Registrar aplicación web en Firebase y copiar información de configuración 
 ```javascript
+// Script 'firebase-config.js'
 // Inicializa Firebase
 const config = {
 	apiKey: "YOUR_API_KEY",
@@ -42,10 +43,12 @@ db.settings(settings);
 const storage = firebase.storage();
 ```
 
-- Ejecutar proyecto localmente
-`firebase serve`
+5. Ejecutar proyecto localmente
+```
+firebase serve
+```
 
 ## Construido con
-* [npm](https://www.npmjs.com/get-npm)
-* [Firebase](https://firebase.google.com)
-* [Material Design Components](https://material.io/develop/)
+* [npm](https://www.npmjs.com/get-npm) - Manejador de dependencias
+* [Firebase](https://firebase.google.com) - Backend As A Service
+* [Material Design Components](https://material.io/develop/) - Diseño de interfaces
