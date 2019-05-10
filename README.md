@@ -1,5 +1,5 @@
 # Herbario Institucional "Kixonga Naxo"
-_Aplicación web desarrollada para Planear Colectas y Etiquetar ejemplares del herbario institucional de la Universidad de la Cañada (UNCA)._
+Aplicación web desarrollada para Planear Colectas y Etiquetar ejemplares del herbario institucional de la Universidad de la Cañada (UNCA).
 
 ## Comenzando
 Para ejecutar el proyecto de forma local seguir las siguientes instrucciones:
