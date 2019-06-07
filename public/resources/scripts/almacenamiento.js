@@ -16,17 +16,18 @@ function guardarArchivo(archivo, path) {
     const metadata = { contentType: archivo.type };
     const uploadTask = storageRef.child(path).put(archivo, metadata);
 
-    uploadTask.on('state_changed', function(snapshot){
+    return uploadTask.on('state_changed', function(snapshot){
         let progress = Math.floor( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 );
-        
-        appAlerta("Cargando " + progress + "% del archivo "+ archivo.name, "mensaje-advertencia");
+        // TODO: Comentar para Testing
+        //appAlerta("Cargando " + progress + "% del archivo "+ archivo.name, "mensaje-advertencia");
     }, function(error) {
         appAlerta(error.message, "mensaje-error");
     }, function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            appAlerta("Archivo " + archivo.name + " cargado con éxito.", "mensaje-exito");
-            $("#planearInfo").trigger("ArchivoSubido");
-            $("#etiquetar").trigger("ArchivoSubido");
+            // TODO: Comentar para Testing
+            //appAlerta("Archivo " + archivo.name + " cargado con éxito.", "mensaje-exito");
+            //$("#planearInfo").trigger("ArchivoSubido");
+            //$("#etiquetar").trigger("ArchivoSubido");
         });
     });
 }

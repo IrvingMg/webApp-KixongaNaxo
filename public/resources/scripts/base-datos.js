@@ -2,10 +2,11 @@
  * La función crea el documento en la base de datos y escribe el id 
  * de forma oculta en la alerta del sistema */
 function crearDoc(nombreColeccion, documento) {
-    db.collection(nombreColeccion).add(documento)
+    return db.collection(nombreColeccion).add(documento)
     .then(function(docRef) {
-        $("#app-docId").html(docRef.id);
-        appAlerta("Información guardada con éxito.", "mensaje-exito");
+        // TODO: Comentar para Testing
+        /*$("#app-docId").html(docRef.id);
+        appAlerta("Información guardada con éxito.", "mensaje-exito");*/
     })
     .catch(function(error) {
         appAlerta(error.message, "mensaje-error");
@@ -15,9 +16,10 @@ function crearDoc(nombreColeccion, documento) {
 /* Recibe el nombre de una colección, un objeto con los valores del documento,
 y el id del documento a actualizar */
 function actualizarDoc(nombreColeccion, documento, docId) {
-    db.collection(nombreColeccion).doc(docId).update(documento)
+    return db.collection(nombreColeccion).doc(docId).update(documento)
     .then(function() {
-        appAlerta("Información guardada con éxito.", "mensaje-exito");
+        // TODO: Comentar para Testing
+        //appAlerta("Información guardada con éxito.", "mensaje-exito");
     })
     .catch(function(error) {
         appAlerta(error.message, "mensaje-error");
@@ -26,8 +28,9 @@ function actualizarDoc(nombreColeccion, documento, docId) {
 
 /* Recibe el nombre de una colección y el id del documento a eliminar */
 function eliminarDoc(nombreColeccion, docId) {
-    db.collection(nombreColeccion).doc(docId).delete().then(function() {
-        appAlerta("Información eliminada con éxito.", "mensaje-exito");
+    return db.collection(nombreColeccion).doc(docId).delete().then(function() {
+        // TODO: Comentar para Testing
+        //appAlerta("Información eliminada con éxito.", "mensaje-exito");
     }).catch(function(error) {
         appAlerta(error.message, "mensaje-error");
     });

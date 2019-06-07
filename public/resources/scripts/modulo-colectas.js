@@ -330,6 +330,7 @@ function formatoPlaneacionPDF(infoFormato, docId) {
     });
 
     doc.save(docId+".pdf");
+    return true;
 }
 
 
